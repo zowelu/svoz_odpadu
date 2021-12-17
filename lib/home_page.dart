@@ -14,6 +14,13 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: Scaffold(appBar: PreferredSize(preferredSize: Size.fromHeight(kDMyAppBarHeight),child: const MyAppBar()),),);
+    return const MaterialApp(
+      home: Scaffold(
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(kDMyAppBarHeight),
+          child: MyAppBar(),
+        ),
+      ),
+    );
   }
 }
