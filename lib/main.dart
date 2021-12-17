@@ -38,7 +38,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(preferredSize: Size.fromHeight(kDMyAppBarHeight),child: const MyAppBar()),
+      appBar: const PreferredSize(preferredSize: Size.fromHeight(kDMyAppBarHeight),child: MyAppBar()),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
