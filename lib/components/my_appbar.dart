@@ -7,7 +7,10 @@ class MyAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: const Text('Svoz odpadu v Dolních Kounicích', style: TextStyle(fontFamily: kDFontFamilyHeader),),
+      title: const Text(
+        'Svoz odpadu v Dolních Kounicích',
+        style: TextStyle(fontFamily: kDFontFamilyHeader, fontSize: kDFontSizeHeader, color: kDColorTextColorBackground),
+      ),
       centerTitle: true,
       backgroundColor: kDBackgroundColor,
     );
