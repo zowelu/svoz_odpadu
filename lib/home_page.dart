@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:svoz_odpadu/constants/constants.dart';
+import 'package:svoz_odpadu/components/my_appbar.dart';
 
 class HomePage extends StatefulWidget {
   static const id = '/homePage';
@@ -12,8 +14,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('ahoj'),
-    );
+    return MaterialApp(home: Scaffold(appBar: PreferredSize(preferredSize: Size.fromHeight(kDMyAppBarHeight),child: const MyAppBar()),),);
   }
 }
