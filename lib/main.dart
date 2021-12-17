@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:svoz_odpadu/components/myAppBar.dart';
+import 'package:svoz_odpadu/components/my_appbar.dart';
 import 'package:svoz_odpadu/home_page.dart';
 import 'package:svoz_odpadu/constants/constants.dart';
 
