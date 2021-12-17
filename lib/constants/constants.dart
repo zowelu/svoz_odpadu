@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 
 const Color kDBackgroundColor = Color(0xFF004466);
+const Color kDBackgroundColorCalendar = Color(0xFFD2D2D2);
 const String kDFontFamilyHeader = 'Righteous';
 const String kDFontFamilyParagraph = 'Nunito';
 const double kDFontSizeText = 20;

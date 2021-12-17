@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:svoz_odpadu/constants/constants.dart';
@@ -15,7 +14,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   @override
   void initState() {
     super.initState();
@@ -35,14 +33,19 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            TableCalendar(
-              calendarFormat: CalendarFormat.month,
-              startingDayOfWeek: StartingDayOfWeek.monday,
-              focusedDay: dateTimeNow,
-              firstDay: dateTimeFirstDay,
-              lastDay: dateTimeLastDay,
-              locale: 'cs_CZ',
-              calendarStyle: const CalendarStyle(
+            Container(
+              padding: const EdgeInsets.only(left: kDMargin, right: kDMargin, bottom: kDMargin),
+              decoration: BoxDecoration(
+                  color: kDBackgroundColorCalendar,
+                  borderRadius: BorderRadius.circular(20.0)),
+              child: TableCalendar(
+                calendarFormat: CalendarFormat.month,
+                startingDayOfWeek: StartingDayOfWeek.monday,
+                focusedDay: dateTimeNow,
+                firstDay: dateTimeFirstDay,
+                lastDay: dateTimeLastDay,
+                locale: 'cs_CZ',
+                calendarStyle: const CalendarStyle(
                   defaultTextStyle: TextStyle(
                       fontSize: kDFontSizeText,
                       fontFamily: kDFontFamilyParagraph,
@@ -54,9 +57,20 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   weekendTextStyle: TextStyle(
-                      color: Colors.black,
+                      color: Colors.grey,
                       fontSize: kDFontSizeText,
-                      fontFamily: kDFontFamilyParagraph)),
+                      fontFamily: kDFontFamilyParagraph),
+
+                ),
+                headerStyle: const HeaderStyle(
+                  formatButtonVisible: false,
+                  titleCentered: true,
+                  titleTextStyle: TextStyle(
+                    fontFamily: kDFontFamilyHeader,
+                    fontSize: kDFontSizeHeader,
+                  ),
+                ),daysOfWeekStyle: const DaysOfWeekStyle( weekdayStyle: TextStyle(color: Colors.blueGrey), weekendStyle:TextStyle(color: Colors.blueGrey) ),
+              ),
             ),
           ],
         ),
