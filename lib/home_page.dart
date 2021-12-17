@@ -17,9 +17,11 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: const PreferredSize(
           preferredSize: Size.fromHeight(kDMyAppBarHeight), child: MyAppBar()),
-      body: Center(
+      body: Container(
+        margin: EdgeInsets.only(left: kDMargin, right: kDMargin, top: kDMargin),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             TableCalendar(
                 focusedDay: dateTimeNow,
