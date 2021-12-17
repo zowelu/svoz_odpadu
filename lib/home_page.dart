@@ -14,11 +14,18 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(kDMyAppBarHeight),
-          child: MyAppBar(),
+    return Scaffold(
+      appBar: const PreferredSize(
+          preferredSize: Size.fromHeight(kDMyAppBarHeight), child: MyAppBar()),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            TableCalendar(
+                focusedDay: dateTimeNow,
+                firstDay: dateTimeFirstDay,
+                lastDay: dateTimeLastDay),
+          ],
         ),
       ),
     );
