@@ -48,10 +48,16 @@ class _HomePageState extends State<HomePage> {
                 locale: 'cs_CZ',
                 calendarStyle: const CalendarStyle(
                   isTodayHighlighted: true,
+                  defaultDecoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(15.0),
+                    ),
+                  ),
                   defaultTextStyle: TextStyle(
-                      fontSize: kDFontSizeText,
-                      fontFamily: kDFontFamilyParagraph,
-                      color: Colors.black),
+                    fontSize: kDFontSizeText,
+                    fontFamily: kDFontFamilyParagraph,
+                    color: Colors.black,
+                  ),
                   todayDecoration: BoxDecoration(
                     color: kDBackgroundColor,
                     borderRadius: BorderRadius.all(
