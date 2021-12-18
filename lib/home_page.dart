@@ -70,13 +70,13 @@ class _HomePageState extends State<HomePage> {
                       fontFamily: kDFontFamilyParagraph),
                 ),
                 headerStyle: const HeaderStyle(
-                  leftChevronIcon: Icon(Icons.arrow_back_ios_new_rounded),
-                  rightChevronIcon: Icon(Icons.arrow_forward_ios_rounded),
+                  leftChevronIcon: Icon(Icons.arrow_back_ios_new_rounded, color: kDBackgroundColor),
+                  rightChevronIcon: Icon(Icons.arrow_forward_ios_rounded, color: kDBackgroundColor),
                   formatButtonVisible: false,
                   titleCentered: true,
                   titleTextStyle: TextStyle(
                     fontFamily: kDFontFamilyHeader,
-                    fontSize: kDFontSizeHeader,
+                    fontSize: kDFontSizeHeader, color: kDBackgroundColor,
                   ),
                 ),
                 daysOfWeekStyle: const DaysOfWeekStyle(
