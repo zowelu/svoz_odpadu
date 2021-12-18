@@ -34,7 +34,8 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Container(
-              padding: const EdgeInsets.only(left: kDMargin, right: kDMargin, bottom: kDMargin),
+              padding: const EdgeInsets.only(
+                  left: kDMargin, right: kDMargin, bottom: kDMargin),
               decoration: BoxDecoration(
                   color: kDBackgroundColorCalendar,
                   borderRadius: BorderRadius.circular(20.0)),
@@ -46,6 +47,7 @@ class _HomePageState extends State<HomePage> {
                 lastDay: dateTimeLastDay,
                 locale: 'cs_CZ',
                 calendarStyle: const CalendarStyle(
+                  isTodayHighlighted: true,
                   defaultTextStyle: TextStyle(
                       fontSize: kDFontSizeText,
                       fontFamily: kDFontFamilyParagraph,
@@ -60,16 +62,20 @@ class _HomePageState extends State<HomePage> {
                       color: Colors.grey,
                       fontSize: kDFontSizeText,
                       fontFamily: kDFontFamilyParagraph),
-
                 ),
                 headerStyle: const HeaderStyle(
+                  leftChevronIcon: Icon(Icons.arrow_back_ios_new_rounded),
+                  rightChevronIcon: Icon(Icons.arrow_forward_ios_rounded),
                   formatButtonVisible: false,
                   titleCentered: true,
                   titleTextStyle: TextStyle(
                     fontFamily: kDFontFamilyHeader,
                     fontSize: kDFontSizeHeader,
                   ),
-                ),daysOfWeekStyle: const DaysOfWeekStyle( weekdayStyle: TextStyle(color: Colors.blueGrey), weekendStyle:TextStyle(color: Colors.blueGrey) ),
+                ),
+                daysOfWeekStyle: const DaysOfWeekStyle(
+                    weekdayStyle: TextStyle(color: Colors.blueGrey),
+                    weekendStyle: TextStyle(color: Colors.blueGrey)),
               ),
             ),
           ],
