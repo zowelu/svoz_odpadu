@@ -14,11 +14,23 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  final Map<DateTime, List<dynamic>> _mixedWasteEvents = {
+  DateTime(2022, 1, 12) : ['Směsný odpad'],
+  DateTime(2022, 2, 9) : ['Směsný odpad'],
+  DateTime(2022, 3, 9) : ['Směsný odpad'],
+  DateTime(2022, 4, 6) : ['Směsný odpad'],
+  DateTime(2022, 5, 4) : ['Směsný odpad'],
+  };
+
+
   @override
   void initState() {
     super.initState();
     initializeDateFormatting(); //very important
   }
+
+
 
   @override
   Widget build(BuildContext context) {
