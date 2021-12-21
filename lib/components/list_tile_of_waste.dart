@@ -15,13 +15,13 @@ class ListTileOfWaste extends StatelessWidget {
       margin: const EdgeInsets.all(2),
       decoration: const BoxDecoration(
         borderRadius: kDRadius,
-        color: kDBackgroundColorCalendar,
+        color: Colors.white54,
       ),
       child: ListTile(
         title: Text(
           text,
           style: TextStyle(
-              fontFamily: kDFontFamilyParagraph, fontSize: 16, color: color),
+              fontFamily: kDFontFamilyParagraph, fontSize: 16, color: color, fontWeight: FontWeight.bold),
         ),
         leading: Icon(Icons.circle, color: color),
         dense: true,
