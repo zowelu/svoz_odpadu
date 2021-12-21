@@ -12,6 +12,7 @@ class MyAppBar extends StatelessWidget {
       actions: [
         IconButton(
           onPressed: () {},
+          // ignore: prefer_const_constructors
           icon: Icon(Icons.settings),
         ),
       ],
