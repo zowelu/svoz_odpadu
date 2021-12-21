@@ -10,10 +10,12 @@ class MarkerEvent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 40,
-      width: 40,
+      height: 35,
+      width: 35,
       decoration: BoxDecoration(
-          color: color, shape: BoxShape.rectangle, borderRadius: kDRadius),
+          color: color,
+          shape: BoxShape.rectangle,
+          borderRadius: const BorderRadius.all(Radius.circular(10.0))),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -43,8 +45,8 @@ class MarkerEventGradient extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 40,
-      width: 40,
+      height: 35,
+      width: 35,
       decoration: BoxDecoration(
           gradient: LinearGradient(
               colors: colors,
@@ -52,7 +54,7 @@ class MarkerEventGradient extends StatelessWidget {
               end: Alignment.bottomRight,
               stops: const [0.49, 0.5]),
           shape: BoxShape.rectangle,
-          borderRadius: kDRadius),
+          borderRadius: const BorderRadius.all(Radius.circular(10.0))),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
