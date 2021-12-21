@@ -10,20 +10,14 @@ class MyAppBar extends StatelessWidget {
       centerTitle: true,
       backgroundColor: kDBackgroundColor,
       actions: [
-        Padding(
-          padding: const EdgeInsets.only(right: 10.0),
-          child: SizedBox(
-              width: 50,
-              child: InkWell(
-                onTap: () {},
-                child: const Icon(
-                  Icons.settings,
-                ),
-              )),
+        IconButton(
+          onPressed: () {},
+          icon: Icon(Icons.settings),
         ),
       ],
       //bottom: PreferredSize(child: TextWidget(), preferredSize: Size.fromHeight(4.0)),
-      title: RichText(textAlign: TextAlign.center,
+      title: RichText(
+        textAlign: TextAlign.center,
         text: const TextSpan(
           children: [
             WidgetSpan(
