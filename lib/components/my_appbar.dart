@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:svoz_odpadu/constants/constants.dart';
 
@@ -8,20 +7,46 @@ class MyAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: const Text(
-        'Svoz odpadu v Dolních Kounicích',
-        style: TextStyle(
-            fontFamily: kDFontFamilyHeader,
-            fontSize: kDFontSizeHeader,
-            color: kDColorTextColorBackground),
-      ),
       centerTitle: true,
       backgroundColor: kDBackgroundColor,
       actions: [
         Padding(
-          padding: EdgeInsets.only(right: 10.0),child: Container( width: 50,child: InkWell(onTap: (){}, child: Icon(Icons.settings, ),)),
+          padding: const EdgeInsets.only(right: 10.0),
+          child: SizedBox(
+              width: 50,
+              child: InkWell(
+                onTap: () {},
+                child: const Icon(
+                  Icons.settings,
+                ),
+              )),
         ),
       ],
+      //bottom: PreferredSize(child: TextWidget(), preferredSize: Size.fromHeight(4.0)),
+      title: RichText(textAlign: TextAlign.center,
+        text: const TextSpan(
+          children: [
+            WidgetSpan(
+              child: Text(
+                'KALENDÁŘ SVOZU ODPADU',
+                style: TextStyle(
+                    fontFamily: kDFontFamilyHeader,
+                    fontSize: 20,
+                    color: kDColorTextColorBackground),
+              ),
+            ),
+            WidgetSpan(
+              child: Text(
+                'Město Dolní Kounice',
+                style: TextStyle(
+                    fontFamily: kDFontFamilyHeader,
+                    fontSize: 13,
+                    color: kDColorTextColorBackground),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
