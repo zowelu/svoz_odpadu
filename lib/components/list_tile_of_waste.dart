@@ -20,7 +20,9 @@ class ListTileOfWaste extends StatelessWidget {
       child: ListTile(
         title: Text(
           text,
-          style: TextStyle(
+          style: TextStyle(shadows: [Shadow(color: Colors.black12,
+            offset: Offset(0, 0),
+            blurRadius: 15)],
               fontFamily: kDFontFamilyParagraph, fontSize: 16, color: color, fontWeight: FontWeight.bold),
         ),
         leading: Icon(Icons.circle, color: color),
