@@ -40,7 +40,8 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: const PreferredSize(
           preferredSize: Size.fromHeight(kDMyAppBarHeight), child: MyAppBar()),
-      body: Container( padding: const EdgeInsets.only(top: kDMarginLarger),
+      body: Container(
+        padding: const EdgeInsets.only(top: kDMarginLarger),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -48,9 +49,13 @@ class _HomePageState extends State<HomePage> {
             Container(
               margin: const EdgeInsets.only(left: kDMargin, right: kDMargin),
               padding: const EdgeInsets.only(
-                  left: kDMargin, right: kDMargin, bottom: kDMargin, ),
+                left: kDMargin,
+                right: kDMargin,
+                bottom: kDMargin,
+              ),
               decoration: const BoxDecoration(
-                  color: kDBackgroundColorCalendar, borderRadius: kDRadiusLarge),
+                  color: kDBackgroundColorCalendar,
+                  borderRadius: kDRadiusLarge),
               child: TableCalendar(
                 eventLoader: _getEventsForDay,
                 calendarFormat: CalendarFormat.month,
@@ -60,7 +65,7 @@ class _HomePageState extends State<HomePage> {
                 lastDay: dateTimeLastDay,
                 locale: 'cs_CZ',
                 calendarStyle: const CalendarStyle(
-                  markerSizeScale: 1.5,
+                  markerSizeScale: 1.35,
                   canMarkersOverflow: true,
                   outsideDaysVisible: false,
                   markerDecoration: BoxDecoration(
@@ -75,9 +80,15 @@ class _HomePageState extends State<HomePage> {
                     fontFamily: kDFontFamilyParagraph,
                     color: Colors.black,
                   ),
+                  todayTextStyle: TextStyle(
+                      fontSize: kDFontSizeText,
+                      fontFamily: kDFontFamilyParagraph,fontWeight: FontWeight.bold,
+                      color: Colors.white),
                   todayDecoration: BoxDecoration(
                     color: kDBackgroundColor,
-                    borderRadius: kDRadius,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10.0),
+                    ),
                   ),
                   weekendTextStyle: TextStyle(
                       color: Colors.grey,
