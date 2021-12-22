@@ -1,3 +1,4 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:svoz_odpadu/constants/constants.dart';
@@ -22,6 +23,45 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     initializeDateFormatting(); //very important
     getAllEventsToMap();
+    AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
+      if (!isAllowed) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('Souhlas s notifikacemi'),
+            content: const Text(
+              'Aplikace by vám ráda zasílala notifikace',
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text(
+                  'Nesouhlasím',
+                  style:
+                      const TextStyle(color: Colors.grey, fontSize: kDFontSizeText),
+                ),
+              ),
+              TextButton(
+                onPressed: () => AwesomeNotifications()
+                    .requestPermissionToSendNotifications()
+                    .then(
+                      (_) => Navigator.pop(context),
+                    ),
+                child: const Text(
+                  'Souhlasím',
+                  style: const TextStyle(
+                      color: kDBackgroundColor,
+                      fontSize: kDFontSizeText,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+            ],
+          ),
+        );
+      }
+    });
   }
 
   List<Event> _getEventsForDay(DateTime day) {
@@ -82,7 +122,8 @@ class _HomePageState extends State<HomePage> {
                   ),
                   todayTextStyle: TextStyle(
                       fontSize: kDFontSizeText,
-                      fontFamily: kDFontFamilyParagraph,fontWeight: FontWeight.bold,
+                      fontFamily: kDFontFamilyParagraph,
+                      fontWeight: FontWeight.bold,
                       color: Colors.white),
                   todayDecoration: BoxDecoration(
                     color: kDBackgroundColor,
