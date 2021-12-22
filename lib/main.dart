@@ -1,9 +1,30 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:svoz_odpadu/components/my_appbar.dart';
 import 'package:svoz_odpadu/home_page.dart';
 import 'package:svoz_odpadu/constants/constants.dart';
 
 void main() {
+  AwesomeNotifications().initialize('resource://draweble/res_notification_app_icon', [
+    NotificationChannel(
+      channelKey: 'basic_channel',
+      channelName: 'Basic Notifications',
+      channelDescription: 'basic_channel_description',
+      defaultColor: Colors.teal,
+      importance: NotificationImportance.High,
+      channelShowBadge: true,
+    ),
+    NotificationChannel(
+      channelKey: 'scheduled_channel',
+      channelName: 'Scheduled Notifications',
+      channelDescription: 'scheduled_channel_description',
+      defaultColor: Colors.teal,
+      locked: true,
+      importance: NotificationImportance.High,
+      soundSource: 'resource://raw/res_custom_notification',
+    ),
+  ],);
+
   runApp(const MyApp());
 }
 
