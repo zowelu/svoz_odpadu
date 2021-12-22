@@ -5,23 +5,24 @@ import 'package:svoz_odpadu/home_page.dart';
 import 'package:svoz_odpadu/constants/constants.dart';
 
 void main() {
-  AwesomeNotifications().initialize('resource://draweble/res_notification_app_icon', [
+  AwesomeNotifications().initialize('resource://drawable/res_notification_app_icon', [
     NotificationChannel(
       channelKey: 'basic_channel',
       channelName: 'Basic Notifications',
       channelDescription: 'basic_channel_description',
-      defaultColor: Colors.teal,
+      defaultColor: kDBackgroundColor,
       importance: NotificationImportance.High,
-      channelShowBadge: true,
+      channelShowBadge: true,enableVibration: true,
     ),
     NotificationChannel(
       channelKey: 'scheduled_channel',
       channelName: 'Scheduled Notifications',
       channelDescription: 'scheduled_channel_description',
-      defaultColor: Colors.teal,
+      defaultColor: kDBackgroundColor,
       locked: true,
       importance: NotificationImportance.High,
       soundSource: 'resource://raw/res_custom_notification',
+      enableVibration: true,
     ),
   ],);
 
