@@ -8,6 +8,8 @@ import 'package:svoz_odpadu/utils.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:svoz_odpadu/components/marker_event.dart';
+import 'package:svoz_odpadu/components/text_normal.dart';
+import 'package:svoz_odpadu/components/text_header.dart';
 
 class HomePage extends StatefulWidget {
   static const id = '/homePage';
@@ -28,10 +30,8 @@ class _HomePageState extends State<HomePage> {
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: const Text('Souhlas s notifikacemi'),
-            content: const Text(
-              'Aplikace by vám ráda zasílala notifikace',
-            ),
+            title: TextHeader(text: 'Souhlas s notifikacemi'),
+            content: const TextNormal(text: 'Aplikace by vám ráda zasílala notifikace'),
             actions: [
               TextButton(
                 onPressed: () {
@@ -39,8 +39,8 @@ class _HomePageState extends State<HomePage> {
                 },
                 child: const Text(
                   'Nesouhlasím',
-                  style:
-                      const TextStyle(color: Colors.grey, fontSize: kDFontSizeText),
+                  style: TextStyle(
+                      color: Colors.grey, fontSize: kDFontSizeText),
                 ),
               ),
               TextButton(
@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                 child: const Text(
                   'Souhlasím',
-                  style: const TextStyle(
+                  style: TextStyle(
                       color: kDBackgroundColor,
                       fontSize: kDFontSizeText,
                       fontWeight: FontWeight.bold),
@@ -199,3 +199,5 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+
