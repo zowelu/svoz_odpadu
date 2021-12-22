@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:svoz_odpadu/constants/constants.dart';
+import 'package:svoz_odpadu/settings_page.dart';
 
 class MyAppBar extends StatelessWidget {
   const MyAppBar({Key? key}) : super(key: key);
@@ -11,7 +12,7 @@ class MyAppBar extends StatelessWidget {
       backgroundColor: kDBackgroundColor,
       actions: [
         IconButton(
-          onPressed: () {},
+          onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsPage(),),),
           // ignore: prefer_const_constructors
           icon: Icon(Icons.settings),
         ),
