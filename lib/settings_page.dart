@@ -3,15 +3,15 @@ import 'package:svoz_odpadu/constants/constants.dart';
 import 'package:svoz_odpadu/components/my_appbar.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
-class HomePage extends StatefulWidget {
+class SettingsPage extends StatefulWidget {
   static const id = '/homePage';
 
-  const HomePage({Key? key}) : super(key: key);
+  const SettingsPage({Key? key}) : super(key: key);
   @override
-  _HomePageState createState() => _HomePageState();
+  _SettingsPageState createState() => _SettingsPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _SettingsPageState extends State<SettingsPage> {
   @override
   void initState() {
     super.initState();
