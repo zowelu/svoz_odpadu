@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:svoz_odpadu/components/notifications.dart';
 import 'package:svoz_odpadu/constants/constants.dart';
 import 'package:svoz_odpadu/components/my_appbar.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -31,7 +32,7 @@ class _SettingsPageState extends State<SettingsPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             IconButton(
-              onPressed: () {},
+              onPressed: createBasicNotification,
               icon: const Icon(Icons.notifications),
             ),
             IconButton(
