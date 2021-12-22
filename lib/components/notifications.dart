@@ -8,7 +8,7 @@ Future<void> createBasicNotification() async {
       channelKey: 'basic_channel',
       title: '${Emojis.symbols_red_exclamation_mark + Emojis.symbols_red_exclamation_mark + Emojis.symbols_red_exclamation_mark} '  ,
       body: 'Nezapomeňte vyvést popelnice ${Emojis.symbols_red_exclamation_mark + Emojis.symbols_red_exclamation_mark + Emojis.symbols_red_exclamation_mark}',
-      bigPicture: 'assets://assets/images/notification_map.png',
+      bigPicture: 'asset://assets/images/notification_map.png',
       notificationLayout: NotificationLayout.BigPicture,
     ),
   );
