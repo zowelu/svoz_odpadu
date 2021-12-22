@@ -27,7 +27,7 @@ class _SettingsPageState extends State<SettingsPage> {
       body: Container(
         padding: const EdgeInsets.only(top: kDMarginLarger),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             IconButton(
