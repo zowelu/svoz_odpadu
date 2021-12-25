@@ -24,7 +24,8 @@ Future<void> createScheduledReminderNotification(
         channelKey: 'scheduled_channel',
         title: '${Emojis.symbols_warning} Popenice!!!',
         body: 'Dnes se vyváží popelnice. Nezapomeňte!!!',
-        notificationLayout: NotificationLayout.Default),
+        bigPicture: 'asset://assets/images/notification_map.png',
+        notificationLayout: NotificationLayout.BigPicture),
     actionButtons: [
       NotificationActionButton(key: 'MARK_DONE', label: 'Hotovo')
     ],
