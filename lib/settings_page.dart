@@ -45,7 +45,7 @@ class _SettingsPageState extends State<SettingsPage> {
               icon: const Icon(Icons.notifications_active),
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: cancelScheduledNotifications,
               icon: const Icon(Icons.notifications_off),
             ),
           ],
