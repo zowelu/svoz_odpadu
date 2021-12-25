@@ -1,5 +1,6 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
+import 'package:svoz_odpadu/settings_page.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:svoz_odpadu/constants/constants.dart';
 import 'package:svoz_odpadu/components/my_appbar.dart';
@@ -10,6 +11,7 @@ import 'package:intl/intl.dart';
 import 'package:svoz_odpadu/components/marker_event.dart';
 import 'package:svoz_odpadu/components/text_normal.dart';
 import 'package:svoz_odpadu/components/text_header.dart';
+import 'dart:io';
 
 class HomePage extends StatefulWidget {
   static const id = '/homePage';
@@ -68,10 +70,33 @@ class _HomePageState extends State<HomePage> {
     AwesomeNotifications().createdStream.listen((notification) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Notifikace byla vytvořena '),
+          content: Text('Notifikace byla vytvořena ${notification.channelKey}'),
         ),
       );
     });
+
+    AwesomeNotifications().actionStream.listen((notification) {
+      if (notification.channelKey == 'basic_channel' && Platform.isIOS) {
+        AwesomeNotifications().getGlobalBadgeCounter().then(
+              (value) =>
+                  AwesomeNotifications().setGlobalBadgeCounter(value - 1),
+            );
+      }
+
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (_) => SettingsPage(),
+          ),
+          (route) => route.isFirst);
+    });
+  }
+
+  @override
+  void dispose(){
+    AwesomeNotifications().actionSink.close();
+    AwesomeNotifications().createdSink.close();
+    super.dispose();
   }
 
   List<Event> _getEventsForDay(DateTime day) {
@@ -91,7 +116,8 @@ class _HomePageState extends State<HomePage> {
       appBar: const PreferredSize(
           preferredSize: Size.fromHeight(kDMyAppBarHeight), child: MyAppBar()),
       body: Container(
-        padding:  EdgeInsets.only(top: MediaQuery.of(context).size.height/100*2),
+        padding:
+            EdgeInsets.only(top: MediaQuery.of(context).size.height / 100 * 2),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -191,7 +217,8 @@ class _HomePageState extends State<HomePage> {
               color: kDBackgroundColor,
               padding: const EdgeInsets.all(kDMargin),
               //margin: const EdgeInsets.only(top: kDMarginLarger),
-              child: Column(mainAxisAlignment: MainAxisAlignment.center,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ListView(
                     shrinkWrap: true,
