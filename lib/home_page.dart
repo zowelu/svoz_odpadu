@@ -31,7 +31,9 @@ class _HomePageState extends State<HomePage> {
           context: context,
           builder: (context) => AlertDialog(
             title: TextHeader(text: 'Souhlas s notifikacemi'),
-            content: const TextNormal(text: 'Aplikace by Vám ráda zasílala notifikace.\n\nBez Vašeho souhlasu Vás aplikace neupozorní na svoz odpadu'),
+            content: const TextNormal(
+                text:
+                    'Aplikace by Vám ráda zasílala notifikace.\n\nBez Vašeho souhlasu Vás aplikace neupozorní na svoz odpadu'),
             actions: [
               TextButton(
                 onPressed: () {
@@ -39,8 +41,8 @@ class _HomePageState extends State<HomePage> {
                 },
                 child: const Text(
                   'Nesouhlasím',
-                  style: TextStyle(
-                      color: Colors.grey, fontSize: kDFontSizeText),
+                  style:
+                      TextStyle(color: Colors.grey, fontSize: kDFontSizeText),
                 ),
               ),
               TextButton(
@@ -62,6 +64,14 @@ class _HomePageState extends State<HomePage> {
         );
       }
     });
+
+    AwesomeNotifications().createdStream.listen((notification) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Notifikace byla vytvořena '),
+        ),
+      );
+    });
   }
 
   List<Event> _getEventsForDay(DateTime day) {
@@ -81,7 +91,7 @@ class _HomePageState extends State<HomePage> {
       appBar: const PreferredSize(
           preferredSize: Size.fromHeight(kDMyAppBarHeight), child: MyAppBar()),
       body: Container(
-        padding: const EdgeInsets.only(top: kDMarginLarger),
+        padding:  EdgeInsets.only(top: MediaQuery.of(context).size.height/100*2),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -91,7 +101,6 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.only(
                 left: kDMargin,
                 right: kDMargin,
-                bottom: kDMargin,
               ),
               decoration: const BoxDecoration(
                   color: kDBackgroundColorCalendar,
@@ -180,16 +189,20 @@ class _HomePageState extends State<HomePage> {
             ),
             Container(
               color: kDBackgroundColor,
-              padding: const EdgeInsets.all(kDMarginLarger),
+              padding: const EdgeInsets.all(kDMargin),
               //margin: const EdgeInsets.only(top: kDMarginLarger),
-              child: ListView(
-                shrinkWrap: true,
-                children: const <Widget>[
-                  ListTileOfWaste('Plast a nápojový karton\nDrobné kovy',
-                      kDColorWastePlastic),
-                  ListTileOfWaste('Bioodpad', kDColorWasteBio),
-                  ListTileOfWaste('Papír', kDColorWastePaper),
-                  ListTileOfWaste('Směsný odpad', kDColorWasteMixed),
+              child: Column(mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ListView(
+                    shrinkWrap: true,
+                    children: const <Widget>[
+                      ListTileOfWaste('Plast a nápojový karton\nDrobné kovy',
+                          kDColorWastePlastic),
+                      ListTileOfWaste('Bioodpad', kDColorWasteBio),
+                      ListTileOfWaste('Papír', kDColorWastePaper),
+                      ListTileOfWaste('Směsný odpad', kDColorWasteMixed),
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -199,5 +212,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-
