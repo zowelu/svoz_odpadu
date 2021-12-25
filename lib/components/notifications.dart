@@ -38,3 +38,7 @@ Future<void> createScheduledReminderNotification(
     ),
   );
 }
+
+Future<void> cancelScheduledNotifications() async {
+  await AwesomeNotifications().cancelAllSchedules();
+}
