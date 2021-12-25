@@ -3,6 +3,7 @@ import 'package:svoz_odpadu/components/notifications.dart';
 import 'package:svoz_odpadu/constants/constants.dart';
 import 'package:svoz_odpadu/components/my_appbar.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:svoz_odpadu/utilities.dart';
 
 class SettingsPage extends StatefulWidget {
   static const id = '/homePage';
@@ -36,7 +37,11 @@ class _SettingsPageState extends State<SettingsPage> {
               icon: const Icon(Icons.notifications),
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () async {NotificationWeekAndTime? pickedShedule = await pickSchedule(context);
+
+              if(pickedShedule != null){
+                createScheduledReminderNotification(pickedShedule);
+              }},
               icon: const Icon(Icons.notifications_active),
             ),
             IconButton(
