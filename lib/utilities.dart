@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:svoz_odpadu/constants/constants.dart';
 
 int createUniqueId() {
   return DateTime.now().millisecondsSinceEpoch.remainder(100000);
@@ -18,13 +20,13 @@ Future<NotificationWeekAndTime?> pickSchedule(
   BuildContext context,
 ) async {
   List<String> weekdays = [
-    'Mon',
-    'Tue',
-    'Wed',
-    'Thu',
-    'Fri',
-    'Sat',
-    'Sun',
+    'Pondělí',
+    'Úterý',
+    'Středa',
+    'Čtvrtek',
+    'Pátek',
+    'Sobota',
+    'Neděle',
   ];
   TimeOfDay? timeOfDay;
   DateTime now = DateTime.now();
@@ -35,46 +37,42 @@ Future<NotificationWeekAndTime?> pickSchedule(
       builder: (context) {
         return AlertDialog(
           title: const Text(
-            'I want to be reminded every:',
+            'Ve který den Vás má aplikace upozorňovat?',
             textAlign: TextAlign.center,
           ),
-          content: Wrap(
-            alignment: WrapAlignment.center,
-            spacing: 3,
-            children: [
-              for (int index = 0; index < weekdays.length; index++)
-                ElevatedButton(
-                  onPressed: () {
-                    selectedDay = index + 1;
-                    Navigator.pop(context);
-                  },
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(
-                      Colors.teal,
+          content: Container(height: MediaQuery.of(context).size.height/100*50,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                for (int index = 0; index < weekdays.length; index++)
+                  ElevatedButton(
+                    onPressed: () {
+                      selectedDay = index + 1;
+                      Navigator.pop(context);
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                        kDBackgroundColor,
+                      ),
                     ),
+                    child: Text(weekdays[index]),
                   ),
-                  child: Text(weekdays[index]),
-                ),
-            ],
+              ],
+            ),
           ),
         );
       });
 
   if (selectedDay != null) {
     timeOfDay = await showTimePicker(
-        context: context,
+        context: context,helpText: 'Vyberte čas', cancelText: 'Zrušit', confirmText: 'Zapnout upozorňování',
         initialTime: TimeOfDay.fromDateTime(
           now.add(
             const Duration(minutes: 1),
           ),
         ),
         builder: (BuildContext context, Widget? child) {
-          return Theme(
-            data: ThemeData(
-              colorScheme: const ColorScheme.light(
-                primary: Colors.teal,
-              ),
-            ),
+          return MediaQuery(data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
             child: child!,
           );
         });
@@ -86,5 +84,3 @@ Future<NotificationWeekAndTime?> pickSchedule(
   }
   return null;
 }
-
-
