@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:svoz_odpadu/constants/constants.dart';
 import 'package:svoz_odpadu/settings_page.dart';
+import 'package:svoz_odpadu/components/global_var.dart';
+import 'package:svoz_odpadu/components/icon_on_current_page.dart';
 
 class MyAppBar extends StatelessWidget {
   const MyAppBar({Key? key}) : super(key: key);
@@ -11,12 +13,19 @@ class MyAppBar extends StatelessWidget {
       centerTitle: true,
       backgroundColor: kDBackgroundColor,
       actions: [
-        IconButton(
-          onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const SettingsPage(),),),
-          // ignore: prefer_const_constructors
-          icon: Icon(Icons.settings),
-        ),
-      ],
+        if (currentPage == 'home_page')
+          IconOnCurrentPage(
+            icon: Icon(Icons.settings),
+            onPressed: () {Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const SettingsPage(),
+              ),
+            );},
+          ),
+        if (currentPage == 'settings')
+          IconOnCurrentPage(onPressed: (){}, icon: Icon(Icons.info))
+      ,],
       //bottom: PreferredSize(child: TextWidget(), preferredSize: Size.fromHeight(4.0)),
       title: RichText(
         textAlign: TextAlign.center,
@@ -27,7 +36,7 @@ class MyAppBar extends StatelessWidget {
                 'KALENDÁŘ SVOZU ODPADU',
                 style: TextStyle(
                     fontFamily: kDFontFamilyHeader,
-                    fontSize: 20,
+                    fontSize: 18,
                     color: kDColorTextColorBackground),
               ),
             ),
