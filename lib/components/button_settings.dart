@@ -21,9 +21,9 @@ class ButtonSettings extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         child: Container(
-            decoration: const BoxDecoration(
+            decoration:  BoxDecoration(
               shape: BoxShape.rectangle,
-              borderRadius: BorderRadius.all(Radius.circular(20)),
+              borderRadius: kDRadiusLarge,
               color: kDBackgroundColor,
               boxShadow: [
                 BoxShadow(
