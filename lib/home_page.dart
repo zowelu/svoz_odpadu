@@ -223,6 +223,8 @@ class _HomePageState extends State<HomePage> {
                   ListView(
                     shrinkWrap: true,
                     children: const <Widget>[
+                      ListTileOfWaste('Dnešní den',
+                          kDBackgroundColor),
                       ListTileOfWaste('Plast a nápojový karton\nDrobné kovy',
                           kDColorWastePlastic),
                       ListTileOfWaste('Bioodpad', kDColorWasteBio),
