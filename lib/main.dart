@@ -5,26 +5,33 @@ import 'package:svoz_odpadu/home_page.dart';
 import 'package:svoz_odpadu/constants/constants.dart';
 
 void main() {
-  AwesomeNotifications().initialize('resource://drawable/res_notification_app_icon', [
-    NotificationChannel(
-      channelKey: 'basic_channel',
-      channelName: 'Basic Notifications',
-      channelDescription: 'basic_channel_description',
-      defaultColor: kDBackgroundColor,
-      importance: NotificationImportance.High,
-      channelShowBadge: true,enableVibration: true,
-    ),
-    NotificationChannel(
-      channelKey: 'scheduled_channel',
-      channelName: 'Scheduled Notifications',
-      channelDescription: 'scheduled_channel_description',
-      defaultColor: kDBackgroundColor,
-      locked: true,
-      importance: NotificationImportance.High,
-      soundSource: 'resource://raw/res_custom_notification',
-      enableVibration: true,
-    ),
-  ],);
+  AwesomeNotifications().initialize(
+    'resource://drawable/res_notification_app_icon',
+    [
+      NotificationChannel(
+        channelKey: 'basic_channel',
+        channelName: 'Basic Notifications',
+        channelDescription: 'basic_channel_description',
+        defaultColor: kDBackgroundColor,
+        importance: NotificationImportance.High,
+        channelShowBadge: true,
+        enableVibration: true,
+      ),
+      NotificationChannel(
+        channelKey: 'scheduled_channel',
+        channelName: 'Scheduled Notifications',
+        channelDescription: 'scheduled_channel_description',
+        defaultColor: kDBackgroundColor,
+        locked: true,
+        importance: NotificationImportance.Max,
+        soundSource: 'resource://raw/res_custom_notification',
+        enableVibration: true,
+        channelShowBadge: true,
+        ledColor: kDBackgroundColor,
+        playSound: true,
+      ),
+    ],
+  );
 
   runApp(const MyApp());
 }
@@ -60,13 +67,16 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const PreferredSize(preferredSize: Size.fromHeight(kDMyAppBarHeight),child: MyAppBar()),
+      appBar: const PreferredSize(
+          preferredSize: Size.fromHeight(kDMyAppBarHeight), child: MyAppBar()),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             ElevatedButton(
-              onPressed: () {Navigator.pushNamed(context, HomePage.id);},
+              onPressed: () {
+                Navigator.pushNamed(context, HomePage.id);
+              },
               child: const Text('Pokračujte na kalendář'),
             ),
           ],
@@ -75,5 +85,3 @@ class _MainPageState extends State<MainPage> {
     );
   }
 }
-
-
