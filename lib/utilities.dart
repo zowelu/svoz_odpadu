@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:svoz_odpadu/constants/constants.dart';
+import 'package:svoz_odpadu/components/global_var.dart';
 
 int createUniqueId() {
   return DateTime.now().millisecondsSinceEpoch.remainder(100000);
@@ -78,6 +79,9 @@ Future<NotificationWeekAndTime?> pickSchedule(
         });
 
     if (timeOfDay != null) {
+      //vložení vybraného dne a času do globálních proměnných
+      selectedDayGlobal = weekdays[selectedDay!].toString();
+      selectedTimeOfDayGlobal = timeOfDay;
       return NotificationWeekAndTime(
           dayOfTheWeek: selectedDay!, timeOfDay: timeOfDay);
     }
