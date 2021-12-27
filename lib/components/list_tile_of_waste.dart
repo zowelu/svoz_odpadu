@@ -10,7 +10,7 @@ class ListTileOfWaste extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 50,
+      height: 45,
       padding: const EdgeInsets.all(0),
       margin: const EdgeInsets.all(2),
       decoration: const BoxDecoration(
