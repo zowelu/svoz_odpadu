@@ -5,13 +5,14 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:svoz_odpadu/constants/constants.dart';
 import 'package:svoz_odpadu/components/my_appbar.dart';
 import 'package:svoz_odpadu/components/list_tile_of_waste.dart';
-import 'package:svoz_odpadu/utils.dart';
+import 'package:svoz_odpadu/components/utils.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:svoz_odpadu/components/marker_event.dart';
 import 'package:svoz_odpadu/components/text_normal.dart';
 import 'package:svoz_odpadu/components/text_header.dart';
 import 'dart:io';
+import 'package:svoz_odpadu/components/global_var.dart';
 
 class HomePage extends StatefulWidget {
   static const id = '/homePage';
@@ -75,25 +76,28 @@ class _HomePageState extends State<HomePage> {
       );
     });
 
-    AwesomeNotifications().actionStream.listen((notification) {
-      if (notification.channelKey == 'basic_channel' && Platform.isIOS) {
-        AwesomeNotifications().getGlobalBadgeCounter().then(
-              (value) =>
-                  AwesomeNotifications().setGlobalBadgeCounter(value - 1),
-            );
-      }
+    AwesomeNotifications().actionStream.listen(
+      (notification) {
+        if (notification.channelKey == 'basic_channel' && Platform.isIOS) {
+          AwesomeNotifications().getGlobalBadgeCounter().then(
+                (value) =>
+                    AwesomeNotifications().setGlobalBadgeCounter(value - 1),
+              );
+        }
 
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (_) => const SettingsPage(),
-          ),
-          (route) => route.isFirst);
-    });
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (_) => const SettingsPage(),
+            ),
+            (route) => route.isFirst);
+      },
+    );
+    currentPage = 'home_page';
   }
 
   @override
-  void dispose(){
+  void dispose() {
     AwesomeNotifications().actionSink.close();
     AwesomeNotifications().createdSink.close();
     super.dispose();
@@ -221,8 +225,7 @@ class _HomePageState extends State<HomePage> {
                   ListView(
                     shrinkWrap: true,
                     children: const <Widget>[
-                      ListTileOfWaste('Dnešní den',
-                          kDBackgroundColor),
+                      ListTileOfWaste('Dnešní den', kDBackgroundColor),
                       ListTileOfWaste('Plast a nápojový karton\nDrobné kovy',
                           kDColorWastePlastic),
                       ListTileOfWaste('Bioodpad', kDColorWasteBio),

@@ -4,7 +4,7 @@ import 'package:svoz_odpadu/components/text_header.dart';
 import 'package:svoz_odpadu/constants/constants.dart';
 import 'package:svoz_odpadu/components/my_appbar.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:svoz_odpadu/utilities.dart';
+import 'package:svoz_odpadu/components/utilities.dart';
 import 'package:svoz_odpadu/components/button_settings.dart';
 import 'package:svoz_odpadu/components/global_var.dart';
 
@@ -20,6 +20,7 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   void initState() {
     super.initState();
+    currentPage = 'settings';
   }
 
   @override

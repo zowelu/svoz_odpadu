@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:svoz_odpadu/components/my_appbar.dart';
 import 'package:svoz_odpadu/home_page.dart';
 import 'package:svoz_odpadu/constants/constants.dart';
+import 'package:svoz_odpadu/components/global_var.dart';
 
 void main() {
   AwesomeNotifications().initialize(
@@ -32,6 +33,7 @@ void main() {
       ),
     ],
   );
+  currentPage = 'main';
 
   runApp(const MyApp());
 }
