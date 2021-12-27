@@ -193,8 +193,6 @@ class _HomePageState extends State<HomePage> {
                     //DateTime dayRaw = day;
                     DateFormat dateFormat = DateFormat('d');
                     String dayString = dateFormat.format(day);
-                    print(dayString);
-                    print(event);
                     Widget? children;
                     if (event.toString() == 'Směsný odpad') {
                       children = MarkerEvent(kDColorWasteMixed, dayString);
