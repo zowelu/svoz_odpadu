@@ -71,7 +71,7 @@ class _HomePageState extends State<HomePage> {
     AwesomeNotifications().createdStream.listen((notification) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Notifikace byla vytvořena ${notification.channelKey}'),
+          content: Text('Upozornění na každý týden bylo vytvořeno'),
         ),
       );
     });
