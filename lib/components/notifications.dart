@@ -20,12 +20,14 @@ Future<void> createScheduledReminderNotification(
     NotificationWeekAndTime notificationScheduled) async {
   await AwesomeNotifications().createNotification(
     content: NotificationContent(
-        id: createUniqueId(),
-        channelKey: 'scheduled_channel',
-        title: '${Emojis.symbols_warning} Popenice!!!',
-        body: 'Dnes se vyváží popelnice. Nezapomeňte!!!',
-        bigPicture: 'asset://assets/images/notification_map.png',
-        notificationLayout: NotificationLayout.BigPicture),
+      id: createUniqueId(),
+      channelKey: 'scheduled_channel',
+      title: '${Emojis.symbols_warning} Popenice!!!',
+      body: 'Dnes se vyváží popelnice. Nezapomeňte!!!',
+      bigPicture: 'asset://assets/images/notification_map.png',
+      notificationLayout: NotificationLayout.BigPicture,
+      wakeUpScreen: true,
+    ),
     actionButtons: [
       NotificationActionButton(key: 'MARK_DONE', label: 'Hotovo')
     ],
