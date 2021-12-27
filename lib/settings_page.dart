@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:svoz_odpadu/components/notifications.dart';
 import 'package:svoz_odpadu/components/text_header.dart';
-import 'package:svoz_odpadu/components/text_normal.dart';
 import 'package:svoz_odpadu/constants/constants.dart';
 import 'package:svoz_odpadu/components/my_appbar.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -68,10 +67,10 @@ class _SettingsPageState extends State<SettingsPage> {
                       'Nastavíte upozornění na zvolený den a čas každý týden',
                   icon: Icons.notifications,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 ButtonSettings(
@@ -80,7 +79,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     setState(() {
                       activeSheduledReminder = false;
                       selectedDayGlobal = '';
-                      selectedTimeOfDayGlobal = TimeOfDay(hour: 0, minute: 0);
+                      selectedTimeOfDayGlobal = const TimeOfDay(hour: 0, minute: 0);
                     });
                   },
                   title: 'Zrušit upozornění',
@@ -97,7 +96,7 @@ class _SettingsPageState extends State<SettingsPage> {
             activeSheduledReminder
                 ? Container(
                     width: double.infinity,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         shape: BoxShape.rectangle,
                         borderRadius: BorderRadius.only(topLeft: Radius.circular(10.0),topRight: Radius.circular(10.0),),
                         color: Colors.redAccent,
@@ -112,7 +111,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         ]),
                     child: Column(
                       children: [
-                        Text(
+                        const Text(
                           'Máte zapnuté upozorňování každý týden v:',
                           textAlign: TextAlign.center,
                           style: TextStyle(
@@ -124,7 +123,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         Text(
                           '$selectedDayGlobal v ${selectedTimeOfDayGlobal.toString().replaceAll('TimeOfDay', '').replaceAll('(', '').replaceAll(')', '')}',
                           textAlign: TextAlign.center,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.white,
                             fontFamily: kDFontFamilyParagraph,
                             fontSize: kDFontSizeText,
@@ -133,7 +132,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       ],
                     ),
                   )
-                : Text(''),
+                : const Text(''),
               ],
             ),
           ),

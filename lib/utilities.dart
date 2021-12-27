@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:svoz_odpadu/constants/constants.dart';
 import 'package:svoz_odpadu/components/global_var.dart';
 
@@ -41,7 +40,8 @@ Future<NotificationWeekAndTime?> pickSchedule(
             'Ve který den Vás má aplikace upozorňovat?',
             textAlign: TextAlign.center,
           ),
-          content: Container(height: MediaQuery.of(context).size.height/100*50,
+          content: Container(
+            height: MediaQuery.of(context).size.height / 100 * 50,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -66,14 +66,18 @@ Future<NotificationWeekAndTime?> pickSchedule(
 
   if (selectedDay != null) {
     timeOfDay = await showTimePicker(
-        context: context,helpText: 'Vyberte čas', cancelText: 'Zrušit', confirmText: 'Zapnout upozorňování',
+        context: context,
+        helpText: 'Vyberte čas',
+        cancelText: 'Zrušit',
+        confirmText: 'Zapnout upozorňování',
         initialTime: TimeOfDay.fromDateTime(
           now.add(
             const Duration(minutes: 1),
           ),
         ),
         builder: (BuildContext context, Widget? child) {
-          return MediaQuery(data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+          return MediaQuery(
+            data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
             child: child!,
           );
         });

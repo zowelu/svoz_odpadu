@@ -12,7 +12,7 @@ class MyAppBar extends StatelessWidget {
       backgroundColor: kDBackgroundColor,
       actions: [
         IconButton(
-          onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsPage(),),),
+          onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const SettingsPage(),),),
           // ignore: prefer_const_constructors
           icon: Icon(Icons.settings),
         ),

@@ -17,11 +17,11 @@ class ButtonSettings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(kDMargin),
+      margin: const EdgeInsets.all(kDMargin),
       child: InkWell(
         onTap: onTap,
         child: Container(
-            decoration:  BoxDecoration(
+            decoration:  const BoxDecoration(
               shape: BoxShape.rectangle,
               borderRadius: kDRadiusLarge,
               color: kDBackgroundColor,

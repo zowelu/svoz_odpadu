@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: TextHeader(text: 'Souhlas s notifikacemi'),
+            title: const TextHeader(text: 'Souhlas s notifikacemi'),
             content: const TextNormal(
                 text:
                     'Aplikace by Vám ráda zasílala notifikace.\n\nBez Vašeho souhlasu Vás aplikace neupozorní na svoz odpadu'),
@@ -86,7 +86,7 @@ class _HomePageState extends State<HomePage> {
       Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (_) => SettingsPage(),
+            builder: (_) => const SettingsPage(),
           ),
           (route) => route.isFirst);
     });
