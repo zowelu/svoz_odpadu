@@ -9,7 +9,7 @@ import 'package:svoz_odpadu/components/button_settings.dart';
 import 'package:svoz_odpadu/components/global_var.dart';
 
 class SettingsPage extends StatefulWidget {
-  static const id = '/homePage';
+  static const id = '/settingsPage';
 
   const SettingsPage({Key? key}) : super(key: key);
   @override
