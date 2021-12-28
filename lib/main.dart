@@ -1,9 +1,11 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
-import 'package:svoz_odpadu/components/my_appbar.dart';
+import 'package:svoz_odpadu/components/text_normal.dart';
 import 'package:svoz_odpadu/home_page.dart';
 import 'package:svoz_odpadu/constants/constants.dart';
 import 'package:svoz_odpadu/components/global_var.dart';
+import 'package:svoz_odpadu/settings_page.dart';
+import 'package:easy_splash_screen/easy_splash_screen.dart';
 
 void main() {
   AwesomeNotifications().initialize(
@@ -48,10 +50,34 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MainPage(title: 'Svoz odpadu'),
+      home: EasySplashScreen(
+        logo: Image.asset('assets/images/DK_znak_800px.png'),
+        title: Text(
+          'Kalebdář svozu odpadu',
+          style: TextStyle(
+              fontFamily: kDFontFamilyHeader,
+              fontSize: kDFontSizeHeader,
+              color: Colors.white,
+              fontWeight: FontWeight.bold),
+          textAlign: TextAlign.center,
+        ),
+        backgroundColor: kDBackgroundColor,
+        durationInSeconds: 5,
+        loaderColor: Colors.white,
+        showLoader: true,
+        loadingText: Text(
+          'Načítám...',
+          style: TextStyle(
+              color: Colors.white,
+              fontFamily: kDFontFamilyParagraph,
+              fontSize: kDFontSizeText),
+        ),
+        navigator: HomePage(),
+      ),
       initialRoute: '/',
       routes: {
         HomePage.id: (context) => const HomePage(),
+        SettingsPage.id: (context) => const SettingsPage(),
       },
     );
   }
