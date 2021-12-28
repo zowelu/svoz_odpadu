@@ -22,9 +22,9 @@ Future<void> createScheduledReminderNotification(
     content: NotificationContent(
       id: createUniqueId(),
       channelKey: 'scheduled_channel',
-      title: '${Emojis.symbols_warning} Popenice!!!',
-      body: 'Dnes se vyváží popelnice. Nezapomeňte!!!',
-      bigPicture: 'asset://assets/images/notification_map.png',
+      title: '${Emojis.symbols_warning} Popenice ${Emojis.symbols_warning}${Emojis.symbols_warning}${Emojis.symbols_warning}',
+      body: 'Dnes se vyváží popelnice. Nezapomeňte ${Emojis.symbols_warning}',
+      bigPicture: 'asset://assets/images/popelnice.jpg',
       notificationLayout: NotificationLayout.BigPicture,
       wakeUpScreen: true,
     ),
@@ -38,6 +38,8 @@ Future<void> createScheduledReminderNotification(
       minute: notificationScheduled.timeOfDay.minute,
       second: 0,
       millisecond: 0,
+      preciseAlarm: true,
+      allowWhileIdle: true,
     ),
   );
 }
