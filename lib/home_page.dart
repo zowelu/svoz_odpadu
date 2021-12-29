@@ -157,7 +157,7 @@ class _HomePageState extends State<HomePage> {
                   defaultTextStyle: TextStyle(
                     fontSize: kDFontSizeText,
                     fontFamily: kDFontFamilyParagraph,
-                    color: Colors.black,
+                    color: Colors.black,fontWeight: FontWeight.bold
                   ),
                   todayTextStyle: TextStyle(
                       fontSize: kDFontSizeText,
