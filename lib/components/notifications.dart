@@ -10,7 +10,7 @@ Future<void> createBasicNotification() async {
           '${Emojis.symbols_red_exclamation_mark + Emojis.symbols_red_exclamation_mark + Emojis.symbols_red_exclamation_mark} ',
       body:
           'Nezapomeňte vyvést popelnice ${Emojis.symbols_red_exclamation_mark + Emojis.symbols_red_exclamation_mark + Emojis.symbols_red_exclamation_mark}',
-      bigPicture: 'asset://assets/images/notification_map.png',
+      bigPicture: 'asset://assets/images/popelnice.jpg',
       notificationLayout: NotificationLayout.BigPicture,
     ),
   );
