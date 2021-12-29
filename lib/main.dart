@@ -1,6 +1,5 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
-import 'package:svoz_odpadu/components/text_normal.dart';
 import 'package:svoz_odpadu/home_page.dart';
 import 'package:svoz_odpadu/constants/constants.dart';
 import 'package:svoz_odpadu/components/global_var.dart';
@@ -52,8 +51,8 @@ class MyApp extends StatelessWidget {
       ),
       home: EasySplashScreen(
         logo: Image.asset('assets/images/DK_znak_800px.png'),
-        title: Text(
-          'Kalebdář svozu odpadu',
+        title: const Text(
+          'Kalendář svozu odpadu',
           style: TextStyle(
               fontFamily: kDFontFamilyHeader,
               fontSize: kDFontSizeHeader,
@@ -65,14 +64,14 @@ class MyApp extends StatelessWidget {
         durationInSeconds: 5,
         loaderColor: Colors.white,
         showLoader: true,
-        loadingText: Text(
+        loadingText: const Text(
           'Načítám...',
           style: TextStyle(
               color: Colors.white,
               fontFamily: kDFontFamilyParagraph,
               fontSize: kDFontSizeText),
         ),
-        navigator: HomePage(),
+        navigator: const HomePage(),
       ),
       initialRoute: '/',
       routes: {
