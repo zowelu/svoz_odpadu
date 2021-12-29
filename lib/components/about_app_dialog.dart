@@ -46,20 +46,20 @@ class _AboutAppDialogState extends State<AboutAppDialog> {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               const Text(
-                'Město památek',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
+                'Kalendář svozu odpadu\nv Dolních Kounicích',
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600, fontFamily: kDFontFamilyHeader),textAlign: TextAlign.center,
               ),
               const Text(
                 'verze: $versionApp',
-                style: TextStyle(fontSize: 14),
+                style: TextStyle(fontSize: kDFontSizeText, fontFamily: kDFontFamilyParagraph),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(
                 height: kDMarginLarger,
               ),
               const Text(
-                'Tato aplikace je poskytnuta zdarma Městu Dolní Kounice.',
-                style: TextStyle(fontSize: 14),
+                'Tato aplikace je poskytnuta zdarma Městu Dolní Kounice a jeho občanům.',
+                style: TextStyle(fontSize: kDFontSizeText, fontFamily: kDFontFamilyParagraph),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(
@@ -70,7 +70,7 @@ class _AboutAppDialogState extends State<AboutAppDialog> {
                 children: [
                   const Text(
                     'Aplikaci vytvořil',
-                    style: TextStyle(fontSize: 14),
+                    style: TextStyle(fontSize: kDFontSizeText, fontFamily: kDFontFamilyParagraph),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(
@@ -90,7 +90,7 @@ class _AboutAppDialogState extends State<AboutAppDialog> {
                 child: const Text(
                   'www.webstrong.cz',
                   style: TextStyle(
-                      fontSize: 14, decoration: TextDecoration.underline),
+                      fontSize: kDFontSizeText, fontFamily: kDFontFamilyParagraph, decoration: TextDecoration.underline),
                   textAlign: TextAlign.center,
                 ),
                 onTap: () async {
@@ -102,16 +102,8 @@ class _AboutAppDialogState extends State<AboutAppDialog> {
                 height: 22,
               ),
               const Text(
-                'Text, fotografie jsou použity\nz dostupných pramenů\na zdrojů od TIC Dolní Kounice\na z webových stránek www.DolniKounice.cz',
-                style: TextStyle(fontSize: 14),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(
-                height: 22,
-              ),
-              const Text(
-                'Audiozáznam je profesionálně namluven\npanem Martinem Karlíkem,\nmoderátorem ČRo Radiožurnál.',
-                style: TextStyle(fontSize: 14),
+                'Text, fotografie jsou použity\nz dostupných pramenů\na zdrojů z webových stránek www.DolniKounice.cz',
+                style: TextStyle(fontSize: kDFontSizeText, fontFamily: kDFontFamilyParagraph),
                 textAlign: TextAlign.center,
               ),
               Align(
@@ -122,7 +114,7 @@ class _AboutAppDialogState extends State<AboutAppDialog> {
                     },
                     child: const Text(
                       'Zavřít',
-                      style: TextStyle(fontSize: 18),
+                      style: TextStyle(fontSize: kDFontSizeText, fontFamily: kDFontFamilyParagraph, color: kDBackgroundColor, fontWeight: FontWeight.bold,),
                     )),
               ),
             ],
