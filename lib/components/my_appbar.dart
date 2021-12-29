@@ -3,6 +3,7 @@ import 'package:svoz_odpadu/constants/constants.dart';
 import 'package:svoz_odpadu/settings_page.dart';
 import 'package:svoz_odpadu/components/global_var.dart';
 import 'package:svoz_odpadu/components/icon_on_current_page.dart';
+import 'package:svoz_odpadu/components/about_app_dialog.dart';
 
 class MyAppBar extends StatelessWidget {
   const MyAppBar({Key? key}) : super(key: key);
@@ -16,16 +17,28 @@ class MyAppBar extends StatelessWidget {
         if (currentPage == 'home_page')
           IconOnCurrentPage(
             icon: Icon(Icons.settings),
-            onPressed: () {Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const SettingsPage(),
-              ),
-            );},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SettingsPage(),
+                ),
+              );
+            },
           ),
         if (currentPage == 'settings')
-          IconOnCurrentPage(onPressed: (){}, icon: Icon(Icons.info))
-      ,],
+          IconOnCurrentPage(
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AboutAppDialog();
+                },
+              );
+            },
+            icon: Icon(Icons.info),
+          ),
+      ],
       //bottom: PreferredSize(child: TextWidget(), preferredSize: Size.fromHeight(4.0)),
       title: RichText(
         textAlign: TextAlign.center,
