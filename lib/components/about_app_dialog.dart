@@ -124,11 +124,11 @@ class _AboutAppDialogState extends State<AboutAppDialog> {
           left: 100,
           right: 100,
           child: CircleAvatar(
-            backgroundColor: Colors.transparent,
+            backgroundColor: kDBackgroundColor,
             radius: 50.0,
             child: ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(50.0)),
-              child: Image.asset('assets/images/dk_znak_icon.png'),
+              child: Image.asset('assets/images/app_icon.png'),
             ),
           ),
         ),
