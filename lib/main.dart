@@ -49,6 +49,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      debugShowCheckedModeBanner: false,
       home: EasySplashScreen(
         logo: Image.asset('assets/images/DK_znak_800px.png'),
         title: const Text(
