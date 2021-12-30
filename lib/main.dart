@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:svoz_odpadu/home_page.dart';
@@ -51,7 +53,8 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       home: EasySplashScreen(
-        logo: Image.asset('assets/images/DK_znak_800px.png'),
+        logo: Image.asset('assets/images/app_icon.png'),
+        logoSize: 200,
         title: const Text(
           'Kalendář svozu odpadu',
           style: TextStyle(
