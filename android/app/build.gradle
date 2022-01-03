@@ -56,9 +56,9 @@ android {
         compileSdkVersion 31
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-        ndk {
+        /*ndk {
             debugSymbolLevel 'SYMBOL_TABLE'
-        }
+        }*/
     }
 
     signingConfigs {
