@@ -5,8 +5,6 @@ import 'package:svoz_odpadu/components/open_url_in_browser.dart';
 class AboutAppDialog extends StatefulWidget {
   const AboutAppDialog({Key? key}) : super(key: key);
 
-
-
   @override
   _AboutAppDialogState createState() => _AboutAppDialogState();
 }
@@ -47,11 +45,17 @@ class _AboutAppDialogState extends State<AboutAppDialog> {
             children: <Widget>[
               const Text(
                 'Kalendář svozu odpadu\nv Dolních Kounicích',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600, fontFamily: kDFontFamilyHeader),textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: kDFontFamilyHeader),
+                textAlign: TextAlign.center,
               ),
               const Text(
                 'verze: $versionApp',
-                style: TextStyle(fontSize: kDFontSizeText, fontFamily: kDFontFamilyParagraph),
+                style: TextStyle(
+                    fontSize: kDFontSizeText,
+                    fontFamily: kDFontFamilyParagraph),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(
@@ -59,7 +63,9 @@ class _AboutAppDialogState extends State<AboutAppDialog> {
               ),
               const Text(
                 'Tato aplikace je poskytnuta zdarma Městu Dolní Kounice a jeho občanům.',
-                style: TextStyle(fontSize: kDFontSizeText, fontFamily: kDFontFamilyParagraph),
+                style: TextStyle(
+                    fontSize: kDFontSizeText,
+                    fontFamily: kDFontFamilyParagraph),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(
@@ -70,7 +76,9 @@ class _AboutAppDialogState extends State<AboutAppDialog> {
                 children: [
                   const Text(
                     'Aplikaci vytvořil',
-                    style: TextStyle(fontSize: kDFontSizeText, fontFamily: kDFontFamilyParagraph),
+                    style: TextStyle(
+                        fontSize: kDFontSizeText,
+                        fontFamily: kDFontFamilyParagraph),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(
@@ -90,7 +98,9 @@ class _AboutAppDialogState extends State<AboutAppDialog> {
                 child: const Text(
                   'www.webstrong.cz',
                   style: TextStyle(
-                      fontSize: kDFontSizeText, fontFamily: kDFontFamilyParagraph, decoration: TextDecoration.underline),
+                      fontSize: kDFontSizeText,
+                      fontFamily: kDFontFamilyParagraph,
+                      decoration: TextDecoration.underline),
                   textAlign: TextAlign.center,
                 ),
                 onTap: () async {
@@ -98,12 +108,57 @@ class _AboutAppDialogState extends State<AboutAppDialog> {
                   OpenUrlInBrowser().openUrl('https://webstrong.cz/');
                 },
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    've spolupráci s ',
+                    style: TextStyle(
+                        fontSize: kDFontSizeText,
+                        fontFamily: kDFontFamilyParagraph),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(
+                    width: kDMargin,
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(
+                      bottom: 10.0,
+                      top: 0,
+                    ),
+                    child: GestureDetector(
+                      onTap: () async {
+                        //po stisknutí otevře stránku v externím prohlížeči
+                        OpenUrlInBrowser().openUrl('https://www.zowelu.cz/');
+                      },
+                      child: Image.asset('assets/images/zowelu_logo.png',
+                          height: 30),
+                    ),
+                  ),
+                ],
+              ),
+              InkWell(
+                child: const Text(
+                  'www.zowelu.cz',
+                  style: TextStyle(
+                      fontSize: kDFontSizeText,
+                      fontFamily: kDFontFamilyParagraph,
+                      decoration: TextDecoration.underline),
+                  textAlign: TextAlign.center,
+                ),
+                onTap: () async {
+                  //po stisknutí otevře stránku v externím prohlížeči
+                  OpenUrlInBrowser().openUrl('https://www.zowelu.cz/');
+                },
+              ),
               const SizedBox(
                 height: 22,
               ),
               const Text(
                 'Text, fotografie jsou použity\nz dostupných pramenů\na zdrojů z webových stránek www.DolniKounice.cz',
-                style: TextStyle(fontSize: kDFontSizeText, fontFamily: kDFontFamilyParagraph),
+                style: TextStyle(
+                    fontSize: kDFontSizeText,
+                    fontFamily: kDFontFamilyParagraph),
                 textAlign: TextAlign.center,
               ),
               Align(
@@ -114,7 +169,12 @@ class _AboutAppDialogState extends State<AboutAppDialog> {
                     },
                     child: const Text(
                       'Zavřít',
-                      style: TextStyle(fontSize: kDFontSizeText, fontFamily: kDFontFamilyParagraph, color: kDBackgroundColor, fontWeight: FontWeight.bold,),
+                      style: TextStyle(
+                        fontSize: kDFontSizeText,
+                        fontFamily: kDFontFamilyParagraph,
+                        color: kDBackgroundColor,
+                        fontWeight: FontWeight.bold,
+                      ),
                     )),
               ),
             ],
