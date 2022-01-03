@@ -84,7 +84,7 @@ Future<NotificationWeekAndTime?> pickSchedule(
 
     if (timeOfDay != null) {
       //vložení vybraného dne a času do globálních proměnných
-      selectedDayGlobal = weekdays[selectedDay!].toString();
+      selectedDayGlobal = weekdays[selectedDay!-1].toString();
       selectedTimeOfDayGlobal = timeOfDay;
       return NotificationWeekAndTime(
           dayOfTheWeek: selectedDay!, timeOfDay: timeOfDay);
