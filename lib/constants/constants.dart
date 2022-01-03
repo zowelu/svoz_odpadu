@@ -33,4 +33,4 @@ DateTime dateTimeFocusedDay = dateTimeNow;
 const BorderRadius kDRadius = BorderRadius.all(Radius.circular(15.0));
 const BorderRadius kDRadiusSmall = BorderRadius.all(Radius.circular(3.0));
 const BorderRadius kDRadiusLarge = BorderRadius.all(Radius.circular(20.0));
-const String versionApp = '0.0.1';
+const String versionApp = '1.0.0';
