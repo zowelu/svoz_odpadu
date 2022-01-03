@@ -22,7 +22,7 @@ Future<void> createScheduledReminderNotification(
     content: NotificationContent(
       id: createUniqueId(),
       channelKey: 'scheduled_channel',
-      title: '${Emojis.symbols_red_exclamation_mark} Popenice ${Emojis.symbols_red_exclamation_mark}',
+      title: '${Emojis.symbols_red_exclamation_mark} Popelnice ${Emojis.symbols_red_exclamation_mark}',
       body: 'Dnes se vyváží popelnice. Nezapomeňte${Emojis.symbols_red_exclamation_mark}',
       bigPicture: 'asset://assets/images/popelnice.jpg',
       notificationLayout: NotificationLayout.BigPicture,
