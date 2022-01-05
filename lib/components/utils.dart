@@ -52,7 +52,7 @@ Map<DateTime, List<Event>> _mixedWasteEvents = {
 };
 
 Map<DateTime, List<Event>> _plasticWasteEvents = {
-  DateTime(2022, 1, 5): [const Event('Plast a nápojový karton, Drobné kovy'), const Event('Bioodpad')],
+  DateTime(2022, 1, 5): [ const Event('Bioodpad')],
   DateTime(2022, 1, 19): [const Event('Plast a nápojový karton, Drobné kovy')],
   DateTime(2022, 2, 2): [const Event('Plast a nápojový karton, Drobné kovy'), const Event('Bioodpad')],
   DateTime(2022, 2, 16): [const Event('Plast a nápojový karton, Drobné kovy')],
