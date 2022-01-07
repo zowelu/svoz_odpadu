@@ -41,6 +41,7 @@ dependencies:
   font_awesome_flutter: ^9.2.0
   easy_splash_screen: ^1.0.3
   url_launcher: ^6.0.17
+  flash: ^2.0.3+2
 
 
 dev_dependencies:
