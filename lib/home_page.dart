@@ -217,7 +217,7 @@ class _HomePageState extends State<HomePage> {
             ),
             Container(
               color: kDBackgroundColor,
-              padding: const EdgeInsets.all(kDMargin),
+              padding: const EdgeInsets.all(5),
               //margin: const EdgeInsets.only(top: kDMarginLarger),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
