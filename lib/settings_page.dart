@@ -131,6 +131,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         );
                       },
                     );
+                    cancelScheduledNotifications();
                   },
                   title: 'Zrušit upozornění',
                   subtitle: 'Zrušíte všechna nastavená upozornění',
