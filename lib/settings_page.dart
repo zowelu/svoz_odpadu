@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:svoz_odpadu/components/list_tile_of_waste_notification.dart';
 import 'package:svoz_odpadu/components/notifications.dart';
 import 'package:svoz_odpadu/components/text_header.dart';
 import 'package:svoz_odpadu/components/text_normal.dart';
@@ -30,7 +31,9 @@ class _SettingsPageState extends State<SettingsPage> {
     initializeDateFormatting('cs');
     return Scaffold(
       appBar: const PreferredSize(
-          preferredSize: Size.fromHeight(kDMyAppBarHeight), child: MyAppBar()),
+        preferredSize: Size.fromHeight(kDMyAppBarHeight),
+        child: MyAppBar(),
+      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
@@ -40,6 +43,28 @@ class _SettingsPageState extends State<SettingsPage> {
             height: kDMyAppBarHeight,
             child: const Center(
               child: TextHeader(text: 'Nastavení'),
+            ),
+          ),
+          SizedBox(
+            height: 50,
+          ),
+          Container(
+            width: double.infinity,
+            padding: EdgeInsets.only(
+              top: kDMargin,
+              bottom: kDMargin,
+            ),
+            decoration: BoxDecoration(
+              color: kDBackgroundColor,
+            ),
+            child: Column(
+              children: [
+                ListTileOfWasteNotification('Plast', kDColorWastePlastic, null),
+                ListTileOfWasteNotification('Papír', kDColorWastePaper, null),
+                ListTileOfWasteNotification('Bioodpad', kDColorWasteBio, null),
+                ListTileOfWasteNotification(
+                    'Směsný odpad', kDColorWasteMixed, null),
+              ],
             ),
           ),
           Flexible(
@@ -101,20 +126,22 @@ class _SettingsPageState extends State<SettingsPage> {
                                 child: const Text(
                                   'Ne',
                                   style: TextStyle(
-                                      color: Colors.grey, fontSize: kDFontSizeText),
+                                      color: Colors.grey,
+                                      fontSize: kDFontSizeText),
                                 ),
                               ),
                               TextButton(
                                 onPressed: () {
                                   cancelScheduledNotifications;
                                   setState(
-                                        () {
+                                    () {
                                       activeSheduledReminder = false;
                                       selectedDayGlobal = '';
                                       selectedTimeOfDayGlobal =
-                                      const TimeOfDay(hour: 0, minute: 0);
+                                          const TimeOfDay(hour: 0, minute: 0);
                                       controller.dismiss();
-                                      showSnackBar(context, 'Notifikace zrušeny');
+                                      showSnackBar(
+                                          context, 'Notifikace zrušeny');
                                     },
                                   );
                                 },
