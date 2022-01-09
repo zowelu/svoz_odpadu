@@ -1,5 +1,13 @@
 import 'dart:collection';
 
+//vytažení dat z Map
+Map<DateTime, List<Event>> plasticWasteEvents = _plasticWasteEvents;
+Map<DateTime, List<Event>> bioWasteEvents = _bioWasteEvents;
+Map<DateTime, List<Event>> paperWasteEvents = _paperWasteEvents;
+Map<DateTime, List<Event>> mixedWasteEvents = _mixedWasteEvents;
+
+
+
 /// Example event class.
 class Event {
   final String title;
@@ -35,21 +43,6 @@ Map getAllEventsToMap() {
 
 Map<DateTime, List<Event>> allWasteEvents = {};
 
-Map<DateTime, List<Event>> _vymysleneEvents = {
-  DateTime(2022, 1, 9): [const Event('Vymyšlený odpad')],
-  DateTime(2022, 1, 10): [const Event('Vymyšlený odpad')],
-  DateTime(2022, 1, 11): [const Event('Vymyšlený odpad')],
-  DateTime(2022, 1, 12): [const Event('Vymyšlený odpad')],
-  DateTime(2022, 5, 4): [const Event('Vymyšlený odpad')],
-  DateTime(2022, 6, 1): [const Event('Vymyšlený odpad')],
-  DateTime(2022, 6, 29): [const Event('Vymyšlený odpad')],
-  DateTime(2022, 7, 27): [const Event('Vymyšlený odpad')],
-  DateTime(2022, 8, 24): [const Event('Vymyšlený odpad')],
-  DateTime(2022, 9, 21): [const Event('Vymyšlený odpad')],
-  DateTime(2022, 10, 19): [const Event('Vymyšlený odpad')],
-  DateTime(2022, 11, 16): [const Event('Vymyšlený odpad')],
-  DateTime(2022, 12, 14): [const Event('Vymyšlený odpad')],
-};
 
 Map<DateTime, List<Event>> _mixedWasteEvents = {
   DateTime(2022, 1, 12): [const Event('Směsný odpad')],
@@ -70,29 +63,29 @@ Map<DateTime, List<Event>> _mixedWasteEvents = {
 Map<DateTime, List<Event>> _plasticWasteEvents = {
   DateTime(2022, 1, 5): [ const Event('Bioodpad')],
   DateTime(2022, 1, 19): [const Event('Plast a nápojový karton, Drobné kovy')],
-  DateTime(2022, 2, 2): [const Event('Plast a nápojový karton, Drobné kovy'), const Event('Bioodpad')],
+  DateTime(2022, 2, 2): [const Event('Plast a nápojový karton, Drobné kovy')],
   DateTime(2022, 2, 16): [const Event('Plast a nápojový karton, Drobné kovy')],
-  DateTime(2022, 3, 2): [const Event('Plast a nápojový karton, Drobné kovy'), const Event('Bioodpad')],
+  DateTime(2022, 3, 2): [const Event('Plast a nápojový karton, Drobné kovy')],
   DateTime(2022, 3, 16): [const Event('Plast a nápojový karton, Drobné kovy')],
-  DateTime(2022, 3, 30): [const Event('Plast a nápojový karton, Drobné kovy'), const Event('Bioodpad')],
-  DateTime(2022, 4, 13): [const Event('Plast a nápojový karton, Drobné kovy'), const Event('Bioodpad')],
-  DateTime(2022, 4, 27): [const Event('Plast a nápojový karton, Drobné kovy'), const Event('Bioodpad')],
-  DateTime(2022, 5, 11): [const Event('Plast a nápojový karton, Drobné kovy'), const Event('Bioodpad')],
-  DateTime(2022, 5, 25): [const Event('Plast a nápojový karton, Drobné kovy'), const Event('Bioodpad')],
-  DateTime(2022, 6, 8): [const Event('Plast a nápojový karton, Drobné kovy'), const Event('Bioodpad')],
-  DateTime(2022, 6, 22): [const Event('Plast a nápojový karton, Drobné kovy'), const Event('Bioodpad')],
-  DateTime(2022, 7, 6): [const Event('Plast a nápojový karton, Drobné kovy'), const Event('Bioodpad')],
-  DateTime(2022, 7, 20): [const Event('Plast a nápojový karton, Drobné kovy'), const Event('Bioodpad')],
-  DateTime(2022, 8, 3): [const Event('Plast a nápojový karton, Drobné kovy'), const Event('Bioodpad')],
-  DateTime(2022, 8, 17): [const Event('Plast a nápojový karton, Drobné kovy'), const Event('Bioodpad')],
-  DateTime(2022, 8, 31): [const Event('Plast a nápojový karton, Drobné kovy'), const Event('Bioodpad')],
-  DateTime(2022, 9, 14): [const Event('Plast a nápojový karton, Drobné kovy'), const Event('Bioodpad')],
-  DateTime(2022, 9, 28): [const Event('Plast a nápojový karton, Drobné kovy'), const Event('Bioodpad')],
-  DateTime(2022, 10, 12): [const Event('Plast a nápojový karton, Drobné kovy'), const Event('Bioodpad')],
-  DateTime(2022, 10, 26): [const Event('Plast a nápojový karton, Drobné kovy'), const Event('Bioodpad')],
-  DateTime(2022, 11, 9): [const Event('Plast a nápojový karton, Drobné kovy'), const Event('Bioodpad')],
-  DateTime(2022, 11, 23): [const Event('Plast a nápojový karton, Drobné kovy'), const Event('Bioodpad')],
-  DateTime(2022, 12, 7): [const Event('Plast a nápojový karton, Drobné kovy'), const Event('Bioodpad')],
+  DateTime(2022, 3, 30): [const Event('Plast a nápojový karton, Drobné kovy')],
+  DateTime(2022, 4, 13): [const Event('Plast a nápojový karton, Drobné kovy')],
+  DateTime(2022, 4, 27): [const Event('Plast a nápojový karton, Drobné kovy')],
+  DateTime(2022, 5, 11): [const Event('Plast a nápojový karton, Drobné kovy')],
+  DateTime(2022, 5, 25): [const Event('Plast a nápojový karton, Drobné kovy')],
+  DateTime(2022, 6, 8): [const Event('Plast a nápojový karton, Drobné kovy')],
+  DateTime(2022, 6, 22): [const Event('Plast a nápojový karton, Drobné kovy')],
+  DateTime(2022, 7, 6): [const Event('Plast a nápojový karton, Drobné kovy')],
+  DateTime(2022, 7, 20): [const Event('Plast a nápojový karton, Drobné kovy')],
+  DateTime(2022, 8, 3): [const Event('Plast a nápojový karton, Drobné kovy')],
+  DateTime(2022, 8, 17): [const Event('Plast a nápojový karton, Drobné kovy')],
+  DateTime(2022, 8, 31): [const Event('Plast a nápojový karton, Drobné kovy')],
+  DateTime(2022, 9, 14): [const Event('Plast a nápojový karton, Drobné kovy')],
+  DateTime(2022, 9, 28): [const Event('Plast a nápojový karton, Drobné kovy')],
+  DateTime(2022, 10, 12): [const Event('Plast a nápojový karton, Drobné kovy')],
+  DateTime(2022, 10, 26): [const Event('Plast a nápojový karton, Drobné kovy')],
+  DateTime(2022, 11, 9): [const Event('Plast a nápojový karton, Drobné kovy')],
+  DateTime(2022, 11, 23): [const Event('Plast a nápojový karton, Drobné kovy')],
+  DateTime(2022, 12, 7): [const Event('Plast a nápojový karton, Drobné kovy')],
   DateTime(2022, 12, 21): [const Event('Plast a nápojový karton, Drobné kovy')],
 };
 
@@ -147,3 +140,4 @@ bool isSameDay(DateTime? a, DateTime? b) {
 
   return a.year == b.year && a.month == b.month && a.day == b.day;
 }
+
