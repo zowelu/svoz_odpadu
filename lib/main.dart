@@ -26,7 +26,7 @@ void main() {
         channelName: 'Scheduled Notifications',
         channelDescription: 'scheduled_channel_description',
         defaultColor: kDBackgroundColor,
-        locked: true,
+        locked: false,
         importance: NotificationImportance.Max,
         soundSource: 'resource://raw/res_custom_notification',
         enableVibration: true,
