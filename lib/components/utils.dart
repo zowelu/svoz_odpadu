@@ -81,7 +81,28 @@ Map<DateTime, List<Event>> _plasticWasteEvents = {
 };
 
 Map<DateTime, List<Event>> _bioWasteEvents = {
-
+  DateTime(2022, 1, 5): [ const Event('Bioodpad')],
+  DateTime(2022, 2, 2): [ const Event('Bioodpad')],
+  DateTime(2022, 3, 2): [const Event('Bioodpad')],
+  DateTime(2022, 3, 30): [ const Event('Bioodpad')],
+  DateTime(2022, 4, 13): [const Event('Bioodpad')],
+  DateTime(2022, 4, 27): [const Event('Bioodpad')],
+  DateTime(2022, 5, 11): [const Event('Bioodpad')],
+  DateTime(2022, 5, 25): [const Event('Bioodpad')],
+  DateTime(2022, 6, 8): [const Event('Bioodpad')],
+  DateTime(2022, 6, 22): [const Event('Bioodpad')],
+  DateTime(2022, 7, 6): [const Event('Bioodpad')],
+  DateTime(2022, 7, 20): [const Event('Bioodpad')],
+  DateTime(2022, 8, 3): [const Event('Bioodpad')],
+  DateTime(2022, 8, 17): [const Event('Bioodpad')],
+  DateTime(2022, 8, 31): [const Event('Bioodpad')],
+  DateTime(2022, 9, 14): [const Event('Bioodpad')],
+  DateTime(2022, 9, 28): [const Event('Bioodpad')],
+  DateTime(2022, 10, 12): [const Event('Bioodpad')],
+  DateTime(2022, 10, 26): [const Event('Bioodpad')],
+  DateTime(2022, 11, 9): [const Event('Bioodpad')],
+  DateTime(2022, 11, 23): [const Event('Bioodpad')],
+  DateTime(2022, 12, 7): [const Event('Bioodpad')],
 };
 
 Map<DateTime, List<Event>> _paperWasteEvents = {
