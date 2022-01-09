@@ -94,13 +94,36 @@ Future<NotificationWeekAndTime?> pickSchedule(
   return null;
 }
 
-void showSnackBar(context) {
+Flash? showSnackBar(context, String text) {
   showFlash(
+    duration: Duration(milliseconds: 2500),
     context: context,
     builder: (context, controller) {
       return Flash.bar(
+        backgroundColor: kDBackgroundColor,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(10),
+          topRight: Radius.circular(10),
+        ),
+        boxShadows: [
+          BoxShadow(
+            color: Colors.black12,
+            offset: Offset(-5, 0),
+            blurRadius: 5,
+            spreadRadius: 5,
+          ),
+        ],
         controller: controller,
-        child: const Text('Ahoj'),
+        child: Container(
+            width: double.infinity,
+            child: Text(
+              text,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: kDFontSizeText,
+                  fontFamily: kDFontFamilyParagraph),
+              textAlign: TextAlign.center,
+            )),
       );
     },
   );
