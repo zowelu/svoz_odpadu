@@ -35,6 +35,22 @@ Map getAllEventsToMap() {
 
 Map<DateTime, List<Event>> allWasteEvents = {};
 
+Map<DateTime, List<Event>> _vymysleneEvents = {
+  DateTime(2022, 1, 9): [const Event('Vymyšlený odpad')],
+  DateTime(2022, 1, 10): [const Event('Vymyšlený odpad')],
+  DateTime(2022, 1, 11): [const Event('Vymyšlený odpad')],
+  DateTime(2022, 1, 12): [const Event('Vymyšlený odpad')],
+  DateTime(2022, 5, 4): [const Event('Vymyšlený odpad')],
+  DateTime(2022, 6, 1): [const Event('Vymyšlený odpad')],
+  DateTime(2022, 6, 29): [const Event('Vymyšlený odpad')],
+  DateTime(2022, 7, 27): [const Event('Vymyšlený odpad')],
+  DateTime(2022, 8, 24): [const Event('Vymyšlený odpad')],
+  DateTime(2022, 9, 21): [const Event('Vymyšlený odpad')],
+  DateTime(2022, 10, 19): [const Event('Vymyšlený odpad')],
+  DateTime(2022, 11, 16): [const Event('Vymyšlený odpad')],
+  DateTime(2022, 12, 14): [const Event('Vymyšlený odpad')],
+};
+
 Map<DateTime, List<Event>> _mixedWasteEvents = {
   DateTime(2022, 1, 12): [const Event('Směsný odpad')],
   DateTime(2022, 2, 9): [const Event('Směsný odpad')],
