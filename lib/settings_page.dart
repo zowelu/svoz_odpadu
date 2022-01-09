@@ -73,58 +73,6 @@ class _SettingsPageState extends State<SettingsPage> {
                 const SizedBox(
                   height: 5,
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
-                ButtonSettings(
-                  onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        title: const TextHeader(
-                            text: 'Zrušit nastavené notifikace'),
-                        content: TextNormal(
-                            text:
-                                'Chcete zrušit nastavené notifikace v: $selectedDayGlobal v ${selectedTimeOfDayGlobal.toString().replaceAll('TimeOfDay', '').replaceAll('(', '').replaceAll(')', '')}'),
-                        actions: [
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Text(
-                              'Ne',
-                              style: TextStyle(
-                                  color: Colors.grey, fontSize: kDFontSizeText),
-                            ),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              cancelScheduledNotifications;
-                              setState(
-                                () {
-                                  activeSheduledReminder = false;
-                                  selectedDayGlobal = '';
-                                  selectedTimeOfDayGlobal =
-                                      const TimeOfDay(hour: 0, minute: 0);
-                                },
-                              );
-                            },
-                            child: const Text(
-                              'Ano, zrušit notifikace',
-                              style: TextStyle(
-                                  color: kDBackgroundColor,
-                                  fontSize: kDFontSizeText,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                  title: 'Zrušit upozornění',
-                  subtitle: 'Zrušíte všechna nastavená upozornění',
-                  icon: Icons.notifications_off,
-                ),
                 ButtonSettings(
                   onTap: () {
                     showFlash(
