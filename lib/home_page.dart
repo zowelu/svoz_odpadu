@@ -87,7 +87,7 @@ class _HomePageState extends State<HomePage> {
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (_) => SettingsPage(),
+              builder: (_) => const SettingsPage(),
             ),
             (route) => route.isFirst);
       },
