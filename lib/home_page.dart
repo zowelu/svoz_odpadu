@@ -1,5 +1,6 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
+import 'package:svoz_odpadu/settings_page.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:svoz_odpadu/constants/constants.dart';
 import 'package:svoz_odpadu/components/my_appbar.dart';
@@ -89,7 +90,7 @@ class _HomePageState extends State<HomePage> {
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (_) => const HomePage(),
+              builder: (_) => SettingsPage(),
             ),
             (route) => route.isFirst);
       },
