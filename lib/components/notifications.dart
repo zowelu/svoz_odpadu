@@ -60,7 +60,7 @@ Future<void> createScheduledReminderNotificationPlastic(
       NotificationActionButton(key: 'MARK_DONE', label: 'Hotovo')
     ],
     schedule: NotificationCalendar(
-      repeats: true,
+      repeats: false,
       weekday: notificationScheduled.dayOfTheWeek,
       hour: notificationScheduled.timeOfDay.hour,
       minute: notificationScheduled.timeOfDay.minute,
@@ -88,7 +88,7 @@ Future<void> createScheduledReminderNotificationBio(
       NotificationActionButton(key: 'MARK_DONE', label: 'Hotovo')
     ],
     schedule: NotificationCalendar(
-      repeats: true,
+      repeats: false,
       weekday: notificationScheduled.dayOfTheWeek,
       hour: notificationScheduled.timeOfDay.hour,
       minute: notificationScheduled.timeOfDay.minute,
@@ -116,7 +116,7 @@ Future<void> createScheduledReminderNotificationPaper(
       NotificationActionButton(key: 'MARK_DONE', label: 'Hotovo')
     ],
     schedule: NotificationCalendar(
-      repeats: true,
+      repeats: false,
       weekday: notificationScheduled.dayOfTheWeek,
       hour: notificationScheduled.timeOfDay.hour,
       minute: notificationScheduled.timeOfDay.minute,
@@ -144,7 +144,35 @@ Future<void> createScheduledReminderNotificationMixed(
       NotificationActionButton(key: 'MARK_DONE', label: 'Hotovo')
     ],
     schedule: NotificationCalendar(
-      repeats: true,
+      repeats: false,
+      weekday: notificationScheduled.dayOfTheWeek,
+      hour: notificationScheduled.timeOfDay.hour,
+      minute: notificationScheduled.timeOfDay.minute,
+      second: 0,
+      millisecond: 0,
+      preciseAlarm: true,
+      allowWhileIdle: true,
+    ),
+  );
+}
+
+Future<void> createScheduledReminderNotificationFiction(
+    NotificationWeekAndTime notificationScheduled) async {
+  await AwesomeNotifications().createNotification(
+    content: NotificationContent(
+      id: createUniqueId(),
+      channelKey: 'Vymyšlený odpad',
+      title: '${Emojis.symbols_red_exclamation_mark} Popelnice - Vymyšlený odpad ${Emojis.symbols_red_exclamation_mark}',
+      body: 'Dnes se vyváží popelnice - Vymyšlený odpad. Nezapomeňte${Emojis.symbols_red_exclamation_mark}',
+      bigPicture: 'asset://assets/images/popelnice.jpg',
+      notificationLayout: NotificationLayout.BigPicture,
+      wakeUpScreen: true,
+    ),
+    actionButtons: [
+      NotificationActionButton(key: 'MARK_DONE', label: 'Hotovo')
+    ],
+    schedule: NotificationCalendar(
+      repeats: false,
       weekday: notificationScheduled.dayOfTheWeek,
       hour: notificationScheduled.timeOfDay.hour,
       minute: notificationScheduled.timeOfDay.minute,
