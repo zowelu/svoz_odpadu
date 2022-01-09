@@ -132,15 +132,15 @@ class _SettingsPageState extends State<SettingsPage> {
                       builder: (context, controller) {
                         return Flash.dialog(
                           controller: controller,
-                          borderRadius: BorderRadius.all(
+                          borderRadius: const BorderRadius.all(
                             Radius.circular(8),
                           ),
                           child: FlashBar(
-                            content: Center(
+                            content: const Center(
                               child: TextNormal(
                                   text: 'Chcete zrušit všechny notifikace'),
                             ),
-                            title: Center(
+                            title: const Center(
                               child: TextHeader(
                                 text: 'Zrušit upozornění',
                               ),

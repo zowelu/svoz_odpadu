@@ -41,7 +41,7 @@ Future<NotificationWeekAndTime?> pickSchedule(
             'Ve který den Vás má aplikace upozorňovat?',
             textAlign: TextAlign.center,
           ),
-          content: Container(
+          content: SizedBox(
             height: MediaQuery.of(context).size.height / 100 * 50,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -100,7 +100,7 @@ void showSnackBar(context) {
     builder: (context, controller) {
       return Flash.bar(
         controller: controller,
-        child: Text('Ahoj'),
+        child: const Text('Ahoj'),
       );
     },
   );

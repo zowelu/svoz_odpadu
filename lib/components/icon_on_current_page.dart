@@ -6,6 +6,7 @@ class IconOnCurrentPage extends StatelessWidget {
     required this.onPressed,
     required this.icon,
   }) : super(key: key);
+  // ignore: prefer_typing_uninitialized_variables
   final onPressed;
   final Icon icon;
 

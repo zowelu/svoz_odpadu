@@ -16,7 +16,7 @@ class MyAppBar extends StatelessWidget {
       actions: [
         if (currentPage == 'home_page')
           IconOnCurrentPage(
-            icon: Icon(Icons.settings),
+            icon: const Icon(Icons.settings),
             onPressed: () {
               Navigator.push(
                 context,
@@ -32,11 +32,11 @@ class MyAppBar extends StatelessWidget {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return AboutAppDialog();
+                  return const AboutAppDialog();
                 },
               );
             },
-            icon: Icon(Icons.info),
+            icon: const Icon(Icons.info),
           ),
       ],
       //bottom: PreferredSize(child: TextWidget(), preferredSize: Size.fromHeight(4.0)),

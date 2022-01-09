@@ -11,6 +11,7 @@ class OpenUrlInBrowser {
       await launch(
           url, forceSafariVC: false, forceWebView: false, headers: <String, String>{'header_key': 'header_value'}); //launch is from url_launcher package to launch URL
     } else {
+      // ignore: avoid_print
       print("URL can't be launched.");
     }
   }

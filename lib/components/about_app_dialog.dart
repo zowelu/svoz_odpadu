@@ -122,7 +122,7 @@ class _AboutAppDialogState extends State<AboutAppDialog> {
                     width: kDMargin,
                   ),
                   Container(
-                    padding: EdgeInsets.only(
+                    padding: const EdgeInsets.only(
                       bottom: 10.0,
                       top: 0,
                     ),

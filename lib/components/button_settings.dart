@@ -9,6 +9,7 @@ class ButtonSettings extends StatelessWidget {
       required this.subtitle, required this.icon})
       : super(key: key);
 
+  // ignore: prefer_typing_uninitialized_variables
   final onTap;
   final String title;
   final String subtitle;
