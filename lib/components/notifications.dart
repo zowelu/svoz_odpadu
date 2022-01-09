@@ -45,11 +45,11 @@ Future<void> createScheduledReminderNotification(
 }
 
 Future<void> createScheduledReminderNotificationPlastic(
-    NotificationWeekAndTime notificationScheduled) async {
+    NotificationWeekAndTime notificationScheduled, day, month, year) async {
   await AwesomeNotifications().createNotification(
     content: NotificationContent(
       id: createUniqueId(),
-      channelKey: 'Plasty a Bioodpad',
+      channelKey: 'Plast',
       title: '${Emojis.symbols_red_exclamation_mark} Popelnice  - Plast a nápojový karton + drobné kovy${Emojis.symbols_red_exclamation_mark}',
       body: 'Dnes se vyváží popelnice - Plast a nápojový karton + drobné kovy. Nezapomeňte${Emojis.symbols_red_exclamation_mark}',
       bigPicture: 'asset://assets/images/popelnice.jpg',
@@ -61,6 +61,9 @@ Future<void> createScheduledReminderNotificationPlastic(
     ],
     schedule: NotificationCalendar(
       repeats: false,
+      day: day,
+      month: month,
+      year: year,
       weekday: notificationScheduled.dayOfTheWeek,
       hour: notificationScheduled.timeOfDay.hour,
       minute: notificationScheduled.timeOfDay.minute,
@@ -73,7 +76,7 @@ Future<void> createScheduledReminderNotificationPlastic(
 }
 
 Future<void> createScheduledReminderNotificationBio(
-    NotificationWeekAndTime notificationScheduled) async {
+    NotificationWeekAndTime notificationScheduled, day, month, year) async {
   await AwesomeNotifications().createNotification(
     content: NotificationContent(
       id: createUniqueId(),
@@ -89,6 +92,9 @@ Future<void> createScheduledReminderNotificationBio(
     ],
     schedule: NotificationCalendar(
       repeats: false,
+      day: day,
+      month: month,
+      year: year,
       weekday: notificationScheduled.dayOfTheWeek,
       hour: notificationScheduled.timeOfDay.hour,
       minute: notificationScheduled.timeOfDay.minute,
@@ -101,7 +107,7 @@ Future<void> createScheduledReminderNotificationBio(
 }
 
 Future<void> createScheduledReminderNotificationPaper(
-    NotificationWeekAndTime notificationScheduled) async {
+    NotificationWeekAndTime notificationScheduled, day, month, year) async {
   await AwesomeNotifications().createNotification(
     content: NotificationContent(
       id: createUniqueId(),
@@ -117,6 +123,9 @@ Future<void> createScheduledReminderNotificationPaper(
     ],
     schedule: NotificationCalendar(
       repeats: false,
+      day: day,
+      month: month,
+      year: year,
       weekday: notificationScheduled.dayOfTheWeek,
       hour: notificationScheduled.timeOfDay.hour,
       minute: notificationScheduled.timeOfDay.minute,
@@ -129,7 +138,7 @@ Future<void> createScheduledReminderNotificationPaper(
 }
 
 Future<void> createScheduledReminderNotificationMixed(
-    NotificationWeekAndTime notificationScheduled) async {
+    NotificationWeekAndTime notificationScheduled, day, month, year) async {
   await AwesomeNotifications().createNotification(
     content: NotificationContent(
       id: createUniqueId(),
@@ -145,6 +154,9 @@ Future<void> createScheduledReminderNotificationMixed(
     ],
     schedule: NotificationCalendar(
       repeats: false,
+      day: day,
+      month: month,
+      year: year,
       weekday: notificationScheduled.dayOfTheWeek,
       hour: notificationScheduled.timeOfDay.hour,
       minute: notificationScheduled.timeOfDay.minute,
@@ -156,33 +168,6 @@ Future<void> createScheduledReminderNotificationMixed(
   );
 }
 
-Future<void> createScheduledReminderNotificationFiction(
-    NotificationWeekAndTime notificationScheduled) async {
-  await AwesomeNotifications().createNotification(
-    content: NotificationContent(
-      id: createUniqueId(),
-      channelKey: 'Vymyšlený odpad',
-      title: '${Emojis.symbols_red_exclamation_mark} Popelnice - Vymyšlený odpad ${Emojis.symbols_red_exclamation_mark}',
-      body: 'Dnes se vyváží popelnice - Vymyšlený odpad. Nezapomeňte${Emojis.symbols_red_exclamation_mark}',
-      bigPicture: 'asset://assets/images/popelnice.jpg',
-      notificationLayout: NotificationLayout.BigPicture,
-      wakeUpScreen: true,
-    ),
-    actionButtons: [
-      NotificationActionButton(key: 'MARK_DONE', label: 'Hotovo')
-    ],
-    schedule: NotificationCalendar(
-      repeats: false,
-      weekday: notificationScheduled.dayOfTheWeek,
-      hour: notificationScheduled.timeOfDay.hour,
-      minute: notificationScheduled.timeOfDay.minute,
-      second: 0,
-      millisecond: 0,
-      preciseAlarm: true,
-      allowWhileIdle: true,
-    ),
-  );
-}
 
 ///zruší všechny plánované notifikace
 Future<void> cancelScheduledNotificationsAll() async {
