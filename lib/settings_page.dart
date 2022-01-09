@@ -59,9 +59,9 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
             child: Column(
               children: [
-                ListTileOfWasteNotification('Plast', kDColorWastePlastic, null),
-                ListTileOfWasteNotification('Papír', kDColorWastePaper, null),
+                ListTileOfWasteNotification('Plast a nápojový karton\nDrobné kovy', kDColorWastePlastic, null),
                 ListTileOfWasteNotification('Bioodpad', kDColorWasteBio, null),
+                ListTileOfWasteNotification('Papír', kDColorWastePaper, null),
                 ListTileOfWasteNotification(
                     'Směsný odpad', kDColorWasteMixed, null),
               ],
@@ -132,7 +132,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               ),
                               TextButton(
                                 onPressed: () {
-                                  cancelScheduledNotifications;
+                                  cancelScheduledNotificationsAll;
                                   setState(
                                     () {
                                       activeSheduledReminder = false;
@@ -158,7 +158,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         );
                       },
                     );
-                    cancelScheduledNotifications();
+                    cancelScheduledNotificationsAll();
                   },
                   title: 'Zrušit upozornění',
                   subtitle: 'Zrušíte všechna nastavená upozornění',
