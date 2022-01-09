@@ -1,5 +1,6 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
+import 'package:svoz_odpadu/components/utilities.dart';
 import 'package:svoz_odpadu/settings_page.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:svoz_odpadu/constants/constants.dart';
@@ -69,11 +70,7 @@ class _HomePageState extends State<HomePage> {
     });
 
     AwesomeNotifications().createdStream.listen((notification) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Upozornění na každý týden bylo vytvořeno'),
-        ),
-      );
+      showSnackBar(context, 'Upozornění na každý týden bylo vytvořeno');
     });
 
 

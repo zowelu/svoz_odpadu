@@ -114,6 +114,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                       selectedTimeOfDayGlobal =
                                       const TimeOfDay(hour: 0, minute: 0);
                                       controller.dismiss();
+                                      showSnackBar(context, 'Notifikace zrušeny');
                                     },
                                   );
                                 },
