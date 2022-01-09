@@ -20,6 +20,7 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
+  bool active = false;
   @override
   void initState() {
     super.initState();
@@ -34,42 +35,51 @@ class _SettingsPageState extends State<SettingsPage> {
         preferredSize: Size.fromHeight(kDMyAppBarHeight),
         child: MyAppBar(),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Container(
-            color: kDBackgroundColorCalendar,
-            width: double.infinity,
-            height: kDMyAppBarHeight,
-            child: const Center(
-              child: TextHeader(text: 'Nastavení'),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              color: kDBackgroundColorCalendar,
+              width: double.infinity,
+              height: kDMyAppBarHeight,
+              child: const Center(
+                child: TextHeader(text: 'Nastavení'),
+              ),
             ),
-          ),
-          SizedBox(
-            height: 50,
-          ),
-          Container(
-            width: double.infinity,
-            padding: EdgeInsets.only(
-              top: kDMargin,
-              bottom: kDMargin,
+            const SizedBox(
+              height: 50,
             ),
-            decoration: BoxDecoration(
-              color: kDBackgroundColor,
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.only(
+                top: kDMargin,
+                bottom: kDMargin,
+              ),
+              decoration: const BoxDecoration(
+                color: kDBackgroundColor,
+              ),
+              child: Column(
+                children: const [
+                  ListTileOfWasteNotification(
+                    text: 'Plast a nápojový karton\nDrobné kovy',
+                    color: kDColorWastePlastic,
+                    onChanged: null,
+                  ),
+                  ListTileOfWasteNotification(
+                      text: 'Bioodpad',
+                      color: kDColorWasteBio,
+                      onChanged: null),
+                  ListTileOfWasteNotification(
+                      text: 'Papír', color: kDColorWastePaper, onChanged: null),
+                  ListTileOfWasteNotification(
+                      text: 'Směsný odpad',
+                      color: kDColorWasteMixed,
+                      onChanged: null),
+                ],
+              ),
             ),
-            child: Column(
-              children: [
-                ListTileOfWasteNotification('Plast a nápojový karton\nDrobné kovy', kDColorWastePlastic, null),
-                ListTileOfWasteNotification('Bioodpad', kDColorWasteBio, null),
-                ListTileOfWasteNotification('Papír', kDColorWastePaper, null),
-                ListTileOfWasteNotification(
-                    'Směsný odpad', kDColorWasteMixed, null),
-              ],
-            ),
-          ),
-          Flexible(
-            flex: 8,
-            child: Column(
+            Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
@@ -79,9 +89,31 @@ class _SettingsPageState extends State<SettingsPage> {
                             ? 'Máte zapnuté upozorňování.\n$selectedDayGlobal v ${selectedTimeOfDayGlobal.toString().replaceAll('TimeOfDay', '').replaceAll('(', '').replaceAll(')', '')}'
                             : 'Nemáte žádná zapnutá upozornění'),*/
                 ButtonSettings(
+                    onTap: () async {
+                      NotificationWeekAndTime? pickedShedule =
+                          await pickSchedule(context);
+
+                      if (pickedShedule != null) {
+                        createScheduledReminderNotificationFiction(pickedShedule);
+                        setState(
+                          () {
+                            activeSheduledReminder = true;
+                          },
+                        );
+                      }
+                    },
+                    title: 'Zapnout upozornění vymyšlené',
+                    subtitle: 'vymyšlené',
+                    icon: Icons.height),
+                ButtonSettings(
+                    onTap: null,
+                    title: 'Zrušit upozornění vymyšlené',
+                    subtitle: 'vymyšlené',
+                    icon: Icons.height),
+                ButtonSettings(
                   onTap: () async {
                     NotificationWeekAndTime? pickedShedule =
-                        await pickSchedule(context);
+                        await pickScheduleWeekly(context);
 
                     if (pickedShedule != null) {
                       createScheduledReminderNotification(pickedShedule);
@@ -166,10 +198,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
               ],
             ),
-          ),
-          Flexible(
-            flex: 1,
-            child: Column(
+            Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 activeSheduledReminder
@@ -217,8 +246,8 @@ class _SettingsPageState extends State<SettingsPage> {
                     : const Text(''),
               ],
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
