@@ -20,6 +20,82 @@ class NotificationWeekAndTime {
 Future<NotificationWeekAndTime?> pickSchedule(
   BuildContext context,
 ) async {
+
+  List<String> day = [
+    'Den předem',
+    'V daný den',
+  ];
+
+  TimeOfDay? timeOfDay;
+  DateTime now = DateTime.now();
+  int? selectedDay;
+
+  await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text(
+            'Kdy Vás má aplikace upozorňovat?',
+            textAlign: TextAlign.center,
+          ),
+          content: SizedBox(
+            height: MediaQuery.of(context).size.height / 100 * 50,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                for (int index = 0; index < day.length; index++)
+                  ElevatedButton(
+                    onPressed: () {
+                      selectedDay = index - 1;
+                      Navigator.pop(context);
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                        kDBackgroundColor,
+                      ),
+                    ),
+                    child: Text(day[index]),
+                  ),
+              ],
+            ),
+          ),
+        );
+      });
+
+  if (selectedDay != null) {
+    timeOfDay = await showTimePicker(
+        context: context,
+        helpText: 'Vyberte čas',
+        cancelText: 'Zrušit',
+        confirmText: 'Zapnout upozorňování',
+        initialTime: TimeOfDay.fromDateTime(
+          now.add(
+            const Duration(minutes: 1),
+          ),
+        ),
+        builder: (BuildContext context, Widget? child) {
+          return MediaQuery(
+            data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+            child: child!,
+          );
+        });
+
+    if (timeOfDay != null) {
+      //vložení vybraného dne a času do globálních proměnných
+      selectedDayGlobal = day[selectedDay!].toString();
+      selectedTimeOfDayGlobal = timeOfDay;
+      return NotificationWeekAndTime(
+          dayOfTheWeek: selectedDay!, timeOfDay: timeOfDay);
+    }
+  }
+  return null;
+}
+
+
+///Nastaví opakované upozorňování ve zvolený den a čas na týdenní bázi
+Future<NotificationWeekAndTime?> pickScheduleWeekly(
+    BuildContext context,
+    ) async {
   List<String> weekdays = [
     'Pondělí',
     'Úterý',
@@ -96,16 +172,16 @@ Future<NotificationWeekAndTime?> pickSchedule(
 
 Flash? showSnackBar(context, String text) {
   showFlash(
-    duration: Duration(milliseconds: 2500),
+    duration: const Duration(milliseconds: 2500),
     context: context,
     builder: (context, controller) {
       return Flash.bar(
         backgroundColor: kDBackgroundColor,
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(10),
           topRight: Radius.circular(10),
         ),
-        boxShadows: [
+        boxShadows: const [
           BoxShadow(
             color: Colors.black12,
             offset: Offset(-5, 0),
@@ -114,11 +190,11 @@ Flash? showSnackBar(context, String text) {
           ),
         ],
         controller: controller,
-        child: Container(
+        child: SizedBox(
             width: double.infinity,
             child: Text(
               text,
-              style: TextStyle(
+              style: const TextStyle(
                   color: Colors.white,
                   fontSize: kDFontSizeText,
                   fontFamily: kDFontFamilyParagraph),
@@ -128,3 +204,6 @@ Flash? showSnackBar(context, String text) {
     },
   );
 }
+
+
+
