@@ -5,11 +5,11 @@ Future<void> createBasicNotification() async {
   await AwesomeNotifications().createNotification(
     content: NotificationContent(
       id: createUniqueId(),
-      channelKey: 'basic_channel',
+      channelKey: 'Plast',
       title:
-          '${Emojis.symbols_red_exclamation_mark + Emojis.symbols_red_exclamation_mark + Emojis.symbols_red_exclamation_mark} ',
+          '${Emojis.symbols_red_exclamation_mark} Popelnice - plast ${Emojis.symbols_red_exclamation_mark}',
       body:
-          'Nezapomeňte vyvést popelnice ${Emojis.symbols_red_exclamation_mark + Emojis.symbols_red_exclamation_mark + Emojis.symbols_red_exclamation_mark}',
+          'Dnes se vyváží plast. Nezapomeňte${Emojis.symbols_red_exclamation_mark}',
       bigPicture: 'asset://assets/images/popelnice.jpg',
       notificationLayout: NotificationLayout.BigPicture,
     ),
@@ -21,9 +21,11 @@ Future<void> createScheduledReminderNotification(
   await AwesomeNotifications().createNotification(
     content: NotificationContent(
       id: createUniqueId(),
-      channelKey: 'scheduled_channel',
-      title: '${Emojis.symbols_red_exclamation_mark} Popelnice ${Emojis.symbols_red_exclamation_mark}',
-      body: 'Dnes se vyváží popelnice. Nezapomeňte${Emojis.symbols_red_exclamation_mark}',
+      channelKey: 'Týdenní notifikace',
+      title:
+          '${Emojis.symbols_red_exclamation_mark} Popelnice ${Emojis.symbols_red_exclamation_mark}',
+      body:
+          'Dnes se vyváží popelnice. Nezapomeňte${Emojis.symbols_red_exclamation_mark}',
       bigPicture: 'asset://assets/images/popelnice.jpg',
       notificationLayout: NotificationLayout.BigPicture,
       wakeUpScreen: true,
@@ -46,4 +48,8 @@ Future<void> createScheduledReminderNotification(
 
 Future<void> cancelScheduledNotifications() async {
   await AwesomeNotifications().cancelAllSchedules();
+}
+
+Future<void> cancelNotifications() async {
+  await AwesomeNotifications().cancelAll();
 }
