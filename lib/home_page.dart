@@ -76,6 +76,8 @@ class _HomePageState extends State<HomePage> {
       );
     });
 
+
+    ///Po kliknutí na notifikaci otevře zvolenou stránku
     AwesomeNotifications().actionStream.listen(
       (notification) {
         if (notification.channelKey == 'basic_channel' && Platform.isIOS) {
@@ -88,7 +90,7 @@ class _HomePageState extends State<HomePage> {
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (_) => const SettingsPage(),
+              builder: (_) => const HomePage(),
             ),
             (route) => route.isFirst);
       },
