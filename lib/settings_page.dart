@@ -102,10 +102,12 @@ class _SettingsPageState extends State<SettingsPage> {
 
                               createScheduledReminderNotificationPlastic(
                                   pickedShedule,
-                                  dayOfSelectedEvents,
+                                  dayOfSelectedEvents -
+                                      pickedShedule.dayOfTheWeek,
                                   monthOfSelectedEvents,
                                   yearOfSelectedEvents);
-                              print('Notifikace Plast v den $dayOfSelectedEvents v měsíc $monthOfSelectedEvents v roce $yearOfSelectedEvents a index $i');
+                              print(
+                                  'Notifikace Plast v den $dayOfSelectedEvents v měsíc $monthOfSelectedEvents v roce $yearOfSelectedEvents a index $i a ');
                             }
 
                             setState(
@@ -160,8 +162,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                                 const TimeOfDay(
                                                     hour: 0, minute: 0);
                                             controller.dismiss();
-                                            showSnackBar(context,
-                                                'Notifikace zrušeny');
+                                            showSnackBar(
+                                                context, 'Notifikace zrušeny');
                                             isSwitchedPlastic = value;
                                           },
                                         );
@@ -202,10 +204,12 @@ class _SettingsPageState extends State<SettingsPage> {
 
                               createScheduledReminderNotificationBio(
                                   pickedShedule,
-                                  dayOfSelectedEvents,
+                                  dayOfSelectedEvents -
+                                      pickedShedule.dayOfTheWeek,
                                   monthOfSelectedEvents,
                                   yearOfSelectedEvents);
-                              print('Notifikace Bioodpad v den $dayOfSelectedEvents v měsíc $monthOfSelectedEvents v roce $yearOfSelectedEvents a index $i');
+                              print(
+                                  'Notifikace Bioodpad v den $dayOfSelectedEvents v měsíc $monthOfSelectedEvents v roce $yearOfSelectedEvents a index $i a ');
                             }
 
                             setState(
@@ -261,8 +265,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                                 const TimeOfDay(
                                                     hour: 0, minute: 0);
                                             controller.dismiss();
-                                            showSnackBar(context,
-                                                'Notifikace zrušeny');
+                                            showSnackBar(
+                                                context, 'Notifikace zrušeny');
                                             isSwitchedBio = value;
                                           },
                                         );
@@ -303,10 +307,12 @@ class _SettingsPageState extends State<SettingsPage> {
 
                               createScheduledReminderNotificationPaper(
                                   pickedShedule,
-                                  dayOfSelectedEvents,
+                                  dayOfSelectedEvents -
+                                      pickedShedule.dayOfTheWeek,
                                   monthOfSelectedEvents,
                                   yearOfSelectedEvents);
-                              print('Notifikace Papír v den $dayOfSelectedEvents v měsíc $monthOfSelectedEvents v roce $yearOfSelectedEvents a index $i');
+                              print(
+                                  'Notifikace Papír v den $dayOfSelectedEvents v měsíc $monthOfSelectedEvents v roce $yearOfSelectedEvents a index $i a ');
                             }
 
                             setState(
@@ -361,8 +367,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                                 const TimeOfDay(
                                                     hour: 0, minute: 0);
                                             controller.dismiss();
-                                            showSnackBar(context,
-                                                'Notifikace zrušeny');
+                                            showSnackBar(
+                                                context, 'Notifikace zrušeny');
                                             isSwitchedPaper = value;
                                           },
                                         );
@@ -403,10 +409,12 @@ class _SettingsPageState extends State<SettingsPage> {
 
                               createScheduledReminderNotificationMixed(
                                   pickedShedule,
-                                  dayOfSelectedEvents,
+                                  dayOfSelectedEvents -
+                                      pickedShedule.dayOfTheWeek,
                                   monthOfSelectedEvents,
                                   yearOfSelectedEvents);
-                              print('Notifikace Mixed v den $dayOfSelectedEvents v měsíc $monthOfSelectedEvents v roce $yearOfSelectedEvents a index $i');
+                              print(
+                                  'Notifikace Mixed v den $dayOfSelectedEvents v měsíc $monthOfSelectedEvents v roce $yearOfSelectedEvents a index $i a ');
                             }
 
                             setState(
@@ -462,8 +470,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                                 const TimeOfDay(
                                                     hour: 0, minute: 0);
                                             controller.dismiss();
-                                            showSnackBar(context,
-                                                'Notifikace zrušeny');
+                                            showSnackBar(
+                                                context, 'Notifikace zrušeny');
                                             isSwitchedMixed = value;
                                           },
                                         );
@@ -498,7 +506,8 @@ class _SettingsPageState extends State<SettingsPage> {
 
                   if (pickedShedule != null) {
                     createScheduledReminderNotification(pickedShedule);
-                    showSnackBar(context, 'Notifikace nastaveny na každý týden');
+                    showSnackBar(
+                        context, 'Notifikace nastaveny na každý týden');
                   }
                   setState(() {
                     activeSheduledReminder = true;
