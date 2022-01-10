@@ -1,3 +1,4 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:svoz_odpadu/components/list_tile_of_waste_notification.dart';
 import 'package:svoz_odpadu/components/notifications.dart';
@@ -94,7 +95,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                 i <= plasticWasteEvents.length - 1;
                                 i++) {
                               int dayOfSelectedEvents =
-                                  plasticWasteEvents.keys.elementAt(i).day;
+                                  plasticWasteEvents.keys.elementAt(i).day -
+                                      pickedShedule.dayOfTheWeek;
                               int monthOfSelectedEvents =
                                   plasticWasteEvents.keys.elementAt(i).month;
                               int yearOfSelectedEvents =
@@ -196,7 +198,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                 i <= bioWasteEvents.length - 1;
                                 i++) {
                               int dayOfSelectedEvents =
-                                  bioWasteEvents.keys.elementAt(i).day;
+                                  bioWasteEvents.keys.elementAt(i).day -
+                                      pickedShedule.dayOfTheWeek;
                               int monthOfSelectedEvents =
                                   bioWasteEvents.keys.elementAt(i).month;
                               int yearOfSelectedEvents =
@@ -204,8 +207,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
                               createScheduledReminderNotificationBio(
                                   pickedShedule,
-                                  dayOfSelectedEvents -
-                                      pickedShedule.dayOfTheWeek,
+                                  dayOfSelectedEvents,
                                   monthOfSelectedEvents,
                                   yearOfSelectedEvents);
                               print(
@@ -299,7 +301,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                 i <= paperWasteEvents.length - 1;
                                 i++) {
                               int dayOfSelectedEvents =
-                                  paperWasteEvents.keys.elementAt(i).day;
+                                  paperWasteEvents.keys.elementAt(i).day -
+                                      pickedShedule.dayOfTheWeek;
                               int monthOfSelectedEvents =
                                   paperWasteEvents.keys.elementAt(i).month;
                               int yearOfSelectedEvents =
@@ -307,8 +310,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
                               createScheduledReminderNotificationPaper(
                                   pickedShedule,
-                                  dayOfSelectedEvents -
-                                      pickedShedule.dayOfTheWeek,
+                                  dayOfSelectedEvents,
                                   monthOfSelectedEvents,
                                   yearOfSelectedEvents);
                               print(
@@ -401,7 +403,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                 i <= mixedWasteEvents.length - 1;
                                 i++) {
                               int dayOfSelectedEvents =
-                                  mixedWasteEvents.keys.elementAt(i).day;
+                                  mixedWasteEvents.keys.elementAt(i).day -
+                                      pickedShedule.dayOfTheWeek;
                               int monthOfSelectedEvents =
                                   mixedWasteEvents.keys.elementAt(i).month;
                               int yearOfSelectedEvents =
@@ -409,8 +412,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
                               createScheduledReminderNotificationMixed(
                                   pickedShedule,
-                                  dayOfSelectedEvents -
-                                      pickedShedule.dayOfTheWeek,
+                                  dayOfSelectedEvents,
                                   monthOfSelectedEvents,
                                   yearOfSelectedEvents);
                               print(
