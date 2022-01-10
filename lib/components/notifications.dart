@@ -1,5 +1,4 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:svoz_odpadu/components/global_var.dart';
 import 'package:svoz_odpadu/components/utilities.dart';
 
 Future<void> createBasicNotification() async {
