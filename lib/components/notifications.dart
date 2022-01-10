@@ -1,4 +1,5 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:svoz_odpadu/components/global_var.dart';
 import 'package:svoz_odpadu/components/utilities.dart';
 
 Future<void> createBasicNotification() async {
@@ -45,7 +46,7 @@ Future<void> createScheduledReminderNotification(
 }
 
 Future<void> createScheduledReminderNotificationPlastic(
-    NotificationWeekAndTime notificationScheduled, day, month, year) async {
+    NotificationWeekAndTime notificationScheduled,int day,int month,int year) async {
   await AwesomeNotifications().createNotification(
     content: NotificationContent(
       id: createUniqueId(),
@@ -75,7 +76,7 @@ Future<void> createScheduledReminderNotificationPlastic(
 }
 
 Future<void> createScheduledReminderNotificationBio(
-    NotificationWeekAndTime notificationScheduled, day, month, year) async {
+    NotificationWeekAndTime notificationScheduled,int day,int month,int year) async {
   await AwesomeNotifications().createNotification(
     content: NotificationContent(
       id: createUniqueId(),
@@ -106,7 +107,7 @@ Future<void> createScheduledReminderNotificationBio(
 }
 
 Future<void> createScheduledReminderNotificationPaper(
-    NotificationWeekAndTime notificationScheduled, day, month, year) async {
+    NotificationWeekAndTime notificationScheduled,int day,int month,int year) async {
   await AwesomeNotifications().createNotification(
     content: NotificationContent(
       id: createUniqueId(),
@@ -136,7 +137,7 @@ Future<void> createScheduledReminderNotificationPaper(
 }
 
 Future<void> createScheduledReminderNotificationMixed(
-    NotificationWeekAndTime notificationScheduled, day, month, year) async {
+    NotificationWeekAndTime notificationScheduled, int day, int month,int year) async {
   await AwesomeNotifications().createNotification(
     content: NotificationContent(
       id: createUniqueId(),
