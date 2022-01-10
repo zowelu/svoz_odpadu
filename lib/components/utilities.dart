@@ -1,5 +1,7 @@
 import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
+import 'package:svoz_odpadu/components/text_header.dart';
+import 'package:svoz_odpadu/components/text_normal.dart';
 import 'package:svoz_odpadu/constants/constants.dart';
 import 'package:svoz_odpadu/components/global_var.dart';
 
@@ -31,7 +33,7 @@ Future<NotificationWeekAndTime?> pickSchedule(
   DateTime now = DateTime.now();
   int selectedDay = 0;
 
-  await showDialog(
+  /*await showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
@@ -61,7 +63,46 @@ Future<NotificationWeekAndTime?> pickSchedule(
             ),
           ),
         );
-      });
+      });*/
+
+  await showFlash(
+    context: context,
+    builder: (context, controller) {
+      return Flash.dialog(
+        controller: controller,
+        borderRadius: const BorderRadius.all(
+          Radius.circular(8),
+        ),
+        child: FlashBar(
+          content: const Center(
+            child: TextNormal(
+                text:
+                'Kdy Vás má aplikace upozorňovat?'),
+          ),
+          title: const Center(
+            child: TextHeader(
+              text: 'Den upozornění',
+            ),
+          ),
+          actions: [
+            for (int index = 0; index < day.length; index++)
+              ElevatedButton(
+                onPressed: () {
+                  selectedDay = index;
+                  controller.dismiss();
+                },
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(
+                    kDBackgroundColor,
+                  ),
+                ),
+                child: Text(day[index]),
+              ),
+          ],
+        ),
+      );
+    },
+  );
 
   if (selectedDay != null) {
     timeOfDay = await showTimePicker(
