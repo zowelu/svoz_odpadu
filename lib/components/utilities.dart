@@ -22,13 +22,14 @@ Future<NotificationWeekAndTime?> pickSchedule(
 ) async {
 
   List<String> day = [
-    'Den předem',
     'V daný den',
+    'Den předem',
+
   ];
 
   TimeOfDay? timeOfDay;
   DateTime now = DateTime.now();
-  int? selectedDay;
+  int selectedDay = 0;
 
   await showDialog(
       context: context,
@@ -46,7 +47,7 @@ Future<NotificationWeekAndTime?> pickSchedule(
                 for (int index = 0; index < day.length; index++)
                   ElevatedButton(
                     onPressed: () {
-                      selectedDay = index - 1;
+                      selectedDay = index;
                       Navigator.pop(context);
                     },
                     style: ButtonStyle(
@@ -82,10 +83,10 @@ Future<NotificationWeekAndTime?> pickSchedule(
 
     if (timeOfDay != null) {
       //vložení vybraného dne a času do globálních proměnných
-      selectedDayGlobal = day[selectedDay!].toString();
+      selectedDayGlobal = day[selectedDay].toString();
       selectedTimeOfDayGlobal = timeOfDay;
       return NotificationWeekAndTime(
-          dayOfTheWeek: selectedDay!, timeOfDay: timeOfDay);
+          dayOfTheWeek: selectedDay, timeOfDay: timeOfDay);
     }
   }
   return null;
