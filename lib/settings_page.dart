@@ -1,4 +1,3 @@
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:svoz_odpadu/components/list_tile_of_waste_notification.dart';
 import 'package:svoz_odpadu/components/notifications.dart';
@@ -91,35 +90,18 @@ class _SettingsPageState extends State<SettingsPage> {
                           NotificationWeekAndTime? pickedShedule =
                               await pickSchedule(context);
                           if (pickedShedule != null) {
-                            for (int i = 0;
-                                i <= plasticWasteEvents.length - 1;
-                                i++) {
-                              int dayOfSelectedEvents =
-                                  plasticWasteEvents.keys.elementAt(i).day -
-                                      pickedShedule.dayOfTheWeek;
-                              int monthOfSelectedEvents =
-                                  plasticWasteEvents.keys.elementAt(i).month;
-                              int yearOfSelectedEvents =
-                                  plasticWasteEvents.keys.elementAt(i).year;
-
-                              createScheduledReminderNotificationPlastic(
-                                  pickedShedule,
-                                  dayOfSelectedEvents -
-                                      pickedShedule.dayOfTheWeek,
-                                  monthOfSelectedEvents,
-                                  yearOfSelectedEvents);
-                              print(
-                                  'Notifikace Plast v den $dayOfSelectedEvents v měsíc $monthOfSelectedEvents v roce $yearOfSelectedEvents a index $i a ');
-                            }
-
+                            createNotificationReminder(
+                                pickedShedule,
+                                plasticWasteEvents,
+                                createScheduledReminderNotificationPlastic);
+                            showSnackBar(context,
+                                'Notifikace pro Plast a nápojový karton + Drobné kovy byly vytvořeny');
                             setState(
                               () {
                                 isSwitchedPlastic = value;
                               },
                             );
                           }
-                          showSnackBar(context,
-                              'Notifikace pro Plast a nápojový karton + Drobné kovy byly vytvořeny');
                         }
                       : (value) async {
                           showFlash(
@@ -194,34 +176,19 @@ class _SettingsPageState extends State<SettingsPage> {
                           NotificationWeekAndTime? pickedShedule =
                               await pickSchedule(context);
                           if (pickedShedule != null) {
-                            for (int i = 0;
-                                i <= bioWasteEvents.length - 1;
-                                i++) {
-                              int dayOfSelectedEvents =
-                                  bioWasteEvents.keys.elementAt(i).day -
-                                      pickedShedule.dayOfTheWeek;
-                              int monthOfSelectedEvents =
-                                  bioWasteEvents.keys.elementAt(i).month;
-                              int yearOfSelectedEvents =
-                                  bioWasteEvents.keys.elementAt(i).year;
 
-                              createScheduledReminderNotificationBio(
-                                  pickedShedule,
-                                  dayOfSelectedEvents,
-                                  monthOfSelectedEvents,
-                                  yearOfSelectedEvents);
-                              print(
-                                  'Notifikace Bioodpad v den $dayOfSelectedEvents v měsíc $monthOfSelectedEvents v roce $yearOfSelectedEvents a index $i a ');
-                            }
-
+                            createNotificationReminder(
+                                pickedShedule,
+                                bioWasteEvents,
+                                createScheduledReminderNotificationBio);
+                            showSnackBar(context,
+                                'Notifikace pro Bioodpad byly vytvořeny');
                             setState(
-                              () {
+                                  () {
                                 isSwitchedBio = value;
                               },
                             );
                           }
-                          showSnackBar(context,
-                              'Notifikace pro Bioodpad byly vytvořeny');
                         }
                       : (value) async {
                           showFlash(
@@ -297,34 +264,20 @@ class _SettingsPageState extends State<SettingsPage> {
                           NotificationWeekAndTime? pickedShedule =
                               await pickSchedule(context);
                           if (pickedShedule != null) {
-                            for (int i = 0;
-                                i <= paperWasteEvents.length - 1;
-                                i++) {
-                              int dayOfSelectedEvents =
-                                  paperWasteEvents.keys.elementAt(i).day -
-                                      pickedShedule.dayOfTheWeek;
-                              int monthOfSelectedEvents =
-                                  paperWasteEvents.keys.elementAt(i).month;
-                              int yearOfSelectedEvents =
-                                  paperWasteEvents.keys.elementAt(i).year;
 
-                              createScheduledReminderNotificationPaper(
-                                  pickedShedule,
-                                  dayOfSelectedEvents,
-                                  monthOfSelectedEvents,
-                                  yearOfSelectedEvents);
-                              print(
-                                  'Notifikace Papír v den $dayOfSelectedEvents v měsíc $monthOfSelectedEvents v roce $yearOfSelectedEvents a index $i a ');
-                            }
-
+                            createNotificationReminder(
+                                pickedShedule,
+                                paperWasteEvents,
+                                createScheduledReminderNotificationPaper);
+                            showSnackBar(
+                                context, 'Notifikace pro Papír byly vytvořeny');
                             setState(
-                              () {
-                                isSwitchedPaper = value;
+                                  () {
+                                isSwitchedPaper= value;
                               },
                             );
                           }
-                          showSnackBar(
-                              context, 'Notifikace pro Papír byly vytvořeny');
+
                         }
                       : (value) async {
                           showFlash(
@@ -399,29 +352,15 @@ class _SettingsPageState extends State<SettingsPage> {
                           NotificationWeekAndTime? pickedShedule =
                               await pickSchedule(context);
                           if (pickedShedule != null) {
-                            for (int i = 0;
-                                i <= mixedWasteEvents.length - 1;
-                                i++) {
-                              int dayOfSelectedEvents =
-                                  mixedWasteEvents.keys.elementAt(i).day -
-                                      pickedShedule.dayOfTheWeek;
-                              int monthOfSelectedEvents =
-                                  mixedWasteEvents.keys.elementAt(i).month;
-                              int yearOfSelectedEvents =
-                                  mixedWasteEvents.keys.elementAt(i).year;
-
-                              createScheduledReminderNotificationMixed(
-                                  pickedShedule,
-                                  dayOfSelectedEvents,
-                                  monthOfSelectedEvents,
-                                  yearOfSelectedEvents);
-                              print(
-                                  'Notifikace Mixed v den $dayOfSelectedEvents v měsíc $monthOfSelectedEvents v roce $yearOfSelectedEvents a index $i a ');
-                            }
-
+                            createNotificationReminder(
+                                pickedShedule,
+                                mixedWasteEvents,
+                                createScheduledReminderNotificationMixed);
+                            showSnackBar(
+                                context, 'Notifikace pro Papír byly vytvořeny');
                             setState(
-                              () {
-                                isSwitchedMixed = value;
+                                  () {
+                                isSwitchedMixed= value;
                               },
                             );
                           }
