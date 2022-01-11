@@ -1,5 +1,7 @@
+
 import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
+import 'package:svoz_odpadu/components/notifications.dart';
 import 'package:svoz_odpadu/components/text_header.dart';
 import 'package:svoz_odpadu/components/text_normal.dart';
 import 'package:svoz_odpadu/constants/constants.dart';
@@ -22,11 +24,9 @@ class NotificationWeekAndTime {
 Future<NotificationWeekAndTime?> pickSchedule(
   BuildContext context,
 ) async {
-
   List<String> day = [
     'V daný den',
     'Den předem',
-
   ];
 
   TimeOfDay? timeOfDay;
@@ -75,9 +75,7 @@ Future<NotificationWeekAndTime?> pickSchedule(
         ),
         child: FlashBar(
           content: const Center(
-            child: TextNormal(
-                text:
-                'Kdy Vás má aplikace upozorňovat?'),
+            child: TextNormal(text: 'Kdy Vás má aplikace upozorňovat?'),
           ),
           title: const Center(
             child: TextHeader(
@@ -133,11 +131,10 @@ Future<NotificationWeekAndTime?> pickSchedule(
   return null;
 }
 
-
 ///Nastaví opakované upozorňování ve zvolený den a čas na týdenní bázi
 Future<NotificationWeekAndTime?> pickScheduleWeekly(
-    BuildContext context,
-    ) async {
+  BuildContext context,
+) async {
   List<String> weekdays = [
     'Pondělí',
     'Úterý',
@@ -247,5 +244,16 @@ Flash? showSnackBar(context, String text) {
   );
 }
 
+///pomocí cyklu vytvoří notifikace dle Events daného odpadu
+void createNotificationReminder(
+    NotificationWeekAndTime pickedShedule, Map mapOfEventsOfWaste, void createSchedule) {
+  for (int i = 0; i <= mapOfEventsOfWaste.length - 1; i++) {
+    int dayOfSelectedEvents =
+        mapOfEventsOfWaste.keys.elementAt(i).day - pickedShedule.dayOfTheWeek;
+    int monthOfSelectedEvents = mapOfEventsOfWaste.keys.elementAt(i).month;
+    int yearOfSelectedEvents = mapOfEventsOfWaste.keys.elementAt(i).year;
 
-
+    createScheduledReminderNotificationPlastic(pickedShedule,
+        dayOfSelectedEvents, monthOfSelectedEvents, yearOfSelectedEvents);
+  }
+}
