@@ -1,4 +1,3 @@
-
 import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
 import 'package:svoz_odpadu/components/notifications.dart';
@@ -245,8 +244,8 @@ Flash? showSnackBar(context, String text) {
 }
 
 ///pomocí cyklu vytvoří notifikace dle Events daného odpadu
-void createNotificationReminder(
-    NotificationWeekAndTime pickedShedule, Map mapOfEventsOfWaste, void createSchedule) {
+void createNotificationReminder(NotificationWeekAndTime pickedShedule,
+    Map mapOfEventsOfWaste, void createSchedule) {
   for (int i = 0; i <= mapOfEventsOfWaste.length - 1; i++) {
     int dayOfSelectedEvents =
         mapOfEventsOfWaste.keys.elementAt(i).day - pickedShedule.dayOfTheWeek;
