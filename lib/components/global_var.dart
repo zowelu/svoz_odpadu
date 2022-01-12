@@ -7,9 +7,13 @@ String currentPage = '';
 
 TimeOfDay? plasticReminderTime;
 int? plasticReminderday;
+String? plasticSelectedDay;
 TimeOfDay? bioReminderTime;
 int? bioReminderday;
+String? bioSelectedDay;
 TimeOfDay? paperReminderTime;
 int? paperReminderday;
+String? paperSelectedDay;
 TimeOfDay? mixedReminderTime;
 int? mixedReminderday;
+String? mixedSelectedDay;
