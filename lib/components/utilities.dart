@@ -269,5 +269,18 @@ void createNotificationReminder(
       yearOfSelectedEvents,
     );
   }
+  if (channelKey == 'Plast') {
+    plasticReminderTime = pickedShedule.timeOfDay;
+    plasticReminderday = pickedShedule.dayOfTheWeek;
+  } else if (channelKey == 'Bioodpad') {
+    bioReminderTime = pickedShedule.timeOfDay;
+    bioReminderday = pickedShedule.dayOfTheWeek;
+  } else if (channelKey == 'Papír') {
+    paperReminderTime = pickedShedule.timeOfDay;
+    paperReminderday = pickedShedule.dayOfTheWeek;
+  } else if (channelKey == 'Směsný odpad') {
+    mixedReminderTime = pickedShedule.timeOfDay;
+    mixedReminderday = pickedShedule.dayOfTheWeek;
+  }
   print('$mapOfEventsOfWaste, $channelKey, created');
 }
