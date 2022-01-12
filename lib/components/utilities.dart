@@ -13,10 +13,12 @@ int createUniqueId() {
 class NotificationWeekAndTime {
   final int dayOfTheWeek;
   final TimeOfDay timeOfDay;
+  final String selectedDay;
 
   NotificationWeekAndTime({
     required this.dayOfTheWeek,
     required this.timeOfDay,
+    required this.selectedDay
   });
 }
 
@@ -74,11 +76,15 @@ Future<NotificationWeekAndTime?> pickSchedule(
         ),
         child: FlashBar(
           content: const Center(
-            child: TextNormal(text: 'Kdy Vás má aplikace upozorňovat?'),
+            child: TextNormal(
+              text: 'Kdy Vás má aplikace upozorňovat?',
+              color: kDBackgroundColor,
+            ),
           ),
           title: const Center(
             child: TextHeader(
               text: 'Den upozornění',
+              color: kDBackgroundColor,
             ),
           ),
           actions: [
@@ -124,7 +130,7 @@ Future<NotificationWeekAndTime?> pickSchedule(
       selectedDayGlobal = day[selectedDay].toString();
       selectedTimeOfDayGlobal = timeOfDay;
       return NotificationWeekAndTime(
-          dayOfTheWeek: selectedDay, timeOfDay: timeOfDay);
+          dayOfTheWeek: selectedDay, timeOfDay: timeOfDay, selectedDay: day[selectedDay].toString());
     }
   }
   return null;
@@ -202,7 +208,7 @@ Future<NotificationWeekAndTime?> pickScheduleWeekly(
       selectedDayGlobal = weekdays[selectedDay! - 1].toString();
       selectedTimeOfDayGlobal = timeOfDay;
       return NotificationWeekAndTime(
-          dayOfTheWeek: selectedDay!, timeOfDay: timeOfDay);
+          dayOfTheWeek: selectedDay!, timeOfDay: timeOfDay, selectedDay: weekdays[selectedDay! - 1].toString());
     }
   }
   return null;
@@ -272,15 +278,19 @@ void createNotificationReminder(
   if (channelKey == 'Plast') {
     plasticReminderTime = pickedShedule.timeOfDay;
     plasticReminderday = pickedShedule.dayOfTheWeek;
+    plasticSelectedDay = pickedShedule.selectedDay;
   } else if (channelKey == 'Bioodpad') {
     bioReminderTime = pickedShedule.timeOfDay;
     bioReminderday = pickedShedule.dayOfTheWeek;
+    bioSelectedDay = pickedShedule.selectedDay;
   } else if (channelKey == 'Papír') {
     paperReminderTime = pickedShedule.timeOfDay;
     paperReminderday = pickedShedule.dayOfTheWeek;
+    paperSelectedDay = pickedShedule.selectedDay;
   } else if (channelKey == 'Směsný odpad') {
     mixedReminderTime = pickedShedule.timeOfDay;
     mixedReminderday = pickedShedule.dayOfTheWeek;
+    mixedSelectedDay = pickedShedule.selectedDay;
   }
   print('$mapOfEventsOfWaste, $channelKey, created');
 }
