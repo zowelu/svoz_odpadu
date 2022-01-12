@@ -69,9 +69,9 @@ class _HomePageState extends State<HomePage> {
       }
     });
 
-    AwesomeNotifications().createdStream.listen((notification) {
+    /*AwesomeNotifications().createdStream.listen((notification) {
       showSnackBar(context, 'Upozornění na každý týden bylo vytvořeno');
-    });
+    });*/
 
 
     ///Po kliknutí na notifikaci otevře zvolenou stránku
@@ -87,7 +87,7 @@ class _HomePageState extends State<HomePage> {
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (_) => const SettingsPage(),
+              builder: (_) => const HomePage(),
             ),
             (route) => route.isFirst);
       },
