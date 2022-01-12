@@ -244,15 +244,30 @@ Flash? showSnackBar(context, String text) {
 }
 
 ///pomocí cyklu vytvoří notifikace dle Events daného odpadu
-void createNotificationReminder(NotificationWeekAndTime pickedShedule,
-    Map mapOfEventsOfWaste, void createSchedule) {
+void createNotificationReminder(
+  NotificationWeekAndTime pickedShedule,
+  Map mapOfEventsOfWaste,
+  String channelKey,
+  String title,
+  String body,
+  String bigPicture,
+) {
   for (int i = 0; i <= mapOfEventsOfWaste.length - 1; i++) {
     int dayOfSelectedEvents =
         mapOfEventsOfWaste.keys.elementAt(i).day - pickedShedule.dayOfTheWeek;
     int monthOfSelectedEvents = mapOfEventsOfWaste.keys.elementAt(i).month;
     int yearOfSelectedEvents = mapOfEventsOfWaste.keys.elementAt(i).year;
 
-    createScheduledReminderNotificationPlastic(pickedShedule,
-        dayOfSelectedEvents, monthOfSelectedEvents, yearOfSelectedEvents);
+    createScheduledReminderNotification(
+      pickedShedule,
+      channelKey,
+      title,
+      body,
+      bigPicture,
+      dayOfSelectedEvents,
+      monthOfSelectedEvents,
+      yearOfSelectedEvents,
+    );
   }
+  print('$mapOfEventsOfWaste, $channelKey, created');
 }
