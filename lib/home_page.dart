@@ -1,7 +1,5 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
-import 'package:svoz_odpadu/components/utilities.dart';
-import 'package:svoz_odpadu/settings_page.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:svoz_odpadu/constants/constants.dart';
 import 'package:svoz_odpadu/components/my_appbar.dart';
@@ -72,7 +70,6 @@ class _HomePageState extends State<HomePage> {
     /*AwesomeNotifications().createdStream.listen((notification) {
       showSnackBar(context, 'Upozornění na každý týden bylo vytvořeno');
     });*/
-
 
     ///Po kliknutí na notifikaci otevře zvolenou stránku
     AwesomeNotifications().actionStream.listen(
@@ -154,10 +151,10 @@ class _HomePageState extends State<HomePage> {
                     borderRadius: kDRadius,
                   ),
                   defaultTextStyle: TextStyle(
-                    fontSize: kDFontSizeText,
-                    fontFamily: kDFontFamilyParagraph,
-                    color: Colors.black,fontWeight: FontWeight.bold
-                  ),
+                      fontSize: kDFontSizeText,
+                      fontFamily: kDFontFamilyParagraph,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold),
                   todayTextStyle: TextStyle(
                       fontSize: kDFontSizeText,
                       fontFamily: kDFontFamilyParagraph,
