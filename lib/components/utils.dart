@@ -135,7 +135,7 @@ Map<DateTime, List<Event>> _paperWasteEvents = {
 /// Returns `false` if either of them is null.
 bool isSameDay(DateTime? a, DateTime? b) {
   if (a == null || b == null) {
-    return false;
+    return true;
   }
 
   return a.year == b.year && a.month == b.month && a.day == b.day;
