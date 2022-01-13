@@ -132,7 +132,7 @@ class _HomePageState extends State<HomePage> {
                   color: kDBackgroundColorCalendar,
                   borderRadius: kDRadiusLarge),
               child: TableCalendar(
-                eventLoader: _getEventsForDay,
+                eventLoader: (day){return _getEventsForDay(day);},
                 calendarFormat: CalendarFormat.month,
                 startingDayOfWeek: StartingDayOfWeek.monday,
                 focusedDay: dateTimeNow,
