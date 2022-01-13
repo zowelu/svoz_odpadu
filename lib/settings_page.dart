@@ -178,10 +178,10 @@ class _SettingsPageState extends State<SettingsPage> {
                       ),
                     ),
                     IconReminderOnOff(isSwitchedPlastic: isSwitchedPlastic),
-                    ReminderTimeAndDate(
+                    /*ReminderTimeAndDate(
                         switcher: isSwitchedPlastic,
                         wasteReminderTime: plasticReminderTime,
-                        wasteReminderDay: plasticSelectedDay),
+                        wasteReminderDay: plasticSelectedDay),*/
                   ],
                 ),
                 ListTileOfWasteNotification(
