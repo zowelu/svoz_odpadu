@@ -13,16 +13,16 @@ class ReminderTimeAndDate extends StatelessWidget {
   Widget build(BuildContext context) {
     return Flexible(
       flex: 2,
-      fit: FlexFit.loose,
+      fit: FlexFit.tight,
       child: Column(
         children: [
           Text(
-            wasteReminderDay!,
+            switcher ? wasteReminderDay! : '',
             style: const TextStyle(color: Colors.white),
             textAlign: TextAlign.center,
           ),
           Center(
-            child: TextNormal(
+            child: TextNormal(fontSize: 10,
               text: switcher
                   ? '${wasteReminderTime?.hour.toString()} : ${wasteReminderTime?.minute.toString()}'
                   : 'Nenastaveno',
