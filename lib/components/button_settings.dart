@@ -9,7 +9,7 @@ class ButtonSettings extends StatelessWidget {
       required this.onTap,
       required this.title,
       required this.subtitle,
-      required this.icon})
+      required this.icon, this.color = kDBackgroundColor})
       : super(key: key);
 
   // ignore: prefer_typing_uninitialized_variables
@@ -17,6 +17,7 @@ class ButtonSettings extends StatelessWidget {
   final String title;
   final String subtitle;
   final IconData icon;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +26,11 @@ class ButtonSettings extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         child: Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             shape: BoxShape.rectangle,
             borderRadius: kDRadiusLarge,
-            color: Colors.redAccent,
-            boxShadow: [
+            color: color,
+            boxShadow: const [
               BoxShadow(
                 color: kDBoxShadowColor,
                 spreadRadius: 1,
