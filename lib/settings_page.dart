@@ -2,6 +2,8 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:svoz_odpadu/components/list_tile_of_waste_notification.dart';
 import 'package:svoz_odpadu/components/notifications.dart';
+import 'package:svoz_odpadu/components/reminder_icon_on_off.dart';
+import 'package:svoz_odpadu/components/reminder_time_and_date.dart';
 import 'package:svoz_odpadu/components/text_header.dart';
 import 'package:svoz_odpadu/components/text_normal.dart';
 import 'package:svoz_odpadu/constants/constants.dart';
@@ -12,8 +14,6 @@ import 'package:svoz_odpadu/components/button_settings.dart';
 import 'package:svoz_odpadu/components/global_var.dart';
 import 'package:flash/flash.dart';
 import 'package:svoz_odpadu/components/utils.dart';
-import 'package:svoz_odpadu/components/reminder_icon_on_off.dart';
-import 'package:svoz_odpadu/components/reminder_time_and_date.dart';
 
 class SettingsPage extends StatefulWidget {
   static const id = '/settingsPage';
@@ -52,12 +52,12 @@ class _SettingsPageState extends State<SettingsPage> {
             width: double.infinity,
             height: kDMyAppBarHeight,
             child: const Center(
-              child: TextHeader(text: 'Nastavení'),
+              child: TextHeader(text: 'Nastavení', color: kDBackgroundColor,),
             ),
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
               left: kDMargin,
               right: kDMargin,
             ),
@@ -83,7 +83,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 Row(
                   children: [
                     Flexible(
-                      flex: 5,
+                      flex: 7,
                       fit: FlexFit.tight,
                       child: ListTileOfWasteNotification(
                         text: 'Plast a nápojový karton\nDrobné kovy',
@@ -177,286 +177,329 @@ class _SettingsPageState extends State<SettingsPage> {
                               },
                       ),
                     ),
-                    IconReminderOnOff(isSwitchedPlastic: isSwitchedPlastic),
-                    /*ReminderTimeAndDate(
+                    IconReminderOnOff(isSwitched: isSwitchedPlastic),
+                    ReminderTimeAndDate(
                         switcher: isSwitchedPlastic,
                         wasteReminderTime: plasticReminderTime,
-                        wasteReminderDay: plasticSelectedDay),*/
+                        wasteReminderDay: plasticSelectedDay),
                   ],
                 ),
-                ListTileOfWasteNotification(
-                  text: 'Bioodpad',
-                  color: kDColorWasteBio,
-                  valueOfSwitch: isSwitchedBio,
-                  onChanged: !isSwitchedBio
-                      ? (value) async {
-                          NotificationWeekAndTime? pickedShedule =
-                              await pickSchedule(context);
-                          if (pickedShedule != null) {
-                            createNotificationReminder(
-                                pickedShedule,
-                                bioWasteEvents,
-                                'Bioodpad',
-                                '${Emojis.symbols_red_exclamation_mark} Popelnice - Bioodpad${Emojis.symbols_red_exclamation_mark}',
-                                'Dnes se vyváží popelnice - Bioodpad. Nezapomeňte${Emojis.symbols_red_exclamation_mark}',
-                                'asset://assets/images/popelnice.jpg');
-                            showSnackBar(context,
-                                'Notifikace pro Bioodpad byly vytvořeny');
-                            setState(
-                              () {
-                                isSwitchedBio = value;
+                Row(
+                  children: [
+                    Flexible(
+                      fit: FlexFit.tight,
+                      flex: 7,
+                      child: ListTileOfWasteNotification(
+                        text: 'Bioodpad',
+                        color: kDColorWasteBio,
+                        valueOfSwitch: isSwitchedBio,
+                        onChanged: !isSwitchedBio
+                            ? (value) async {
+                                NotificationWeekAndTime? pickedShedule =
+                                    await pickSchedule(context);
+                                if (pickedShedule != null) {
+                                  createNotificationReminder(
+                                      pickedShedule,
+                                      bioWasteEvents,
+                                      'Bioodpad',
+                                      '${Emojis.symbols_red_exclamation_mark} Popelnice - Bioodpad${Emojis.symbols_red_exclamation_mark}',
+                                      'Dnes se vyváží popelnice - Bioodpad. Nezapomeňte${Emojis.symbols_red_exclamation_mark}',
+                                      'asset://assets/images/popelnice.jpg');
+                                  showSnackBar(context,
+                                      'Notifikace pro Bioodpad byly vytvořeny');
+                                  setState(
+                                    () {
+                                      isSwitchedBio = value;
+                                    },
+                                  );
+                                }
+                              }
+                            : (value) async {
+                                showFlash(
+                                  context: context,
+                                  builder: (context, controller) {
+                                    return Flash.dialog(
+                                      controller: controller,
+                                      borderRadius: const BorderRadius.all(
+                                        Radius.circular(8),
+                                      ),
+                                      child: FlashBar(
+                                        content: const Center(
+                                          child: TextNormal(
+                                              text:
+                                                  'Chcete zrušit všechny notifikace'),
+                                        ),
+                                        title: const Center(
+                                          child: TextHeader(
+                                            text: 'Zrušit upozornění',
+                                          ),
+                                        ),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () {
+                                              controller.dismiss();
+                                            },
+                                            child: const Text(
+                                              'Ne',
+                                              style: TextStyle(
+                                                  color: Colors.grey,
+                                                  fontSize: kDFontSizeText),
+                                            ),
+                                          ),
+                                          TextButton(
+                                            onPressed: () {
+                                              cancelScheduledNotifications(
+                                                  'Bioodpad');
+                                              setState(
+                                                () {
+                                                  activeSheduledReminder =
+                                                      false;
+                                                  selectedDayGlobal = '';
+                                                  selectedTimeOfDayGlobal =
+                                                      const TimeOfDay(
+                                                          hour: 0, minute: 0);
+                                                  controller.dismiss();
+                                                  showSnackBar(context,
+                                                      'Notifikace zrušeny');
+                                                  isSwitchedBio = value;
+                                                },
+                                              );
+                                            },
+                                            child: const Text(
+                                              'Ano, zrušit notifikace',
+                                              style: TextStyle(
+                                                  color: kDBackgroundColor,
+                                                  fontSize: kDFontSizeText,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                );
                               },
-                            );
-                          }
-                        }
-                      : (value) async {
-                          showFlash(
-                            context: context,
-                            builder: (context, controller) {
-                              return Flash.dialog(
-                                controller: controller,
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(8),
-                                ),
-                                child: FlashBar(
-                                  content: const Center(
-                                    child: TextNormal(
-                                        text:
-                                            'Chcete zrušit všechny notifikace'),
-                                  ),
-                                  title: const Center(
-                                    child: TextHeader(
-                                      text: 'Zrušit upozornění',
-                                    ),
-                                  ),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () {
-                                        controller.dismiss();
-                                      },
-                                      child: const Text(
-                                        'Ne',
-                                        style: TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: kDFontSizeText),
-                                      ),
-                                    ),
-                                    TextButton(
-                                      onPressed: () {
-                                        cancelScheduledNotifications(
-                                            'Bioodpad');
-                                        setState(
-                                          () {
-                                            activeSheduledReminder = false;
-                                            selectedDayGlobal = '';
-                                            selectedTimeOfDayGlobal =
-                                                const TimeOfDay(
-                                                    hour: 0, minute: 0);
-                                            controller.dismiss();
-                                            showSnackBar(
-                                                context, 'Notifikace zrušeny');
-                                            isSwitchedBio = value;
-                                          },
-                                        );
-                                      },
-                                      child: const Text(
-                                        'Ano, zrušit notifikace',
-                                        style: TextStyle(
-                                            color: kDBackgroundColor,
-                                            fontSize: kDFontSizeText,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                          );
-                        },
+                      ),
+                    ),
+                    IconReminderOnOff(isSwitched: isSwitchedBio),
+                    ReminderTimeAndDate(
+                        switcher: isSwitchedBio,
+                        wasteReminderTime: bioReminderTime,
+                        wasteReminderDay: bioSelectedDay)
+                  ],
                 ),
-                ListTileOfWasteNotification(
-                  text: 'Papír',
-                  color: kDColorWastePaper,
-                  valueOfSwitch: isSwitchedPaper,
-                  onChanged: !isSwitchedPaper
-                      ? (value) async {
-                          NotificationWeekAndTime? pickedShedule =
-                              await pickSchedule(context);
-                          if (pickedShedule != null) {
-                            createNotificationReminder(
-                              pickedShedule,
-                              paperWasteEvents,
-                              'Papír',
-                              '${Emojis.symbols_red_exclamation_mark} Popelnice - Papír${Emojis.symbols_red_exclamation_mark}',
-                              'Dnes se vyváží popelnice - Papír. Nezapomeňte${Emojis.symbols_red_exclamation_mark}',
-                              'asset://assets/images/popelnice.jpg',
-                            );
-                            showSnackBar(
-                                context, 'Notifikace pro Papír byly vytvořeny');
-                            setState(
-                              () {
-                                isSwitchedPaper = value;
+                Row(
+                  children: [
+                    Flexible(
+                      flex: 7,
+                      fit: FlexFit.tight,
+                      child: ListTileOfWasteNotification(
+                        text: 'Papír',
+                        color: kDColorWastePaper,
+                        valueOfSwitch: isSwitchedPaper,
+                        onChanged: !isSwitchedPaper
+                            ? (value) async {
+                                NotificationWeekAndTime? pickedShedule =
+                                    await pickSchedule(context);
+                                if (pickedShedule != null) {
+                                  createNotificationReminder(
+                                    pickedShedule,
+                                    paperWasteEvents,
+                                    'Papír',
+                                    '${Emojis.symbols_red_exclamation_mark} Popelnice - Papír${Emojis.symbols_red_exclamation_mark}',
+                                    'Dnes se vyváží popelnice - Papír. Nezapomeňte${Emojis.symbols_red_exclamation_mark}',
+                                    'asset://assets/images/popelnice.jpg',
+                                  );
+                                  showSnackBar(context,
+                                      'Notifikace pro Papír byly vytvořeny');
+                                  setState(
+                                    () {
+                                      isSwitchedPaper = value;
+                                    },
+                                  );
+                                }
+                              }
+                            : (value) async {
+                                showFlash(
+                                  context: context,
+                                  builder: (context, controller) {
+                                    return Flash.dialog(
+                                      controller: controller,
+                                      borderRadius: const BorderRadius.all(
+                                        Radius.circular(8),
+                                      ),
+                                      child: FlashBar(
+                                        content: const Center(
+                                          child: TextNormal(
+                                              text:
+                                                  'Chcete zrušit všechny notifikace'),
+                                        ),
+                                        title: const Center(
+                                          child: TextHeader(
+                                            text: 'Zrušit upozornění',
+                                          ),
+                                        ),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () {
+                                              controller.dismiss();
+                                            },
+                                            child: const Text(
+                                              'Ne',
+                                              style: TextStyle(
+                                                  color: Colors.grey,
+                                                  fontSize: kDFontSizeText),
+                                            ),
+                                          ),
+                                          TextButton(
+                                            onPressed: () {
+                                              cancelScheduledNotifications(
+                                                  'Papír');
+                                              setState(
+                                                () {
+                                                  activeSheduledReminder =
+                                                      false;
+                                                  selectedDayGlobal = '';
+                                                  selectedTimeOfDayGlobal =
+                                                      const TimeOfDay(
+                                                          hour: 0, minute: 0);
+                                                  controller.dismiss();
+                                                  showSnackBar(context,
+                                                      'Notifikace zrušeny');
+                                                  isSwitchedPaper = value;
+                                                },
+                                              );
+                                            },
+                                            child: const Text(
+                                              'Ano, zrušit notifikace',
+                                              style: TextStyle(
+                                                  color: kDBackgroundColor,
+                                                  fontSize: kDFontSizeText,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                );
                               },
-                            );
-                          }
-                        }
-                      : (value) async {
-                          showFlash(
-                            context: context,
-                            builder: (context, controller) {
-                              return Flash.dialog(
-                                controller: controller,
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(8),
-                                ),
-                                child: FlashBar(
-                                  content: const Center(
-                                    child: TextNormal(
-                                        text:
-                                            'Chcete zrušit všechny notifikace'),
-                                  ),
-                                  title: const Center(
-                                    child: TextHeader(
-                                      text: 'Zrušit upozornění',
-                                    ),
-                                  ),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () {
-                                        controller.dismiss();
-                                      },
-                                      child: const Text(
-                                        'Ne',
-                                        style: TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: kDFontSizeText),
-                                      ),
-                                    ),
-                                    TextButton(
-                                      onPressed: () {
-                                        cancelScheduledNotifications('Papír');
-                                        setState(
-                                          () {
-                                            activeSheduledReminder = false;
-                                            selectedDayGlobal = '';
-                                            selectedTimeOfDayGlobal =
-                                                const TimeOfDay(
-                                                    hour: 0, minute: 0);
-                                            controller.dismiss();
-                                            showSnackBar(
-                                                context, 'Notifikace zrušeny');
-                                            isSwitchedPaper = value;
-                                          },
-                                        );
-                                      },
-                                      child: const Text(
-                                        'Ano, zrušit notifikace',
-                                        style: TextStyle(
-                                            color: kDBackgroundColor,
-                                            fontSize: kDFontSizeText,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                          );
-                        },
+                      ),
+                    ),
+                    IconReminderOnOff(isSwitched: isSwitchedPaper),
+                    ReminderTimeAndDate(
+                        switcher: isSwitchedPaper,
+                        wasteReminderTime: paperReminderTime,
+                        wasteReminderDay: paperSelectedDay)
+                  ],
                 ),
-                ListTileOfWasteNotification(
-                  text: 'Směsný odpad',
-                  color: kDColorWasteMixed,
-                  valueOfSwitch: isSwitchedMixed,
-                  onChanged: !isSwitchedMixed
-                      ? (value) async {
-                          NotificationWeekAndTime? pickedShedule =
-                              await pickSchedule(context);
-                          if (pickedShedule != null) {
-                            createNotificationReminder(
-                              pickedShedule,
-                              paperWasteEvents,
-                              'Směsný odpad',
-                              '${Emojis.symbols_red_exclamation_mark} Popelnice - Směsný odpad ${Emojis.symbols_red_exclamation_mark}',
-                              'Dnes se vyváží popelnice - Směsný odpad. Nezapomeňte${Emojis.symbols_red_exclamation_mark}',
-                              'asset://assets/images/popelnice.jpg',
-                            );
-                            showSnackBar(
-                                context, 'Notifikace pro Papír byly vytvořeny');
-                            setState(
-                              () {
-                                isSwitchedMixed = value;
+                Row(
+                  children: [
+                    Flexible(
+                      fit: FlexFit.tight,
+                      flex: 7,
+                      child: ListTileOfWasteNotification(
+                        text: 'Směsný odpad',
+                        color: kDColorWasteMixed,
+                        valueOfSwitch: isSwitchedMixed,
+                        onChanged: !isSwitchedMixed
+                            ? (value) async {
+                                NotificationWeekAndTime? pickedShedule =
+                                    await pickSchedule(context);
+                                if (pickedShedule != null) {
+                                  createNotificationReminder(
+                                    pickedShedule,
+                                    paperWasteEvents,
+                                    'Směsný odpad',
+                                    '${Emojis.symbols_red_exclamation_mark} Popelnice - Směsný odpad ${Emojis.symbols_red_exclamation_mark}',
+                                    'Dnes se vyváží popelnice - Směsný odpad. Nezapomeňte${Emojis.symbols_red_exclamation_mark}',
+                                    'asset://assets/images/popelnice.jpg',
+                                  );
+                                  showSnackBar(context,
+                                      'Notifikace pro Papír byly vytvořeny');
+                                  setState(
+                                    () {
+                                      isSwitchedMixed = value;
+                                    },
+                                  );
+                                }
+                                showSnackBar(context,
+                                    'Notifikace pro Směsný odpad byly vytvořeny');
+                              }
+                            : (value) async {
+                                showFlash(
+                                  context: context,
+                                  builder: (context, controller) {
+                                    return Flash.dialog(
+                                      controller: controller,
+                                      borderRadius: const BorderRadius.all(
+                                        Radius.circular(8),
+                                      ),
+                                      child: FlashBar(
+                                        content: const Center(
+                                          child: TextNormal(
+                                              text:
+                                                  'Chcete zrušit všechny notifikace'),
+                                        ),
+                                        title: const Center(
+                                          child: TextHeader(
+                                            text: 'Zrušit upozornění',
+                                          ),
+                                        ),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () {
+                                              controller.dismiss();
+                                            },
+                                            child: const Text(
+                                              'Ne',
+                                              style: TextStyle(
+                                                  color: Colors.grey,
+                                                  fontSize: kDFontSizeText),
+                                            ),
+                                          ),
+                                          TextButton(
+                                            onPressed: () {
+                                              cancelScheduledNotifications(
+                                                  'Směsný odpad');
+                                              setState(
+                                                () {
+                                                  activeSheduledReminder = false;
+                                                  selectedDayGlobal = '';
+                                                  selectedTimeOfDayGlobal =
+                                                      const TimeOfDay(
+                                                          hour: 0, minute: 0);
+                                                  controller.dismiss();
+                                                  showSnackBar(context,
+                                                      'Notifikace zrušeny');
+                                                  isSwitchedMixed = value;
+                                                },
+                                              );
+                                            },
+                                            child: const Text(
+                                              'Ano, zrušit notifikace',
+                                              style: TextStyle(
+                                                  color: kDBackgroundColor,
+                                                  fontSize: kDFontSizeText,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                );
                               },
-                            );
-                          }
-                          showSnackBar(context,
-                              'Notifikace pro Směsný odpad byly vytvořeny');
-                        }
-                      : (value) async {
-                          showFlash(
-                            context: context,
-                            builder: (context, controller) {
-                              return Flash.dialog(
-                                controller: controller,
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(8),
-                                ),
-                                child: FlashBar(
-                                  content: const Center(
-                                    child: TextNormal(
-                                        text:
-                                            'Chcete zrušit všechny notifikace'),
-                                  ),
-                                  title: const Center(
-                                    child: TextHeader(
-                                      text: 'Zrušit upozornění',
-                                    ),
-                                  ),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () {
-                                        controller.dismiss();
-                                      },
-                                      child: const Text(
-                                        'Ne',
-                                        style: TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: kDFontSizeText),
-                                      ),
-                                    ),
-                                    TextButton(
-                                      onPressed: () {
-                                        cancelScheduledNotifications(
-                                            'Směsný odpad');
-                                        setState(
-                                          () {
-                                            activeSheduledReminder = false;
-                                            selectedDayGlobal = '';
-                                            selectedTimeOfDayGlobal =
-                                                const TimeOfDay(
-                                                    hour: 0, minute: 0);
-                                            controller.dismiss();
-                                            showSnackBar(
-                                                context, 'Notifikace zrušeny');
-                                            isSwitchedMixed = value;
-                                          },
-                                        );
-                                      },
-                                      child: const Text(
-                                        'Ano, zrušit notifikace',
-                                        style: TextStyle(
-                                            color: kDBackgroundColor,
-                                            fontSize: kDFontSizeText,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                          );
-                        },
+                      ),
+                    ),
+                    IconReminderOnOff(isSwitched: isSwitchedMixed),
+                    ReminderTimeAndDate(
+                        switcher: isSwitchedMixed,
+                        wasteReminderTime: mixedReminderTime,
+                        wasteReminderDay: mixedSelectedDay)
+                  ],
                 ),
+
               ],
             ),
           ),
