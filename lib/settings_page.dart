@@ -27,10 +27,6 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  bool isSwitchedPlastic = false;
-  bool isSwitchedBio = false;
-  bool isSwitchedPaper = false;
-  bool isSwitchedMixed = false;
   SharedPreferences? preferences;
 
   Future<void> initializePreference() async {
@@ -41,56 +37,82 @@ class _SettingsPageState extends State<SettingsPage> {
   ///načte všechny uložené preference
   Future<void> getPreferencesAll() async {
     await getPreferencesPlastic();
+    print('get getPreferencesPlastic');
     await getPreferencesBio();
+    print('get getPreferencesBio');
     await getPreferencesPaper();
+    print('get getPreferencesPaper');
     await getPreferencesMixed();
+    print('get getPreferencesMixed');
   }
+
   /// uložím všechny preference
   Future<void> setPreferencesAll() async {
     await setPreferencesPlastic();
+    print('set setPreferencesPlastic');
     await setPreferencesBio();
+    print('set setPreferencesBio');
     await setPreferencesPaper();
+    print('set setPreferencesPaper');
     await setPreferencesMixed();
+    print('set setPreferencesMixed');
   }
 
   ///get preferences from stored data for Plastic
   Future<void> getPreferencesPlastic() async {
-    isSwitchedPlastic = this.preferences!.getBool('isSwitchedPlastic')!;
+    setState(() {
+      isSwitchedPlastic = this.preferences!.getBool('isSwitchedPlastic')!;
+    });
     String? timeStamp = this.preferences?.getString('plasticReminderTime');
     plasticReminderTime = TimeOfDay(
         hour: int.parse(timeStamp!.split(":")[0]),
         minute: int.parse(timeStamp.split(":")[1]));
     plasticSelectedDay = this.preferences?.getString('plasticSelectedDay');
+    print(
+        'load SharedPreferencesPlastic $isSwitchedPlastic, $plasticReminderTime, $plasticSelectedDay');
   }
 
   ///get preferences from stored data for Bio
   Future<void> getPreferencesBio() async {
-    isSwitchedPlastic = this.preferences!.getBool('isSwitchedBio')!;
+    setState(() {
+      isSwitchedPlastic = this.preferences!.getBool('isSwitchedBio')!;
+    });
+
     String? timeStamp = this.preferences?.getString('bioReminderTime');
     plasticReminderTime = TimeOfDay(
         hour: int.parse(timeStamp!.split(":")[0]),
         minute: int.parse(timeStamp.split(":")[1]));
     plasticSelectedDay = this.preferences?.getString('bioSelectedDay');
+    print(
+        'load SharedPreferencesBio $isSwitchedBio, $bioReminderTime, $bioSelectedDay');
   }
 
   ///get preferences from stored data for Paper
   Future<void> getPreferencesPaper() async {
-    isSwitchedPlastic = this.preferences!.getBool('isSwitchedPaper')!;
+    setState(() {
+      isSwitchedPlastic = this.preferences!.getBool('isSwitchedPaper')!;
+    });
     String? timeStamp = this.preferences?.getString('paperReminderTime');
     plasticReminderTime = TimeOfDay(
         hour: int.parse(timeStamp!.split(":")[0]),
         minute: int.parse(timeStamp.split(":")[1]));
     plasticSelectedDay = this.preferences?.getString('paperSelectedDay');
+    print(
+        'load SharedPreferencesPaper $isSwitchedPaper, $paperReminderTime, $paperSelectedDay');
   }
 
   ///get preferences from stored data for Mixed
   Future<void> getPreferencesMixed() async {
-    isSwitchedPlastic = this.preferences!.getBool('isSwitchedMixed')!;
+    setState(() {
+      isSwitchedPlastic = this.preferences!.getBool('isSwitchedMixed')!;
+    });
     String? timeStamp = this.preferences?.getString('mixedReminderTime');
     plasticReminderTime = TimeOfDay(
         hour: int.parse(timeStamp!.split(":")[0]),
         minute: int.parse(timeStamp.split(":")[1]));
     plasticSelectedDay = this.preferences?.getString('mixedSelectedDay');
+    print(
+        'load SharedPreferencesMixed $isSwitchedMixed, $mixedReminderTime, $mixedSelectedDay');
   }
 
   ///set preferences to stored data for Plastic
@@ -102,6 +124,8 @@ class _SettingsPageState extends State<SettingsPage> {
         .preferences
         ?.setString('plasticReminderTime', '$timeStampHour:$timeStampMinute');
     this.preferences?.setString('plasticSelectedDay', plasticSelectedDay!);
+    print(
+        'Set SharedPreferencesPlastic $isSwitchedPlastic, $plasticReminderTime, $plasticSelectedDay');
   }
 
   ///set preferences to stored data for Bio
@@ -113,6 +137,8 @@ class _SettingsPageState extends State<SettingsPage> {
         .preferences
         ?.setString('bioReminderTime', '$timeStampHour:$timeStampMinute');
     this.preferences?.setString('bioSelectedDay', bioSelectedDay!);
+    print(
+        'Set SharedPreferencesBio $isSwitchedBio, $bioReminderTime, $bioSelectedDay');
   }
 
   ///set preferences to stored data for Paper
@@ -124,6 +150,8 @@ class _SettingsPageState extends State<SettingsPage> {
         .preferences
         ?.setString('paperReminderTime', '$timeStampHour:$timeStampMinute');
     this.preferences?.setString('paperSelectedDay', paperSelectedDay!);
+    print(
+        'Set SharedPreferencesPaper $isSwitchedPaper, $paperReminderTime, $paperSelectedDay');
   }
 
   ///set preferences to stored data for Paper
@@ -135,6 +163,8 @@ class _SettingsPageState extends State<SettingsPage> {
         .preferences
         ?.setString('mixedReminderTime', '$timeStampHour:$timeStampMinute');
     this.preferences?.setString('mixedSelectedDay', mixedSelectedDay!);
+    print(
+        'Set SharedPreferencesMixed $isSwitchedMixed, $mixedReminderTime, $mixedSelectedDay');
   }
 
   @override
@@ -143,9 +173,17 @@ class _SettingsPageState extends State<SettingsPage> {
     currentPage = 'settings';
     initializePreference().whenComplete(() {
       setState(() {
+        getPreferencesAll();
         showSnackBar(context, 'Údaje načteny');
       });
     });
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    setPreferencesAll();
   }
 
   @override
@@ -237,6 +275,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                         setState(
                                           () {
                                             isSwitchedPlastic = value;
+                                            setPreferencesPlastic();
                                           },
                                         );
                                       }
@@ -282,21 +321,12 @@ class _SettingsPageState extends State<SettingsPage> {
                                                         'Plast');
                                                     setState(
                                                       () {
-                                                        activeSheduledReminder =
-                                                            false;
-                                                        selectedDayGlobal = '';
-                                                        selectedTimeOfDayGlobal =
-                                                            const TimeOfDay(
-                                                                hour: 0,
-                                                                minute: 0);
                                                         controller.dismiss();
                                                         showSnackBar(context,
                                                             'Notifikace zrušeny');
                                                         isSwitchedPlastic =
                                                             value;
-                                                        this.preferences?.setBool(
-                                                            'isSwitchedPlastic',
-                                                            isSwitchedPlastic);
+                                                        setPreferencesPlastic();
                                                       },
                                                     );
                                                   },
@@ -348,6 +378,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                         setState(
                                           () {
                                             isSwitchedBio = value;
+                                            setPreferencesBio();
                                           },
                                         );
                                       }
@@ -392,17 +423,11 @@ class _SettingsPageState extends State<SettingsPage> {
                                                         'Bioodpad');
                                                     setState(
                                                       () {
-                                                        activeSheduledReminder =
-                                                            false;
-                                                        selectedDayGlobal = '';
-                                                        selectedTimeOfDayGlobal =
-                                                            const TimeOfDay(
-                                                                hour: 0,
-                                                                minute: 0);
                                                         controller.dismiss();
                                                         showSnackBar(context,
                                                             'Notifikace zrušeny');
                                                         isSwitchedBio = value;
+                                                        setPreferencesBio();
                                                       },
                                                     );
                                                   },
@@ -459,6 +484,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                         setState(
                                           () {
                                             isSwitchedPaper = value;
+                                            setPreferencesPaper();
                                           },
                                         );
                                       }
@@ -503,17 +529,11 @@ class _SettingsPageState extends State<SettingsPage> {
                                                         'Papír');
                                                     setState(
                                                       () {
-                                                        activeSheduledReminder =
-                                                            false;
-                                                        selectedDayGlobal = '';
-                                                        selectedTimeOfDayGlobal =
-                                                            const TimeOfDay(
-                                                                hour: 0,
-                                                                minute: 0);
                                                         controller.dismiss();
                                                         showSnackBar(context,
                                                             'Notifikace zrušeny');
                                                         isSwitchedPaper = value;
+                                                        setPreferencesPaper();
                                                       },
                                                     );
                                                   },
@@ -559,17 +579,18 @@ class _SettingsPageState extends State<SettingsPage> {
                                       if (pickedShedule != null) {
                                         createNotificationReminder(
                                           pickedShedule,
-                                          paperWasteEvents,
+                                          mixedWasteEvents,
                                           'Směsný odpad',
                                           '${Emojis.symbols_red_exclamation_mark} Popelnice - Směsný odpad ${Emojis.symbols_red_exclamation_mark}',
                                           'Dnes se vyváží popelnice - Směsný odpad. Nezapomeňte${Emojis.symbols_red_exclamation_mark}',
                                           'asset://assets/images/popelnice.jpg',
                                         );
                                         showSnackBar(context,
-                                            'Notifikace pro Papír byly vytvořeny');
+                                            'Notifikace pro Směsný odpad byly vytvořeny');
                                         setState(
                                           () {
                                             isSwitchedMixed = value;
+                                            setPreferencesMixed();
                                           },
                                         );
                                       }
@@ -616,17 +637,11 @@ class _SettingsPageState extends State<SettingsPage> {
                                                         'Směsný odpad');
                                                     setState(
                                                       () {
-                                                        activeSheduledReminder =
-                                                            false;
-                                                        selectedDayGlobal = '';
-                                                        selectedTimeOfDayGlobal =
-                                                            const TimeOfDay(
-                                                                hour: 0,
-                                                                minute: 0);
                                                         controller.dismiss();
                                                         showSnackBar(context,
                                                             'Notifikace zrušeny');
                                                         isSwitchedMixed = value;
+                                                        setPreferencesMixed();
                                                       },
                                                     );
                                                   },
@@ -703,10 +718,6 @@ class _SettingsPageState extends State<SettingsPage> {
                                     cancelScheduledNotifications('Plast');
                                     setState(
                                       () {
-                                        activeSheduledReminder = false;
-                                        selectedDayGlobal = '';
-                                        selectedTimeOfDayGlobal =
-                                            const TimeOfDay(hour: 0, minute: 0);
                                         controller.dismiss();
                                         showSnackBar(context,
                                             'Všechny notifikace zrušeny');
@@ -716,6 +727,11 @@ class _SettingsPageState extends State<SettingsPage> {
                                         isSwitchedBio = false;
                                       },
                                     );
+                                    setPreferencesPlastic();
+                                    setPreferencesBio();
+                                    setPreferencesPaper();
+                                    setPreferencesMixed();
+                                    setPreferencesAll();
                                   },
                                   child: const Text(
                                     'Ano, zrušit notifikace',
@@ -730,7 +746,6 @@ class _SettingsPageState extends State<SettingsPage> {
                           );
                         },
                       );
-                      cancelScheduledNotificationsAll();
                     },
                     title: 'Zrušit upozornění',
                     subtitle: 'Zrušíte všechna nastavená upozornění',
