@@ -4,7 +4,7 @@ import 'package:svoz_odpadu/components/notifications.dart';
 import 'package:svoz_odpadu/components/text_header.dart';
 import 'package:svoz_odpadu/components/text_normal.dart';
 import 'package:svoz_odpadu/constants/constants.dart';
-import 'package:svoz_odpadu/components/global_var.dart';
+import 'package:svoz_odpadu/constants/global_var.dart';
 
 int createUniqueId() {
   return DateTime.now().millisecondsSinceEpoch.remainder(100000);

@@ -2,7 +2,7 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:svoz_odpadu/home_page.dart';
 import 'package:svoz_odpadu/constants/constants.dart';
-import 'package:svoz_odpadu/components/global_var.dart';
+import 'package:svoz_odpadu/constants/global_var.dart';
 import 'package:svoz_odpadu/settings_page.dart';
 import 'package:easy_splash_screen/easy_splash_screen.dart';
 
