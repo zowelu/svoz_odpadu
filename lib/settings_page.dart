@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_this
+
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,7 +14,7 @@ import 'package:svoz_odpadu/components/my_appbar.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:svoz_odpadu/components/utilities.dart';
 import 'package:svoz_odpadu/components/button_settings.dart';
-import 'package:svoz_odpadu/components/global_var.dart';
+import 'package:svoz_odpadu/constants/global_var.dart';
 import 'package:flash/flash.dart';
 import 'package:svoz_odpadu/components/utils.dart';
 
@@ -33,9 +35,106 @@ class _SettingsPageState extends State<SettingsPage> {
 
   Future<void> initializePreference() async {
     this.preferences = await SharedPreferences.getInstance();
+    await getPreferencesAll();
+  }
+
+  ///načte všechny uložené preference
+  Future<void> getPreferencesAll() async {
+    await getPreferencesPlastic();
+    await getPreferencesBio();
+    await getPreferencesPaper();
+    await getPreferencesMixed();
+  }
+  /// uložím všechny preference
+  Future<void> setPreferencesAll() async {
+    await setPreferencesPlastic();
+    await setPreferencesBio();
+    await setPreferencesPaper();
+    await setPreferencesMixed();
+  }
+
+  ///get preferences from stored data for Plastic
+  Future<void> getPreferencesPlastic() async {
     isSwitchedPlastic = this.preferences!.getBool('isSwitchedPlastic')!;
+    String? timeStamp = this.preferences?.getString('plasticReminderTime');
+    plasticReminderTime = TimeOfDay(
+        hour: int.parse(timeStamp!.split(":")[0]),
+        minute: int.parse(timeStamp.split(":")[1]));
     plasticSelectedDay = this.preferences?.getString('plasticSelectedDay');
-    plasticSelectedDay = this.preferences?.getString('plasticSelectedDay');
+  }
+
+  ///get preferences from stored data for Bio
+  Future<void> getPreferencesBio() async {
+    isSwitchedPlastic = this.preferences!.getBool('isSwitchedBio')!;
+    String? timeStamp = this.preferences?.getString('bioReminderTime');
+    plasticReminderTime = TimeOfDay(
+        hour: int.parse(timeStamp!.split(":")[0]),
+        minute: int.parse(timeStamp.split(":")[1]));
+    plasticSelectedDay = this.preferences?.getString('bioSelectedDay');
+  }
+
+  ///get preferences from stored data for Paper
+  Future<void> getPreferencesPaper() async {
+    isSwitchedPlastic = this.preferences!.getBool('isSwitchedPaper')!;
+    String? timeStamp = this.preferences?.getString('paperReminderTime');
+    plasticReminderTime = TimeOfDay(
+        hour: int.parse(timeStamp!.split(":")[0]),
+        minute: int.parse(timeStamp.split(":")[1]));
+    plasticSelectedDay = this.preferences?.getString('paperSelectedDay');
+  }
+
+  ///get preferences from stored data for Mixed
+  Future<void> getPreferencesMixed() async {
+    isSwitchedPlastic = this.preferences!.getBool('isSwitchedMixed')!;
+    String? timeStamp = this.preferences?.getString('mixedReminderTime');
+    plasticReminderTime = TimeOfDay(
+        hour: int.parse(timeStamp!.split(":")[0]),
+        minute: int.parse(timeStamp.split(":")[1]));
+    plasticSelectedDay = this.preferences?.getString('mixedSelectedDay');
+  }
+
+  ///set preferences to stored data for Plastic
+  Future<void> setPreferencesPlastic() async {
+    this.preferences?.setBool('isSwitchedPlastic', isSwitchedPlastic);
+    String timeStampHour = plasticReminderTime!.hour.toString();
+    String timeStampMinute = plasticReminderTime!.minute.toString();
+    this
+        .preferences
+        ?.setString('plasticReminderTime', '$timeStampHour:$timeStampMinute');
+    this.preferences?.setString('plasticSelectedDay', plasticSelectedDay!);
+  }
+
+  ///set preferences to stored data for Bio
+  Future<void> setPreferencesBio() async {
+    this.preferences?.setBool('isSwitchedBio', isSwitchedBio);
+    String timeStampHour = bioReminderTime!.hour.toString();
+    String timeStampMinute = bioReminderTime!.minute.toString();
+    this
+        .preferences
+        ?.setString('bioReminderTime', '$timeStampHour:$timeStampMinute');
+    this.preferences?.setString('bioSelectedDay', bioSelectedDay!);
+  }
+
+  ///set preferences to stored data for Paper
+  Future<void> setPreferencesPaper() async {
+    this.preferences?.setBool('isSwitchedPaper', isSwitchedPaper);
+    String timeStampHour = paperReminderTime!.hour.toString();
+    String timeStampMinute = paperReminderTime!.minute.toString();
+    this
+        .preferences
+        ?.setString('paperReminderTime', '$timeStampHour:$timeStampMinute');
+    this.preferences?.setString('paperSelectedDay', paperSelectedDay!);
+  }
+
+  ///set preferences to stored data for Paper
+  Future<void> setPreferencesMixed() async {
+    this.preferences?.setBool('isSwitchedMixed', isSwitchedMixed);
+    String timeStampHour = mixedReminderTime!.hour.toString();
+    String timeStampMinute = mixedReminderTime!.minute.toString();
+    this
+        .preferences
+        ?.setString('mixedReminderTime', '$timeStampHour:$timeStampMinute');
+    this.preferences?.setString('mixedSelectedDay', mixedSelectedDay!);
   }
 
   @override
@@ -138,16 +237,6 @@ class _SettingsPageState extends State<SettingsPage> {
                                         setState(
                                           () {
                                             isSwitchedPlastic = value;
-                                            this.preferences?.setBool(
-                                                'isSwitchedPlastic',
-                                                isSwitchedPlastic);
-                                            this.preferences?.setString(
-                                                'plasticReminderTime',
-                                                plasticReminderTime!
-                                                    .toString());
-                                            this.preferences?.setString(
-                                                'plasticSelectedDay',
-                                                plasticSelectedDay!);
                                           },
                                         );
                                       }
