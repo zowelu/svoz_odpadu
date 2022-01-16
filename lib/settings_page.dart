@@ -1,5 +1,6 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:svoz_odpadu/components/list_tile_of_waste_notification.dart';
 import 'package:svoz_odpadu/components/notifications.dart';
 import 'package:svoz_odpadu/components/reminder_icon_on_off.dart';
@@ -28,11 +29,24 @@ class _SettingsPageState extends State<SettingsPage> {
   bool isSwitchedBio = false;
   bool isSwitchedPaper = false;
   bool isSwitchedMixed = false;
+  SharedPreferences? preferences;
+
+  Future<void> initializePreference() async {
+      this.preferences = await SharedPreferences.getInstance();
+      isSwitchedPlastic = this.preferences!.getBool('isSwitchedPlastic')!;
+      plasticSelectedDay = this.preferences?.getString('plasticSelectedDay');
+      plasticSelectedDay = this.preferences?.getString('plasticSelectedDay');
+  }
 
   @override
   void initState() {
     super.initState();
     currentPage = 'settings';
+    initializePreference().whenComplete((){
+      setState(() {
+        showSnackBar(context, 'Údaje načteny');
+      });
+    });
   }
 
   @override
@@ -120,6 +134,9 @@ class _SettingsPageState extends State<SettingsPage> {
                                         setState(
                                           () {
                                             isSwitchedPlastic = value;
+                                            this.preferences?.setBool('isSwitchedPlastic', isSwitchedPlastic);
+                                            this.preferences?.setString('plasticReminderTime', plasticReminderTime!.toString());
+                                            this.preferences?.setString('plasticSelectedDay', plasticSelectedDay!);
                                           },
                                         );
                                       }
@@ -177,6 +194,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                                             'Notifikace zrušeny');
                                                         isSwitchedPlastic =
                                                             value;
+                                                        this.preferences?.setBool('isSwitchedPlastic', isSwitchedPlastic);
                                                       },
                                                     );
                                                   },
