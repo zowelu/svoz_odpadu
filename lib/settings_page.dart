@@ -32,17 +32,17 @@ class _SettingsPageState extends State<SettingsPage> {
   SharedPreferences? preferences;
 
   Future<void> initializePreference() async {
-      this.preferences = await SharedPreferences.getInstance();
-      isSwitchedPlastic = this.preferences!.getBool('isSwitchedPlastic')!;
-      plasticSelectedDay = this.preferences?.getString('plasticSelectedDay');
-      plasticSelectedDay = this.preferences?.getString('plasticSelectedDay');
+    this.preferences = await SharedPreferences.getInstance();
+    isSwitchedPlastic = this.preferences!.getBool('isSwitchedPlastic')!;
+    plasticSelectedDay = this.preferences?.getString('plasticSelectedDay');
+    plasticSelectedDay = this.preferences?.getString('plasticSelectedDay');
   }
 
   @override
   void initState() {
     super.initState();
     currentPage = 'settings';
-    initializePreference().whenComplete((){
+    initializePreference().whenComplete(() {
       setState(() {
         showSnackBar(context, 'Údaje načteny');
       });
@@ -93,19 +93,23 @@ class _SettingsPageState extends State<SettingsPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-
-                  Column(children: [Container(
-                    padding: const EdgeInsets.all(kDMargin),
-                    child: const TextHeader(
-                      text: 'Nastavení notikací',
-                    ),
-                  ),
-                    Container(
-                      padding: const EdgeInsets.all(kDMargin),
-                      child: const TextNormal(
-                        text: 'Nastavte si notikace pro jednotlivé druhy odpadů',
+                  Column(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(kDMargin),
+                        child: const TextHeader(
+                          text: 'Nastavení notikací',
+                        ),
                       ),
-                    ),],),
+                      Container(
+                        padding: const EdgeInsets.all(kDMargin),
+                        child: const TextNormal(
+                          text:
+                              'Nastavte si notikace pro jednotlivé druhy odpadů',
+                        ),
+                      ),
+                    ],
+                  ),
                   Column(
                     children: [
                       Row(
@@ -134,9 +138,16 @@ class _SettingsPageState extends State<SettingsPage> {
                                         setState(
                                           () {
                                             isSwitchedPlastic = value;
-                                            this.preferences?.setBool('isSwitchedPlastic', isSwitchedPlastic);
-                                            this.preferences?.setString('plasticReminderTime', plasticReminderTime!.toString());
-                                            this.preferences?.setString('plasticSelectedDay', plasticSelectedDay!);
+                                            this.preferences?.setBool(
+                                                'isSwitchedPlastic',
+                                                isSwitchedPlastic);
+                                            this.preferences?.setString(
+                                                'plasticReminderTime',
+                                                plasticReminderTime!
+                                                    .toString());
+                                            this.preferences?.setString(
+                                                'plasticSelectedDay',
+                                                plasticSelectedDay!);
                                           },
                                         );
                                       }
@@ -194,7 +205,9 @@ class _SettingsPageState extends State<SettingsPage> {
                                                             'Notifikace zrušeny');
                                                         isSwitchedPlastic =
                                                             value;
-                                                        this.preferences?.setBool('isSwitchedPlastic', isSwitchedPlastic);
+                                                        this.preferences?.setBool(
+                                                            'isSwitchedPlastic',
+                                                            isSwitchedPlastic);
                                                       },
                                                     );
                                                   },
