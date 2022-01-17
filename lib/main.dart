@@ -1,5 +1,6 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
+import 'package:svoz_odpadu/city_picker_page.dart';
 import 'package:svoz_odpadu/home_page.dart';
 import 'package:svoz_odpadu/constants/constants.dart';
 import 'package:svoz_odpadu/constants/global_var.dart';
@@ -131,6 +132,7 @@ class MyApp extends StatelessWidget {
       routes: {
         HomePage.id: (context) => const HomePage(),
         SettingsPage.id: (context) => const SettingsPage(),
+        CityPickerPage.id: (context) => const CityPickerPage(),
       },
     );
   }
