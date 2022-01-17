@@ -131,7 +131,7 @@ class _HomePageState extends State<HomePage> {
               decoration: const BoxDecoration(
                   color: kDBackgroundColorCalendar,
                   borderRadius: kDRadiusLarge),
-              child: TableCalendar(rowHeight: MediaQuery.of(context).size.height/100*4,
+              child: TableCalendar(rowHeight: MediaQuery.of(context).size.height/100*6,
                 eventLoader: (day) {
                   return _getEventsForDay(day);
                 },
