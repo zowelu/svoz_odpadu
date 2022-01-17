@@ -15,7 +15,9 @@ class _CityPickerPageState extends State<CityPickerPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const PreferredSize(
-          preferredSize: Size.fromHeight(kDMarginLarger), child: MyAppBar()),
+        preferredSize: Size.fromHeight(kDMyAppBarHeight),
+        child: MyAppBar(),
+      ),
       body: Container(
         padding:
             EdgeInsets.only(top: MediaQuery.of(context).size.height / 100 * 2),
