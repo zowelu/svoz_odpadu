@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:svoz_odpadu/components/text_normal.dart';
 import 'package:svoz_odpadu/constants/constants.dart';
 
 class ListTileOfWaste extends StatelessWidget {
@@ -7,23 +8,19 @@ class ListTileOfWaste extends StatelessWidget {
   final String text;
   final Color color;
 
-  @override
+/*  @override
   Widget build(BuildContext context) {
     return Container(
-      height: 45,
-      padding: const EdgeInsets.all(0),
-      margin: const EdgeInsets.all(2),
-      decoration: const BoxDecoration(
-        borderRadius: kDRadius,
-        color: Colors.white54,
-      ),
+      margin: EdgeInsets.all(0),
+      padding: EdgeInsets.all(0),
+      width: MediaQuery.of(context).size.width / 100 * 75,
+
       child: ListTile(
-        title: Text(
-          text,
-          style: TextStyle(shadows: const [Shadow(color: Colors.black12,
-            offset: Offset(0, 0),
-            blurRadius: 15)],
-              fontFamily: kDFontFamilyParagraph, fontSize: 16, color: color, fontWeight: FontWeight.bold),
+        title: TextNormal(
+          text: text,
+          color: color,
+          fontSize: 14,
+          lineHeight: 0.5,
         ),
         leading: Icon(Icons.circle, color: color),
         dense: true,
@@ -32,5 +29,23 @@ class ListTileOfWaste extends StatelessWidget {
         style: ListTileStyle.list,
       ),
     );
+  }*/
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        margin: EdgeInsets.all(1),
+        padding: EdgeInsets.only(left: kDMargin, right: kDMargin),
+        height: MediaQuery.of(context).size.height / 100 * 6,
+        decoration: BoxDecoration(color: kDBackgroundColorCalendar, shape: BoxShape.rectangle, borderRadius: kDRadiusSmall),
+        child: Row(mainAxisAlignment: MainAxisAlignment.start,crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.circle,
+              color: color,
+            ),
+            TextNormal(text: text, color: color, fontSize: 14,),
+          ],
+        ));
   }
 }
