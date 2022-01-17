@@ -131,8 +131,10 @@ class _HomePageState extends State<HomePage> {
               decoration: const BoxDecoration(
                   color: kDBackgroundColorCalendar,
                   borderRadius: kDRadiusLarge),
-              child: TableCalendar(
-                eventLoader: (day){return _getEventsForDay(day);},
+              child: TableCalendar(rowHeight: MediaQuery.of(context).size.height/100*4,
+                eventLoader: (day) {
+                  return _getEventsForDay(day);
+                },
                 calendarFormat: CalendarFormat.month,
                 startingDayOfWeek: StartingDayOfWeek.monday,
                 focusedDay: dateTimeNow,
@@ -147,6 +149,8 @@ class _HomePageState extends State<HomePage> {
                       color: Colors.black, shape: BoxShape.rectangle),
                   markersMaxCount: 2,
                   isTodayHighlighted: true,
+                  cellPadding: EdgeInsets.all(0),
+                  cellMargin: EdgeInsets.all(0),
                   defaultDecoration: BoxDecoration(
                     borderRadius: kDRadius,
                   ),
