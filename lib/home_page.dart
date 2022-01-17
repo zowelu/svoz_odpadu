@@ -131,7 +131,8 @@ class _HomePageState extends State<HomePage> {
               decoration: const BoxDecoration(
                   color: kDBackgroundColorCalendar,
                   borderRadius: kDRadiusLarge),
-              child: TableCalendar(rowHeight: MediaQuery.of(context).size.height/100*6,
+              child: TableCalendar(
+                rowHeight: MediaQuery.of(context).size.height / 100 * 6,
                 eventLoader: (day) {
                   return _getEventsForDay(day);
                 },
@@ -216,22 +217,25 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             Container(
-              color: kDBackgroundColor,
-              padding: const EdgeInsets.all(5),
+              padding: const EdgeInsets.all(10), width: double.infinity,
+              decoration: BoxDecoration(color: kDBackgroundColor,boxShadow: [BoxShadow(color: Colors.blueGrey, blurRadius: 5.0,offset: Offset(0,0),spreadRadius: 5),]),
               //margin: const EdgeInsets.only(top: kDMarginLarger),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  ListView(
-                    shrinkWrap: true,
-                    children: const <Widget>[
-                      ListTileOfWaste('Dnešní den', kDBackgroundColor),
-                      ListTileOfWaste('Plast a nápojový karton\nDrobné kovy',
-                          kDColorWastePlastic),
-                      ListTileOfWaste('Bioodpad', kDColorWasteBio),
-                      ListTileOfWaste('Papír', kDColorWastePaper),
-                      ListTileOfWaste('Směsný odpad', kDColorWasteMixed),
-                    ],
+                  Container(
+                    width: MediaQuery.of(context).size.width / 100 * 75,
+                    child: ListView(
+                      shrinkWrap: true,
+                      children: const <Widget>[
+                        ListTileOfWaste('Dnešní den', kDBackgroundColor),
+                        ListTileOfWaste('Plast a nápojový karton, Drobné kovy',
+                            kDColorWastePlastic),
+                        ListTileOfWaste('Bioodpad', kDColorWasteBio),
+                        ListTileOfWaste('Papír', kDColorWastePaper),
+                        ListTileOfWaste('Směsný odpad', kDColorWasteMixed),
+                      ],
+                    ),
                   ),
                 ],
               ),
