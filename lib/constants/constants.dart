@@ -31,6 +31,6 @@ DateTime dateTimeFirstDay = DateTime.utc(2021, 12, 01);
 DateTime dateTimeLastDay = DateTime.utc(2023, 01, 30);
 DateTime dateTimeFocusedDay = dateTimeNow;
 const BorderRadius kDRadius = BorderRadius.all(Radius.circular(15.0));
-const BorderRadius kDRadiusSmall = BorderRadius.all(Radius.circular(3.0));
+const BorderRadius kDRadiusSmall = BorderRadius.all(Radius.circular(10.0));
 const BorderRadius kDRadiusLarge = BorderRadius.all(Radius.circular(20.0));
 const String versionApp = '1.0.0';
