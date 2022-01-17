@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:svoz_odpadu/constants/constants.dart';
 
 class TextNormal extends StatelessWidget {
-  const TextNormal({Key? key, required this.text, this.color = Colors.white, this.fontWeight = FontWeight.normal, this.fontSize = kDFontSizeText}) : super(key: key);
+  const TextNormal({Key? key, required this.text, this.color = Colors.white, this.fontWeight = FontWeight.normal, this.fontSize = kDFontSizeText, this.lineHeight = 1}) : super(key: key);
 
   final String? text;
   final Color? color;
   final FontWeight fontWeight;
   final double fontSize;
+  final double lineHeight;
 
   @override
   Widget build(BuildContext context) {
