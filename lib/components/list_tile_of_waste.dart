@@ -34,9 +34,9 @@ class ListTileOfWaste extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: EdgeInsets.all(1),
+        margin: EdgeInsets.all(MediaQuery.of(context).size.height/100*0.5),
         padding: EdgeInsets.only(left: kDMargin, right: kDMargin),
-        height: MediaQuery.of(context).size.height / 100 * 6,
+        height: MediaQuery.of(context).size.height / 100 * 5,
         decoration: BoxDecoration(color: kDBackgroundColorCalendar, shape: BoxShape.rectangle, borderRadius: kDRadiusSmall),
         child: Row(mainAxisAlignment: MainAxisAlignment.start,crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -44,6 +44,7 @@ class ListTileOfWaste extends StatelessWidget {
               Icons.circle,
               color: color,
             ),
+            SizedBox(width: 10,),
             TextNormal(text: text, color: color, fontSize: 14,),
           ],
         ));
