@@ -3,6 +3,7 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:svoz_odpadu/city_picker_page.dart';
 import 'package:svoz_odpadu/components/list_tile_of_waste_notification.dart';
 import 'package:svoz_odpadu/components/notifications.dart';
 import 'package:svoz_odpadu/components/reminder_icon_on_off.dart';
@@ -675,6 +676,9 @@ class _SettingsPageState extends State<SettingsPage> {
                       ),
                     ],
                   ),
+                  ButtonSettings(onTap: () {
+                    Navigator.pushNamed(context, CityPickerPage.id);
+                  }, title: 'CityPickerPage', subtitle: 'Vyberete si své město', icon: Icons.account_tree),
                   ButtonSettings(
                     onTap: () {
                       showFlash(
