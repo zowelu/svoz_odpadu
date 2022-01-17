@@ -7,10 +7,10 @@ String selectedDayGlobal = '';
 TimeOfDay selectedTimeOfDayGlobal = const TimeOfDay(hour: 0, minute: 0);
 String currentPage = '';
 
-bool isSwitchedPlastic = false;
+/*bool isSwitchedPlastic = false;
 bool isSwitchedBio = false;
 bool isSwitchedPaper = false;
-bool isSwitchedMixed = false;
+bool isSwitchedMixed = false;*/
 
 /*TimeOfDay? plasticReminderTime = TimeOfDay(hour: 00, minute: 00);
 int? plasticReminderday = 0;
