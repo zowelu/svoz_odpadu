@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:svoz_odpadu/components/my_appbar.dart';
+import 'package:svoz_odpadu/components/text_header.dart';
+import 'package:svoz_odpadu/components/text_normal.dart';
 import 'package:svoz_odpadu/constants/constants.dart';
 
 class CityPickerPage extends StatefulWidget {
@@ -11,6 +13,18 @@ class CityPickerPage extends StatefulWidget {
 }
 
 class _CityPickerPageState extends State<CityPickerPage> {
+  List<String> citiesOfWaste = ['Dolní Kounice', 'Ivančice'];
+  String? value;
+
+  DropdownMenuItem<String> buildMenuItem(String item) {
+    return DropdownMenuItem(
+      value: item,
+      child: TextNormal(
+        text: item,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,30 +33,54 @@ class _CityPickerPageState extends State<CityPickerPage> {
         child: MyAppBar(),
       ),
       body: Container(
-        padding:
-            EdgeInsets.only(top: MediaQuery.of(context).size.height / 100 * 2),
+        //padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 100 * 2),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Container(
-              padding: const EdgeInsets.all(10), width: double.infinity,
-              decoration: BoxDecoration(color: kDBackgroundColor, boxShadow: [
-                BoxShadow(
-                    color: Colors.blueGrey,
-                    blurRadius: 5.0,
-                    offset: Offset(0, 0),
-                    spreadRadius: 5),
-              ]),
-              //margin: const EdgeInsets.only(top: kDMarginLarger),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width / 100 * 75,
-                    child: Container(),
+            Flexible(
+              flex: 1,
+              fit: FlexFit.tight,
+              child: Container(
+                color: kDBackgroundColorCalendar,
+                width: double.infinity,
+                height: kDMyAppBarHeight,
+                child: const Center(
+                  child: TextHeader(
+                    text: 'Nastavení',
+                    color: kDBackgroundColor,
                   ),
-                ],
+                ),
+              ),
+            ),
+            Flexible(
+              flex: 20,
+              fit: FlexFit.tight,
+              child: Container(
+                color: kDBackgroundColor,
+                child: Column(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(kDMargin),
+                      child: const TextHeader(
+                        text: 'Výběr svozového místa',
+                        color: kDColorTextColorBackground,
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(kDMargin),
+                      child: const TextNormal(
+                        text:
+                            'Pro správnou funkčnost aplikace je nutné zvolit obci/město',
+                        color: kDColorTextColorBackground,
+                      ),
+                    ),
+                    DropdownButton(
+                        items: citiesOfWaste.map(buildMenuItem).toList(),style: TextStyle(color: kDBackgroundColor),
+                        onChanged: (value) => setState(() {
+                          this.value = value.toString();
+                        }))],
+                ),
               ),
             ),
           ],
