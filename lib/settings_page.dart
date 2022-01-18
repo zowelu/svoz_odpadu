@@ -199,7 +199,7 @@ class _SettingsPageState extends State<SettingsPage> {
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Container(
               color: kDBackgroundColorCalendar,
@@ -612,13 +612,13 @@ class _SettingsPageState extends State<SettingsPage> {
                       ),
                     ],
                   ),
-                  ButtonSettings(color: kDBackgroundColorCalendar,
+                  ButtonSettings(color: Colors.blueGrey,
                       onTap: () {
                         Navigator.pushNamed(context, CityPickerPage.id);
                       },
                       title: 'Vybrat obec/město svozu',
                       subtitle: 'Vyberete si své město',
-                      icon: Icons.account_tree),
+                      icon: Icons.apartment_outlined),
                   ButtonSettings(
                     onTap: () {
                       showFlash(
