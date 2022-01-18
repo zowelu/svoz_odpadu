@@ -107,6 +107,7 @@ Future<NotificationWeekAndTime?> pickSchedule(
     },
   );
 
+  // ignore: unnecessary_null_comparison
   if (selectedDay != null) {
     timeOfDay = await showTimePicker(
         context: context,
@@ -292,5 +293,6 @@ void createNotificationReminder(
     mixedReminderday = pickedShedule.dayOfTheWeek;
     mixedSelectedDay = pickedShedule.selectedDay;
   }
+  // ignore: avoid_print
   print('$mapOfEventsOfWaste, $channelKey, created');
 }
