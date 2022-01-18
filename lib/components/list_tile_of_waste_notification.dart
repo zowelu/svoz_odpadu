@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:svoz_odpadu/components/reminder_icon_on_off.dart';
 import 'package:svoz_odpadu/components/reminder_time_and_date.dart';
+import 'package:svoz_odpadu/components/text_normal.dart';
 import 'package:svoz_odpadu/variables/constants.dart';
 
 class ListTileOfWasteNotification extends StatelessWidget {
@@ -73,6 +74,35 @@ class ListTileOfWasteNotification extends StatelessWidget {
               ],
             ),
           ),
+          /*Container(
+            child: Row(
+              children: [
+                Icon(
+                  Icons.circle,
+                  color: kDColorWastePlastic,
+                ),
+                TextNormal(
+                    text: 'Plast a nápojový karton\nDrobné kovy',
+                    color: kDColorWastePlastic),
+                Switch(value: true, onChanged: (value){})
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.only(
+                top: 0, bottom: 0, left: kDMarginLarger, right: kDMarginLarger),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                IconReminderOnOff(isSwitched: valueOfSwitch),
+                ReminderTimeAndDate(
+                    switcher: valueOfSwitch,
+                    wasteReminderTime: wasteReminderTime,
+                    wasteReminderDay: wasteSelectedDay),
+              ],
+            ),
+          ),*/
         ],
       ),
     );
