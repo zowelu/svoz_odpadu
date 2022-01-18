@@ -66,7 +66,7 @@ class _CityPickerPageState extends State<CityPickerPage> {
   @override
   void initState() {
     super.initState();
-    currentPage = 'city_picker_page';
+    currentPage = CityPickerPage.id;
     initializePreference().whenComplete(() {
       setState(() {
         getPreferencesValueCity();
