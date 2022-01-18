@@ -30,10 +30,6 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   SharedPreferences? preferences;
 
-  bool isSwitchedPlastic = false;
-  bool isSwitchedBio = false;
-  bool isSwitchedPaper = false;
-  bool isSwitchedMixed = false;
 
 
   Future<void> initializePreference() async {
