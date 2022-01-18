@@ -1,7 +1,8 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
+import 'package:svoz_odpadu/variables/constants.dart';
+import 'package:svoz_odpadu/variables/global_var.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:svoz_odpadu/constants/constants.dart';
 import 'package:svoz_odpadu/components/my_appbar.dart';
 import 'package:svoz_odpadu/components/list_tile_of_waste.dart';
 import 'package:svoz_odpadu/components/utils.dart';
@@ -11,7 +12,6 @@ import 'package:svoz_odpadu/components/marker_event.dart';
 import 'package:svoz_odpadu/components/text_normal.dart';
 import 'package:svoz_odpadu/components/text_header.dart';
 import 'dart:io';
-import 'package:svoz_odpadu/constants/global_var.dart';
 
 class HomePage extends StatefulWidget {
   static const id = '/homePage';

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:svoz_odpadu/constants/constants.dart';
 import 'package:svoz_odpadu/settings_page.dart';
-import 'package:svoz_odpadu/constants/global_var.dart';
 import 'package:svoz_odpadu/components/icon_on_current_page.dart';
 import 'package:svoz_odpadu/components/about_app_dialog.dart';
+import 'package:svoz_odpadu/variables/constants.dart';
+import 'package:svoz_odpadu/variables/global_var.dart';
 
 class MyAppBar extends StatelessWidget {
   const MyAppBar({Key? key}) : super(key: key);

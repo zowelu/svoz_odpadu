@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:svoz_odpadu/constants/constants.dart';
+import 'package:svoz_odpadu/variables/constants.dart';
 
 class TextNormal extends StatelessWidget {
   const TextNormal({Key? key, required this.text, this.color = Colors.white, this.fontWeight = FontWeight.normal, this.fontSize = kDFontSizeText, this.lineHeight = 1}) : super(key: key);

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:svoz_odpadu/constants/constants.dart';
+import 'package:svoz_odpadu/variables/constants.dart';
 
 class ListTileOfWasteNotification extends StatelessWidget {
   // ignore: use_key_in_widget_constructors

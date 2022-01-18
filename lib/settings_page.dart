@@ -10,14 +10,14 @@ import 'package:svoz_odpadu/components/reminder_icon_on_off.dart';
 import 'package:svoz_odpadu/components/reminder_time_and_date.dart';
 import 'package:svoz_odpadu/components/text_header.dart';
 import 'package:svoz_odpadu/components/text_normal.dart';
-import 'package:svoz_odpadu/constants/constants.dart';
 import 'package:svoz_odpadu/components/my_appbar.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:svoz_odpadu/components/utilities.dart';
 import 'package:svoz_odpadu/components/button_settings.dart';
-import 'package:svoz_odpadu/constants/global_var.dart';
 import 'package:flash/flash.dart';
 import 'package:svoz_odpadu/components/utils.dart';
+import 'package:svoz_odpadu/variables/constants.dart';
+import 'package:svoz_odpadu/variables/global_var.dart';
 
 class SettingsPage extends StatefulWidget {
   static const id = '/settingsPage';

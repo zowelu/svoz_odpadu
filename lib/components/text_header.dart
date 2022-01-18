@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:svoz_odpadu/constants/constants.dart';
+import 'package:svoz_odpadu/variables/constants.dart';
 
 class TextHeader extends StatelessWidget {
   const TextHeader({Key? key, required this.text, this.color = Colors.white}) : super(key: key);

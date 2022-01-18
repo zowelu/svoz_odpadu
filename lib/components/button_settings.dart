@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:svoz_odpadu/components/text_header.dart';
 import 'package:svoz_odpadu/components/text_normal.dart';
-import 'package:svoz_odpadu/constants/constants.dart';
+
+import 'package:svoz_odpadu/variables/constants.dart';
 
 class ButtonSettings extends StatelessWidget {
   const ButtonSettings(

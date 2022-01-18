@@ -6,9 +6,9 @@ import 'package:svoz_odpadu/components/button_settings.dart';
 import 'package:svoz_odpadu/components/my_appbar.dart';
 import 'package:svoz_odpadu/components/text_header.dart';
 import 'package:svoz_odpadu/components/text_normal.dart';
-import 'package:svoz_odpadu/constants/constants.dart';
-import 'package:svoz_odpadu/constants/global_var.dart';
 import 'package:svoz_odpadu/home_page.dart';
+import 'package:svoz_odpadu/variables/constants.dart';
+import 'package:svoz_odpadu/variables/global_var.dart';
 
 class CityPickerPage extends StatefulWidget {
   const CityPickerPage({Key? key}) : super(key: key);

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:svoz_odpadu/constants/constants.dart';
 import 'package:svoz_odpadu/components/open_url_in_browser.dart';
+import 'package:svoz_odpadu/variables/constants.dart';
 
 class AboutAppDialog extends StatefulWidget {
   const AboutAppDialog({Key? key}) : super(key: key);
