@@ -220,7 +220,14 @@ class _HomePageState extends State<HomePage> {
             ),
             Container(
               padding: const EdgeInsets.all(10), width: double.infinity,
-              decoration: const BoxDecoration(color: kDBackgroundColor,boxShadow: [BoxShadow(color: Colors.blueGrey, blurRadius: 5.0,offset: Offset(0,0),spreadRadius: 5),]),
+              decoration:
+                  const BoxDecoration(color: kDBackgroundColor, boxShadow: [
+                BoxShadow(
+                    color: Colors.blueGrey,
+                    blurRadius: 2.0,
+                    offset: Offset(0, 0),
+                    spreadRadius: 2),
+              ]),
               //margin: const EdgeInsets.only(top: kDMarginLarger),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
