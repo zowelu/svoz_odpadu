@@ -22,8 +22,8 @@ class ListTileOfWasteNotification extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.9,
-      //width: 200,
+      width: MediaQuery.of(context).size.width * 0.8,
+
       //height: 45,
       padding: const EdgeInsets.all(0),
       margin: const EdgeInsets.all(2),
@@ -59,16 +59,20 @@ class ListTileOfWasteNotification extends StatelessWidget {
               onChanged: onChanged,
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              IconReminderOnOff(isSwitched: valueOfSwitch),
-              ReminderTimeAndDate(
-                  switcher: valueOfSwitch,
-                  wasteReminderTime: wasteReminderTime,
-                  wasteReminderDay: wasteSelectedDay),
-            ],
+          Container(
+            padding: EdgeInsets.only(
+                top: 0, bottom: 0, left: kDMarginLarger, right: kDMarginLarger),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                IconReminderOnOff(isSwitched: valueOfSwitch),
+                ReminderTimeAndDate(
+                    switcher: valueOfSwitch,
+                    wasteReminderTime: wasteReminderTime,
+                    wasteReminderDay: wasteSelectedDay),
+              ],
+            ),
           ),
         ],
       ),
