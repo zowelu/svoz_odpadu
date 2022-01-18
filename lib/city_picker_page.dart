@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:svoz_odpadu/components/my_appbar.dart';
 import 'package:svoz_odpadu/components/text_header.dart';
 import 'package:svoz_odpadu/components/text_normal.dart';
 import 'package:svoz_odpadu/constants/constants.dart';
+import 'package:svoz_odpadu/constants/global_var.dart';
 
 class CityPickerPage extends StatefulWidget {
   const CityPickerPage({Key? key}) : super(key: key);
@@ -13,16 +15,50 @@ class CityPickerPage extends StatefulWidget {
 }
 
 class _CityPickerPageState extends State<CityPickerPage> {
-  List<String> citiesOfWaste = ['Dolní Kounice', 'Ivančice'];
+  List<String> citiesOfWaste = [
+    'Vybrat obec/město',
+    'Dolní Kounice',
+    'Ivančice'
+  ];
   String? value;
+  SharedPreferences? preferences;
+
+  Future<void> initializePreference() async {
+    this.preferences = await SharedPreferences.getInstance();
+  }
+
+  Future<void> getPreferencesValue() async {
+    setState(() {
+      value = preferences!.getString('valueCityPicker') ?? 'Vybrat obec/město';
+    });
+    print('get preferences value: $value');
+  }
+
+  Future<void> setPreferencesValue() async {
+    setState(() {
+      this.preferences!.setString('valueCityPicker', value!);
+    });
+  }
 
   DropdownMenuItem<String> buildMenuItem(String item) {
     return DropdownMenuItem(
       value: item,
       child: TextNormal(
         text: item,
+        color: kDBackgroundColor,
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    currentPage = 'city_picker_page';
+    initializePreference().whenComplete(() {
+      setState(() {
+        getPreferencesValue();
+      });
+    });
   }
 
   @override
@@ -75,11 +111,38 @@ class _CityPickerPageState extends State<CityPickerPage> {
                         color: kDColorTextColorBackground,
                       ),
                     ),
-                    DropdownButton(
-                        items: citiesOfWaste.map(buildMenuItem).toList(),style: TextStyle(color: kDBackgroundColor),
-                        onChanged: (value) => setState(() {
-                          this.value = value.toString();
-                        }))],
+                    Container(
+                      width: MediaQuery.of(context).size.width / 100 * 75,
+                      decoration: BoxDecoration(
+                          borderRadius: kDRadius, color: Colors.white),
+                      padding: EdgeInsets.only(
+                          top: 9, left: 15, right: 15, bottom: 10),
+                      child: Center(
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton(
+                            value: value,
+                            hint:
+                                TextNormal(text: value ?? 'Vyberte obci/město'),
+                            items: citiesOfWaste.map(buildMenuItem).toList(),
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: kDFontSizeText,
+                                fontFamily: kDFontFamilyParagraph),
+                            //dropdownColor: kDBackgroundColor,
+                            isExpanded: true,
+                            borderRadius: kDRadius,
+                            onChanged: (value) => setState(
+                              () {
+                                this.value = value.toString();
+                                setPreferencesValue();
+                                print(value);
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
                 ),
               ),
             ),
