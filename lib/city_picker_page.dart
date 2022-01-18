@@ -27,14 +27,14 @@ class _CityPickerPageState extends State<CityPickerPage> {
     this.preferences = await SharedPreferences.getInstance();
   }
 
-  Future<void> getPreferencesValue() async {
+  Future<void> getPreferencesValueCity() async {
     setState(() {
       valueCityPicked = preferences!.getString('valueCityPicked') ?? 'Vybrat obec/město';
     });
     print('get preferences value: $valueCityPicked');
   }
 
-  Future<void> setPreferencesValue() async {
+  Future<void> setPreferencesValueCity() async {
     setState(() {
       this.preferences!.setString('valueCityPicked', valueCityPicked!);
     });
@@ -56,7 +56,7 @@ class _CityPickerPageState extends State<CityPickerPage> {
     currentPage = 'city_picker_page';
     initializePreference().whenComplete(() {
       setState(() {
-        getPreferencesValue();
+        getPreferencesValueCity();
       });
     });
   }
@@ -134,7 +134,7 @@ class _CityPickerPageState extends State<CityPickerPage> {
                             onChanged: (value) => setState(
                               () {
                                 this.valueCityPicked = value.toString();
-                                setPreferencesValue();
+                                setPreferencesValueCity();
                                 print(valueCityPicked);
                               },
                             ),
