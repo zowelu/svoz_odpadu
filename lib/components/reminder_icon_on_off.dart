@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:svoz_odpadu/variables/constants.dart';
 
 class IconReminderOnOff extends StatelessWidget {
   const IconReminderOnOff({
@@ -16,7 +17,7 @@ class IconReminderOnOff extends StatelessWidget {
       child: isSwitched
           ? const Icon(
         Icons.notifications_active,
-        color: Colors.white,
+        color: kDBackgroundColor,
         size: 30,
       )
           : const Icon(
