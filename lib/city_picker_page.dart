@@ -20,7 +20,7 @@ class _CityPickerPageState extends State<CityPickerPage> {
     'Dolní Kounice',
     'Ivančice'
   ];
-  String? value;
+  String? valueCityPicked;
   SharedPreferences? preferences;
 
   Future<void> initializePreference() async {
@@ -29,14 +29,14 @@ class _CityPickerPageState extends State<CityPickerPage> {
 
   Future<void> getPreferencesValue() async {
     setState(() {
-      value = preferences!.getString('valueCityPicker') ?? 'Vybrat obec/město';
+      valueCityPicked = preferences!.getString('valueCityPicked') ?? 'Vybrat obec/město';
     });
-    print('get preferences value: $value');
+    print('get preferences value: $valueCityPicked');
   }
 
   Future<void> setPreferencesValue() async {
     setState(() {
-      this.preferences!.setString('valueCityPicker', value!);
+      this.preferences!.setString('valueCityPicked', valueCityPicked!);
     });
   }
 
@@ -120,9 +120,9 @@ class _CityPickerPageState extends State<CityPickerPage> {
                       child: Center(
                         child: DropdownButtonHideUnderline(
                           child: DropdownButton(
-                            value: value,
+                            value: valueCityPicked,
                             hint:
-                                TextNormal(text: value ?? 'Vyberte obci/město'),
+                                TextNormal(text: valueCityPicked ?? 'Vyberte obci/město'),
                             items: citiesOfWaste.map(buildMenuItem).toList(),
                             style: const TextStyle(
                                 color: Colors.white,
@@ -133,9 +133,9 @@ class _CityPickerPageState extends State<CityPickerPage> {
                             borderRadius: kDRadius,
                             onChanged: (value) => setState(
                               () {
-                                this.value = value.toString();
+                                this.valueCityPicked = value.toString();
                                 setPreferencesValue();
-                                print(value);
+                                print(valueCityPicked);
                               },
                             ),
                           ),
