@@ -37,3 +37,5 @@ String? paperSelectedDay;
 TimeOfDay? mixedReminderTime;
 int? mixedReminderday;
 String? mixedSelectedDay;
+
+bool valueCityPickedGlobal = false;
