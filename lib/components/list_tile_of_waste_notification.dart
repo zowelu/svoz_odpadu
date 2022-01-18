@@ -21,7 +21,7 @@ class ListTileOfWasteNotification extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.8,
+      width: MediaQuery.of(context).size.width * 0.9,
 
       //height: 45,
       padding: const EdgeInsets.all(0),
