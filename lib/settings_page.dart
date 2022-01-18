@@ -363,12 +363,15 @@ class _SettingsPageState extends State<SettingsPage> {
                                       child: FlashBar(
                                         content: const Center(
                                           child: TextNormal(
-                                              text:
-                                                  'Chcete zrušit všechny notifikace'),
+                                            text:
+                                                'Chcete zrušit všechny notifikace',
+                                            color: kDBackgroundColor,
+                                          ),
                                         ),
                                         title: const Center(
                                           child: TextHeader(
                                             text: 'Zrušit upozornění',
+                                            color: kDBackgroundColor,
                                           ),
                                         ),
                                         actions: [
@@ -453,12 +456,15 @@ class _SettingsPageState extends State<SettingsPage> {
                                       child: FlashBar(
                                         content: const Center(
                                           child: TextNormal(
-                                              text:
-                                                  'Chcete zrušit všechny notifikace'),
+                                            text:
+                                                'Chcete zrušit všechny notifikace',
+                                            color: kDBackgroundColor,
+                                          ),
                                         ),
                                         title: const Center(
                                           child: TextHeader(
                                             text: 'Zrušit upozornění',
+                                            color: kDBackgroundColor,
                                           ),
                                         ),
                                         actions: [
@@ -545,12 +551,15 @@ class _SettingsPageState extends State<SettingsPage> {
                                       child: FlashBar(
                                         content: const Center(
                                           child: TextNormal(
-                                              text:
-                                                  'Chcete zrušit všechny notifikace'),
+                                            text:
+                                                'Chcete zrušit všechny notifikace',
+                                            color: kDBackgroundColor,
+                                          ),
                                         ),
                                         title: const Center(
                                           child: TextHeader(
                                             text: 'Zrušit upozornění',
+                                            color: kDBackgroundColor,
                                           ),
                                         ),
                                         actions: [
