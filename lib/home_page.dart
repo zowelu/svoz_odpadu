@@ -1,6 +1,5 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
-import 'package:svoz_odpadu/settings_page.dart';
 import 'package:svoz_odpadu/variables/constants.dart';
 import 'package:svoz_odpadu/variables/global_var.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -98,6 +97,7 @@ class _HomePageState extends State<HomePage> {
   void dispose() {
     AwesomeNotifications().actionSink.close();
     AwesomeNotifications().createdSink.close();
+    currentPage = HomePage.id;
     super.dispose();
   }
 

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:svoz_odpadu/components/reminder_icon_on_off.dart';
 import 'package:svoz_odpadu/components/reminder_time_and_date.dart';
 import 'package:svoz_odpadu/variables/constants.dart';
-import 'package:svoz_odpadu/variables/global_var.dart';
 
 class ListTileOfWasteNotification extends StatelessWidget {
   // ignore: use_key_in_widget_constructors
@@ -60,7 +59,7 @@ class ListTileOfWasteNotification extends StatelessWidget {
             ),
           ),
           Container(
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
                 top: 0, bottom: 0, left: kDMarginLarger, right: kDMarginLarger),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,

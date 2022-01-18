@@ -2,11 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:svoz_odpadu/components/button_settings.dart';
 import 'package:svoz_odpadu/components/my_appbar.dart';
 import 'package:svoz_odpadu/components/text_header.dart';
 import 'package:svoz_odpadu/components/text_normal.dart';
-import 'package:svoz_odpadu/home_page.dart';
 import 'package:svoz_odpadu/variables/constants.dart';
 import 'package:svoz_odpadu/variables/global_var.dart';
 
@@ -72,6 +70,12 @@ class _CityPickerPageState extends State<CityPickerPage> {
         getPreferencesValueCity();
       });
     });
+  }
+
+  @override
+  void dispose() {
+    currentPage = CityPickerPage.id;
+    super.dispose();
   }
 
   @override

@@ -182,6 +182,11 @@ class _SettingsPageState extends State<SettingsPage> {
       });
     });
   }
+  @override
+  void dispose() {
+    currentPage = SettingsPage.id;
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -607,11 +612,11 @@ class _SettingsPageState extends State<SettingsPage> {
                       ),
                     ],
                   ),
-                  ButtonSettings(
+                  ButtonSettings(color: kDBackgroundColorCalendar,
                       onTap: () {
                         Navigator.pushNamed(context, CityPickerPage.id);
                       },
-                      title: 'CityPickerPage',
+                      title: 'Vybrat obec/město svozu',
                       subtitle: 'Vyberete si své město',
                       icon: Icons.account_tree),
                   ButtonSettings(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:svoz_odpadu/city_picker_page.dart';
-import 'package:svoz_odpadu/home_page.dart';
 import 'package:svoz_odpadu/settings_page.dart';
 import 'package:svoz_odpadu/components/icon_on_current_page.dart';
 import 'package:svoz_odpadu/components/about_app_dialog.dart';
