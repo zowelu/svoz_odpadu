@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:svoz_odpadu/components/button_settings.dart';
@@ -133,7 +134,7 @@ class _CityPickerPageState extends State<CityPickerPage> {
                           child: DropdownButton(
                             value: valueCityPicked,
                             hint: TextNormal(
-                                text: valueCityPicked ?? 'Vyberte obci/město'),
+                                text: valueCityPicked ?? 'Vyberte obci/město', fontWeight: FontWeight.bold,),
                             items: citiesOfWaste.map(buildMenuItem).toList(),
                             style: const TextStyle(
                                 color: Colors.white,
