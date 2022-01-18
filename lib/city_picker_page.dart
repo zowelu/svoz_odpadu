@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:svoz_odpadu/components/button_settings.dart';
 import 'package:svoz_odpadu/components/my_appbar.dart';
 import 'package:svoz_odpadu/components/text_header.dart';
 import 'package:svoz_odpadu/components/text_normal.dart';
 import 'package:svoz_odpadu/constants/constants.dart';
 import 'package:svoz_odpadu/constants/global_var.dart';
+import 'package:svoz_odpadu/home_page.dart';
 
 class CityPickerPage extends StatefulWidget {
   const CityPickerPage({Key? key}) : super(key: key);
@@ -29,7 +31,16 @@ class _CityPickerPageState extends State<CityPickerPage> {
 
   Future<void> getPreferencesValueCity() async {
     setState(() {
-      valueCityPicked = preferences!.getString('valueCityPicked') ?? 'Vybrat obec/město';
+      valueCityPicked =
+          preferences!.getString('valueCityPicked') ?? 'Vybrat obec/město';
+
+      if (valueCityPicked == 'Vybrat obec/město') {
+        valueCityPickedGlobal = false;
+      }
+      if (valueCityPicked != 'Vybrat obec/město') {
+        valueCityPickedGlobal = true;
+        print(valueCityPickedGlobal);
+      }
     });
     print('get preferences value: $valueCityPicked');
   }
@@ -121,8 +132,8 @@ class _CityPickerPageState extends State<CityPickerPage> {
                         child: DropdownButtonHideUnderline(
                           child: DropdownButton(
                             value: valueCityPicked,
-                            hint:
-                                TextNormal(text: valueCityPicked ?? 'Vyberte obci/město'),
+                            hint: TextNormal(
+                                text: valueCityPicked ?? 'Vyberte obci/město'),
                             items: citiesOfWaste.map(buildMenuItem).toList(),
                             style: const TextStyle(
                                 color: Colors.white,
@@ -141,7 +152,14 @@ class _CityPickerPageState extends State<CityPickerPage> {
                           ),
                         ),
                       ),
-                    )
+                    ),
+                    ButtonSettings(
+                        onTap: () {
+                          Navigator.pushNamed(context, HomePage.id);
+                        },
+                        title: 'Přejít na Home Page',
+                        subtitle: '',
+                        icon: Icons.arrow_forward_outlined),
                   ],
                 ),
               ),
