@@ -82,27 +82,21 @@ class _CityPickerPageState extends State<CityPickerPage> {
         child: MyAppBar(),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Flexible(
-            flex: 1,
-            fit: FlexFit.tight,
-            child: Container(
-              color: kDBackgroundColorCalendar,
-              width: double.infinity,
-              height: kDMyAppBarHeight,
-              child: const Center(
-                child: TextHeader(
-                  text: 'Nastavení',
-                  color: kDBackgroundColor,
-                ),
+          Container(
+            color: kDBackgroundColorCalendar,
+            width: double.infinity,
+            height: kDMyAppBarHeight,
+            child: const Center(
+              child: TextHeader(
+                text: 'Nastavení',
+                color: kDBackgroundColor,
               ),
             ),
           ),
-          Flexible(
-            flex: 20,
-            fit: FlexFit.tight,
+          Expanded(
             child: Container(
               color: kDBackgroundColor,
               child: Column(
@@ -133,7 +127,9 @@ class _CityPickerPageState extends State<CityPickerPage> {
                         child: DropdownButton(
                           value: valueCityPicked,
                           hint: TextNormal(
-                              text: valueCityPicked ?? 'Vyberte obci/město', fontWeight: FontWeight.bold,),
+                            text: valueCityPicked ?? 'Vyberte obci/město',
+                            fontWeight: FontWeight.bold,
+                          ),
                           items: citiesOfWaste.map(buildMenuItem).toList(),
                           style: const TextStyle(
                               color: Colors.white,
@@ -153,13 +149,6 @@ class _CityPickerPageState extends State<CityPickerPage> {
                       ),
                     ),
                   ),
-                  ButtonSettings(
-                      onTap: () {
-                        Navigator.pushNamed(context, HomePage.id);
-                      },
-                      title: 'Přejít na Home Page',
-                      subtitle: '',
-                      icon: Icons.arrow_forward_outlined),
                 ],
               ),
             ),
