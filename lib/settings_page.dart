@@ -1,10 +1,10 @@
 // ignore_for_file: unnecessary_this, avoid_print
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:svoz_odpadu/city_picker_page.dart';
 import 'package:svoz_odpadu/components/list_tile_of_waste_notification.dart';
 import 'package:svoz_odpadu/components/notifications.dart';
+import 'package:svoz_odpadu/components/shared_preferences.dart';
 import 'package:svoz_odpadu/components/text_header.dart';
 import 'package:svoz_odpadu/components/text_normal.dart';
 import 'package:svoz_odpadu/components/my_appbar.dart';
@@ -15,6 +15,7 @@ import 'package:flash/flash.dart';
 import 'package:svoz_odpadu/components/utils.dart';
 import 'package:svoz_odpadu/variables/constants.dart';
 import 'package:svoz_odpadu/variables/global_var.dart';
+import 'package:svoz_odpadu/components/shared_preferences.dart';
 
 class SettingsPage extends StatefulWidget {
   static const id = '/settingsPage';
@@ -25,158 +26,33 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  SharedPreferences? preferences;
+  SharedPreferencesGlobal sharedPreferencesGlobal = new SharedPreferencesGlobal();
 
-  Future<void> initializePreference() async {
-    this.preferences = await SharedPreferences.getInstance();
-  }
 
   ///načte všechny uložené preference
   Future<void> getPreferencesAll() async {
-    await getPreferencesPlastic();
-    print('get getPreferencesPlastic');
-    await getPreferencesBio();
-    print('get getPreferencesBio');
-    await getPreferencesPaper();
-    print('get getPreferencesPaper');
-    await getPreferencesMixed();
-    print('get getPreferencesMixed');
+    sharedPreferencesGlobal.getPreferencesWaste(isSwitchedPlastic, 'isSwitchedPlastic', plasticReminderTime, 'plasticReminderTime', plasticSelectedDay!);
+    sharedPreferencesGlobal.getPreferencesWaste(isSwitchedBio, 'isSwitchedBio', bioReminderTime, 'bioReminderTime', bioSelectedDay!);
+    sharedPreferencesGlobal.getPreferencesWaste(isSwitchedPaper, 'isSwitchedPaper', paperReminderTime, 'paperReminderTime', paperSelectedDay!);
+    sharedPreferencesGlobal.getPreferencesWaste(isSwitchedMixed, 'isSwitchedMixed', mixedReminderTime, 'mixedReminderTime', mixedSelectedDay!);
+
   }
 
   /// uložím všechny preference
   Future<void> setPreferencesAll() async {
-    await setPreferencesPlastic();
-    print('set setPreferencesPlastic');
-    await setPreferencesBio();
-    print('set setPreferencesBio');
-    await setPreferencesPaper();
-    print('set setPreferencesPaper');
-    await setPreferencesMixed();
-    print('set setPreferencesMixed');
+    sharedPreferencesGlobal.setPreferencesWaste(isSwitchedPlastic, 'isSwitchedPlastic', plasticReminderTime, 'plasticReminderTime', plasticSelectedDay!);
+    sharedPreferencesGlobal.setPreferencesWaste(isSwitchedBio, 'isSwitchedBio', bioReminderTime, 'bioReminderTime', bioSelectedDay!);
+    sharedPreferencesGlobal.setPreferencesWaste(isSwitchedPaper, 'isSwitchedPaper', paperReminderTime, 'paperReminderTime', paperSelectedDay!);
+    sharedPreferencesGlobal.setPreferencesWaste(isSwitchedMixed, 'isSwitchedMixed', mixedReminderTime, 'mixedReminderTime', mixedSelectedDay!);
   }
 
-  ///get preferences from stored data for Plastic
-  Future<void> getPreferencesPlastic() async {
-    setState(() {
-      isSwitchedPlastic =
-          this.preferences!.getBool('isSwitchedPlastic') ?? false;
-    });
-    String timeStamp =
-        this.preferences?.getString('plasticReminderTime') ?? '00:00';
-    plasticReminderTime = TimeOfDay(
-        hour: (int.parse(timeStamp.split(":")[0])),
-        minute: (int.parse(timeStamp.split(":")[1])));
-    plasticSelectedDay =
-        this.preferences?.getString('plasticSelectedDay') ?? 'V daný den';
-    print(
-        'load SharedPreferencesPlastic $isSwitchedPlastic, $plasticReminderTime, $plasticSelectedDay');
-  }
 
-  ///get preferences from stored data for Bio
-  Future<void> getPreferencesBio() async {
-    setState(() {
-      isSwitchedBio = this.preferences!.getBool('isSwitchedBio') ?? false;
-    });
-    String timeStamp =
-        this.preferences?.getString('bioReminderTime') ?? '00:00';
-    bioReminderTime = TimeOfDay(
-        hour: int.parse(timeStamp.split(":")[0]),
-        minute: int.parse(timeStamp.split(":")[1]));
-    bioSelectedDay =
-        this.preferences?.getString('bioSelectedDay') ?? 'V daný den';
-    print(
-        'load SharedPreferencesBio $isSwitchedBio, $bioReminderTime, $bioSelectedDay');
-  }
-
-  ///get preferences from stored data for Paper
-  Future<void> getPreferencesPaper() async {
-    setState(() {
-      isSwitchedPaper = this.preferences!.getBool('isSwitchedPaper') ?? false;
-    });
-    String timeStamp =
-        this.preferences?.getString('paperReminderTime') ?? '00:00';
-    paperReminderTime = TimeOfDay(
-        hour: int.parse(timeStamp.split(":")[0]),
-        minute: int.parse(timeStamp.split(":")[1]));
-    paperSelectedDay =
-        this.preferences?.getString('paperSelectedDay') ?? 'V daný den';
-    print(
-        'load SharedPreferencesPaper $isSwitchedPaper, $paperReminderTime, $paperSelectedDay');
-  }
-
-  ///get preferences from stored data for Mixed
-  Future<void> getPreferencesMixed() async {
-    setState(() {
-      isSwitchedMixed = this.preferences!.getBool('isSwitchedMixed') ?? false;
-    });
-    String timeStamp =
-        this.preferences!.getString('mixedReminderTime') ?? '00:00';
-    mixedReminderTime = TimeOfDay(
-        hour: int.parse(timeStamp.split(":")[0]),
-        minute: int.parse(timeStamp.split(":")[1]));
-    mixedSelectedDay =
-        this.preferences!.getString('mixedSelectedDay') ?? 'V daný den';
-    print(
-        'load SharedPreferencesMixed $isSwitchedMixed, $mixedReminderTime, $mixedSelectedDay');
-  }
-
-  ///set preferences to stored data for Plastic
-  Future<void> setPreferencesPlastic() async {
-    this.preferences!.setBool('isSwitchedPlastic', isSwitchedPlastic);
-    String timeStampHour = plasticReminderTime!.hour.toString();
-    String timeStampMinute = plasticReminderTime!.minute.toString();
-    this
-        .preferences!
-        .setString('plasticReminderTime', '$timeStampHour:$timeStampMinute');
-    this.preferences!.setString('plasticSelectedDay', plasticSelectedDay!);
-    print(
-        'Set SharedPreferencesPlastic $isSwitchedPlastic, $plasticReminderTime, $plasticSelectedDay');
-  }
-
-  ///set preferences to stored data for Bio
-  Future<void> setPreferencesBio() async {
-    this.preferences!.setBool('isSwitchedBio', isSwitchedBio);
-    String timeStampHour = bioReminderTime!.hour.toString();
-    String timeStampMinute = bioReminderTime!.minute.toString();
-    this
-        .preferences!
-        .setString('bioReminderTime', '$timeStampHour:$timeStampMinute');
-    this.preferences!.setString('bioSelectedDay', bioSelectedDay!);
-    print(
-        'Set SharedPreferencesBio $isSwitchedBio, $bioReminderTime, $bioSelectedDay');
-  }
-
-  ///set preferences to stored data for Paper
-  Future<void> setPreferencesPaper() async {
-    this.preferences!.setBool('isSwitchedPaper', isSwitchedPaper);
-    String timeStampHour = paperReminderTime!.hour.toString();
-    String timeStampMinute = paperReminderTime!.minute.toString();
-    this
-        .preferences
-        ?.setString('paperReminderTime', '$timeStampHour:$timeStampMinute');
-    this.preferences?.setString('paperSelectedDay', paperSelectedDay!);
-    print(
-        'Set SharedPreferencesPaper $isSwitchedPaper, $paperReminderTime, $paperSelectedDay');
-  }
-
-  ///set preferences to stored data for Paper
-  Future<void> setPreferencesMixed() async {
-    this.preferences!.setBool('isSwitchedMixed', isSwitchedMixed);
-    String timeStampHour = mixedReminderTime!.hour.toString();
-    String timeStampMinute = mixedReminderTime!.minute.toString();
-    this
-        .preferences
-        ?.setString('mixedReminderTime', '$timeStampHour:$timeStampMinute');
-    this.preferences?.setString('mixedSelectedDay', mixedSelectedDay!);
-    print(
-        'Set SharedPreferencesMixed $isSwitchedMixed, $mixedReminderTime, $mixedSelectedDay');
-  }
 
   @override
   void initState() {
     super.initState();
     currentPage = SettingsPage.id;
-    initializePreference().whenComplete(() {
+    sharedPreferencesGlobal.initializePreference().whenComplete(() {
       setState(() {
         getPreferencesAll();
       });
@@ -191,6 +67,9 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     initializeDateFormatting('cs');
+
+    SharedPreferencesGlobal sharedPreferencesGlobal = new SharedPreferencesGlobal();
+
     return Scaffold(
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(kDMyAppBarHeight),
@@ -267,7 +146,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                     setState(
                                       () {
                                         isSwitchedPlastic = value;
-                                        setPreferencesPlastic();
+                                        sharedPreferencesGlobal.setPreferencesWaste(isSwitchedPlastic, 'isSwitchedplastic', plasticReminderTime, 'plasticReminderTime', plasticSelectedDay!);
+
                                       },
                                     );
                                   }
@@ -316,7 +196,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                                     showSnackBar(context,
                                                         'Notifikace zrušeny');
                                                     isSwitchedPlastic = value;
-                                                    setPreferencesPlastic();
+                                                    sharedPreferencesGlobal.setPreferencesWaste(isSwitchedPlastic, 'isSwitchedplastic', plasticReminderTime, 'plasticReminderTime', plasticSelectedDay!);
                                                   },
                                                 );
                                               },
@@ -356,7 +236,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                     setState(
                                       () {
                                         isSwitchedBio = value;
-                                        setPreferencesBio();
+                                        //setPreferencesBio();
                                       },
                                     );
                                   }
@@ -406,7 +286,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                                     showSnackBar(context,
                                                         'Notifikace zrušeny');
                                                     isSwitchedBio = value;
-                                                    setPreferencesBio();
+                                                    //setPreferencesBio();
                                                   },
                                                 );
                                               },
@@ -450,7 +330,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                     setState(
                                       () {
                                         isSwitchedPaper = value;
-                                        setPreferencesPaper();
+                                        //setPreferencesPaper();
                                       },
                                     );
                                   }
@@ -500,7 +380,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                                     showSnackBar(context,
                                                         'Notifikace zrušeny');
                                                     isSwitchedPaper = value;
-                                                    setPreferencesPaper();
+                                                    //setPreferencesPaper();
                                                   },
                                                 );
                                               },
@@ -544,7 +424,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                     setState(
                                       () {
                                         isSwitchedMixed = value;
-                                        setPreferencesMixed();
+                                        //setPreferencesMixed();
                                       },
                                     );
                                   }
@@ -596,7 +476,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                                     showSnackBar(context,
                                                         'Notifikace zrušeny');
                                                     isSwitchedMixed = value;
-                                                    setPreferencesMixed();
+                                                    //setPreferencesMixed();
                                                   },
                                                 );
                                               },
