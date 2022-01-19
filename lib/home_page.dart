@@ -2,7 +2,9 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:svoz_odpadu/city_picker_page.dart';
+import 'package:svoz_odpadu/components/button_settings.dart';
 import 'package:svoz_odpadu/components/shared_preferences.dart';
+import 'package:svoz_odpadu/settings_page.dart';
 import 'package:svoz_odpadu/variables/constants.dart';
 import 'package:svoz_odpadu/variables/global_var.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -96,10 +98,16 @@ class _HomePageState extends State<HomePage> {
 
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       sharedPreferencesGlobal.initializePreference();
+
       sharedPreferencesGlobal.getPreferencesValueCity();
-      if (valueCityPickedGlobal == false) {
+
+      sharedPreferencesGlobal.getPreferencesWaste(isSwitchedPlastic, 'isSwitchedPlastic', plasticReminderTime, 'plasticReminderTime', plasticSelectedDay!);
+      sharedPreferencesGlobal.getPreferencesWaste(isSwitchedBio, 'isSwitchedBio', bioReminderTime, 'bioReminderTime', bioSelectedDay!);
+      sharedPreferencesGlobal.getPreferencesWaste(isSwitchedPaper, 'isSwitchedPaper', paperReminderTime, 'paperReminderTime', paperSelectedDay!);
+      sharedPreferencesGlobal.getPreferencesWaste(isSwitchedMixed, 'isSwitchedMixed', mixedReminderTime, 'mixedReminderTime', mixedSelectedDay!);
+      /*if (valueCityPickedGlobal == false) {
         toCityPage();
-      }
+      }*/
     });
   }
 
@@ -261,13 +269,14 @@ class _HomePageState extends State<HomePage> {
                         borderRadius: kDRadiusLarge),
                     child: ListView(
                       shrinkWrap: true,
-                      children: const <Widget>[
+                      children: <Widget>[
                         ListTileOfWaste('Dnešní den', kDBackgroundColor),
                         ListTileOfWaste('Plast a nápojový karton, Drobné kovy',
                             kDColorWastePlastic),
                         ListTileOfWaste('Bioodpad', kDColorWasteBio),
                         ListTileOfWaste('Papír', kDColorWastePaper),
                         ListTileOfWaste('Směsný odpad', kDColorWasteMixed),
+                        ButtonSettings(onTap: () {Navigator.pushNamed(context, SettingsPage.id);}, title: 'Přejít na setting', subtitle: 'přejít', icon: Icons.settings),
                       ],
                     ),
                   ),
