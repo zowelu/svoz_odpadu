@@ -15,7 +15,7 @@ class MyAppBar extends StatelessWidget {
       centerTitle: true,
       backgroundColor: kDBackgroundColor,
       actions: [
-        (currentPage == SettingsPage.id)
+        /*(currentPage == SettingsPage.id)
             ? IconOnCurrentPage(
                 onPressed: () {
                   showDialog(
@@ -37,7 +37,17 @@ class MyAppBar extends StatelessWidget {
                     ),
                   );
                 },
-              )
+              )*/
+        IconOnCurrentPage(
+          icon: const Icon(Icons.settings),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const SettingsPage()),
+            );
+
+          },
+        )
       ],
       //bottom: PreferredSize(child: TextWidget(), preferredSize: Size.fromHeight(4.0)),
       title: RichText(
