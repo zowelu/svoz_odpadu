@@ -232,8 +232,11 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(
+                  Container(
                     width: MediaQuery.of(context).size.width / 100 * 75,
+                    decoration: BoxDecoration(
+                        color: kDBackgroundColorCalendar,
+                        borderRadius: kDRadiusLarge),
                     child: ListView(
                       shrinkWrap: true,
                       children: const <Widget>[
