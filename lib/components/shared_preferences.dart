@@ -12,7 +12,7 @@ class SharedPreferencesGlobal {
   ///načte všechny uložené proměnné
   Future<void> getPreferencesWaste(bool isSwitchedWaste, String isSwitchedWasteString,TimeOfDay? reminderTimeWaste ,String reminderTimeWasteString, String selectedDayWaste) async {
     isSwitchedWaste =
-        preferences!.getBool(isSwitchedWasteString) ?? false;
+        preferences?.getBool(isSwitchedWasteString) ?? false;
 
     String timeStamp =
         preferences?.getString(reminderTimeWasteString) ?? '00:00';
@@ -22,17 +22,16 @@ class SharedPreferencesGlobal {
     selectedDayWaste =
         preferences?.getString('plasticSelectedDay') ?? 'V daný den';
     print(
-        'load SharedPreferencesPlastic $isSwitchedWaste, $reminderTimeWaste, $selectedDayWaste');
+        'load SharedPreferences $reminderTimeWasteString $isSwitchedWaste, $reminderTimeWaste, $selectedDayWaste');
   }
 
   ///set preferences to stored data for Plastic
   Future<void> setPreferencesWaste(bool isSwitchedWaste, String isSwitchedWasteString,TimeOfDay? reminderTimeWaste ,String reminderTimeWasteString, String selectedDayWaste) async {
-    preferences!.setBool(isSwitchedWasteString, isSwitchedWaste);
+    preferences?.setBool(isSwitchedWasteString, isSwitchedWaste);
     String timeStampHour = reminderTimeWaste!.hour.toString();
     String timeStampMinute = reminderTimeWaste.minute.toString();
-    preferences!
-        .setString(reminderTimeWasteString, '$timeStampHour:$timeStampMinute');
-    preferences!.setString(selectedDayWaste, selectedDayWaste);
+    preferences?.setString(reminderTimeWasteString, '$timeStampHour:$timeStampMinute');
+    preferences?.setString(selectedDayWaste, selectedDayWaste);
     print(
         'Set SharedPreferencesPlastic $isSwitchedWaste, $reminderTimeWaste, $selectedDayWaste');
   }
