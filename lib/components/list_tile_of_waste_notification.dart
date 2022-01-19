@@ -21,20 +21,13 @@ class ListTileOfWasteNotification extends StatelessWidget {
   final String wasteSelectedDay;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width * 0.9,
-
-      //height: 45,
-      padding: const EdgeInsets.all(0),
-      margin: const EdgeInsets.all(2),
-      decoration: const BoxDecoration(
-        borderRadius: kDRadius,
-        color: kDBackgroundColorCalendar,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          ListTile(
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Flexible(
+          fit: FlexFit.tight,
+          flex: 3,
+          child: ListTile(
             title: Text(
               text,
               style: TextStyle(
@@ -59,9 +52,10 @@ class ListTileOfWasteNotification extends StatelessWidget {
               onChanged: onChanged,
             ),
           ),
-          Container(
-            padding: const EdgeInsets.only(
-                top: 0, bottom: 0, left: kDMarginLarger, right: kDMarginLarger),
+        ),
+        Flexible(
+            fit: FlexFit.loose,
+            flex: 2,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -72,9 +66,99 @@ class ListTileOfWasteNotification extends StatelessWidget {
                     wasteReminderTime: wasteReminderTime,
                     wasteReminderDay: wasteSelectedDay),
               ],
-            ),
+            )
+
+            /*Container(
+          child: Row(
+            children: [
+              Icon(
+                Icons.circle,
+                color: kDColorWastePlastic,
+              ),
+              TextNormal(
+                  text: 'Plast a nápojový karton\nDrobné kovy',
+                  color: kDColorWastePlastic),
+              Switch(value: true, onChanged: (value){})
+            ],
           ),
-          /*Container(
+        ),
+        Container(
+          padding: const EdgeInsets.only(
+              top: 0, bottom: 0, left: kDMarginLarger, right: kDMarginLarger),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              IconReminderOnOff(isSwitched: valueOfSwitch),
+              ReminderTimeAndDate(
+                  switcher: valueOfSwitch,
+                  wasteReminderTime: wasteReminderTime,
+                  wasteReminderDay: wasteSelectedDay),
+            ],
+          ),
+        ),*/
+            )
+      ],
+    );
+  }
+}
+
+/*
+return Container(
+width: MediaQuery.of(context).size.width * 0.9,
+
+//height: 45,
+padding: const EdgeInsets.all(0),
+margin: const EdgeInsets.all(2),
+decoration: const BoxDecoration(
+borderRadius: kDRadius,
+color: kDBackgroundColorCalendar,
+),
+child: Column(
+crossAxisAlignment: CrossAxisAlignment.center,
+children: [
+ListTile(
+title: Text(
+text,
+style: TextStyle(
+shadows: const [
+Shadow(
+color: Colors.black12,
+offset: Offset(0, 0),
+blurRadius: 15)
+],
+fontFamily: kDFontFamilyParagraph,
+fontSize: 16,
+color: color,
+fontWeight: FontWeight.bold),
+),
+leading: Icon(Icons.circle, color: color),
+dense: true,
+horizontalTitleGap: 0.0,
+minVerticalPadding: 0.0,
+style: ListTileStyle.list,
+trailing: Switch(
+value: valueOfSwitch,
+onChanged: onChanged,
+),
+),
+Container(
+padding: const EdgeInsets.only(
+top: 0, bottom: 0, left: kDMarginLarger, right: kDMarginLarger),
+child: Row(
+mainAxisAlignment: MainAxisAlignment.center,
+crossAxisAlignment: CrossAxisAlignment.center,
+children: [
+IconReminderOnOff(isSwitched: valueOfSwitch),
+ReminderTimeAndDate(
+switcher: valueOfSwitch,
+wasteReminderTime: wasteReminderTime,
+wasteReminderDay: wasteSelectedDay),
+],
+),
+),
+*/
+/*Container(
             child: Row(
               children: [
                 Icon(
@@ -102,9 +186,10 @@ class ListTileOfWasteNotification extends StatelessWidget {
                     wasteReminderDay: wasteSelectedDay),
               ],
             ),
-          ),*/
-        ],
-      ),
-    );
-  }
+          ),*/ /*
+
+],
+),
+);
 }
+}*/
