@@ -12,18 +12,18 @@ bool isSwitchedBio = false;
 bool isSwitchedPaper = false;
 bool isSwitchedMixed = false;
 
-TimeOfDay? plasticReminderTime;
+TimeOfDay? plasticReminderTime = TimeOfDay(hour: 0, minute: 0);
 int? plasticReminderday;
-String? plasticSelectedDay;
-TimeOfDay? bioReminderTime;
+String? plasticSelectedDay = 'Den Předem';
+TimeOfDay? bioReminderTime = TimeOfDay(hour: 0, minute: 0);
 int? bioReminderday;
-String? bioSelectedDay;
-TimeOfDay? paperReminderTime;
+String? bioSelectedDay = 'Den Předem';
+TimeOfDay? paperReminderTime = TimeOfDay(hour: 0, minute: 0);
 int? paperReminderday;
-String? paperSelectedDay;
-TimeOfDay? mixedReminderTime;
+String? paperSelectedDay = 'Den Předem';
+TimeOfDay? mixedReminderTime = TimeOfDay(hour: 0, minute: 0);
 int? mixedReminderday;
-String? mixedSelectedDay;
+String? mixedSelectedDay = 'Den Předem';
 
 bool valueCityPickedGlobal = false;
 String? valueCityPicked;
