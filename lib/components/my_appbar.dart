@@ -15,7 +15,7 @@ class MyAppBar extends StatelessWidget {
       centerTitle: true,
       backgroundColor: kDBackgroundColor,
       actions: [
-        (currentPage == SettingsPage.id || currentPage == CityPickerPage.id)
+        (currentPage == SettingsPage.id)
             ? IconOnCurrentPage(
                 onPressed: () {
                   showDialog(
