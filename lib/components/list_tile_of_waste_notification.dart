@@ -26,7 +26,7 @@ class ListTileOfWasteNotification extends StatelessWidget {
       children: [
         Flexible(
           fit: FlexFit.tight,
-          flex: 3,
+          flex: 6,
           child: ListTile(
             title: Text(
               text,
@@ -55,7 +55,7 @@ class ListTileOfWasteNotification extends StatelessWidget {
         ),
         Flexible(
             fit: FlexFit.loose,
-            flex: 2,
+            flex: 4,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
