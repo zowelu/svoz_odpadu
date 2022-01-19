@@ -2,6 +2,7 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:svoz_odpadu/city_picker_page.dart';
+import 'package:svoz_odpadu/components/shared_preferences.dart';
 import 'package:svoz_odpadu/variables/constants.dart';
 import 'package:svoz_odpadu/variables/global_var.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -27,7 +28,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    initializePreference();
     currentPage = HomePage.id;
     initializeDateFormatting(); //very important
     getAllEventsToMap();
@@ -95,35 +95,16 @@ class _HomePageState extends State<HomePage> {
     );
 
     WidgetsBinding.instance!.addPostFrameCallback((_) {
-      getPreferencesValueCity();
+      sharedPreferencesGlobal.initializePreference();
+      sharedPreferencesGlobal.getPreferencesValueCity();
       if (valueCityPickedGlobal == false) {
         toCityPage();
       }
     });
   }
 
-  SharedPreferences? preferences;
-  String? valueCityPicked;
+  SharedPreferencesGlobal sharedPreferencesGlobal = new SharedPreferencesGlobal();
 
-  Future<void> initializePreference() async {
-    this.preferences = await SharedPreferences.getInstance();
-  }
-
-  Future<void> getPreferencesValueCity() async {
-    setState(() {
-      valueCityPicked =
-          preferences!.getString('valueCityPicked') ?? 'Vybrat obec/město';
-
-      if (valueCityPicked == 'Vybrat obec/město') {
-        valueCityPickedGlobal = false;
-      }
-      if (valueCityPicked != 'Vybrat obec/město') {
-        valueCityPickedGlobal = true;
-        print(valueCityPickedGlobal);
-      }
-    });
-    print('get preferences value: $valueCityPicked');
-  }
 
   void toCityPage() {
     Navigator.pushAndRemoveUntil(
