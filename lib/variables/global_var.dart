@@ -26,3 +26,4 @@ int? mixedReminderday;
 String? mixedSelectedDay;
 
 bool valueCityPickedGlobal = false;
+String? valueCityPicked;
