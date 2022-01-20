@@ -99,12 +99,6 @@ class _HomePageState extends State<HomePage> {
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       sharedPreferencesGlobal.initializePreference();
 
-      sharedPreferencesGlobal.getPreferencesValueCity();
-
-      sharedPreferencesGlobal.getPreferencesWaste(isSwitchedPlastic, 'isSwitchedPlastic', plasticReminderTime, 'plasticReminderTime', plasticSelectedDay!);
-      sharedPreferencesGlobal.getPreferencesWaste(isSwitchedBio, 'isSwitchedBio', bioReminderTime, 'bioReminderTime', bioSelectedDay!);
-      sharedPreferencesGlobal.getPreferencesWaste(isSwitchedPaper, 'isSwitchedPaper', paperReminderTime, 'paperReminderTime', paperSelectedDay!);
-      sharedPreferencesGlobal.getPreferencesWaste(isSwitchedMixed, 'isSwitchedMixed', mixedReminderTime, 'mixedReminderTime', mixedSelectedDay!);
       /*if (valueCityPickedGlobal == false) {
         toCityPage();
       }*/
@@ -147,143 +141,145 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: const PreferredSize(
           preferredSize: Size.fromHeight(kDMyAppBarHeight), child: MyAppBar()),
-      body: Container(
-        padding:
-            EdgeInsets.only(top: MediaQuery.of(context).size.height / 100 * 2),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              margin: const EdgeInsets.only(left: kDMargin, right: kDMargin),
-              padding: const EdgeInsets.only(
-                left: kDMargin,
-                right: kDMargin,
-              ),
-              decoration: const BoxDecoration(
-                  color: kDBackgroundColorCalendar,
-                  borderRadius: kDRadiusLarge),
-              child: TableCalendar(
-                rowHeight: MediaQuery.of(context).size.height / 100 * 6,
-                eventLoader: (day) {
-                  return _getEventsForDay(day);
-                },
-                calendarFormat: CalendarFormat.month,
-                startingDayOfWeek: StartingDayOfWeek.monday,
-                focusedDay: dateTimeNow,
-                firstDay: dateTimeFirstDay,
-                lastDay: dateTimeLastDay,
-                locale: 'cs_CZ',
-                calendarStyle: const CalendarStyle(
-                  markerSizeScale: 1.35,
-                  canMarkersOverflow: true,
-                  outsideDaysVisible: false,
-                  markerDecoration: BoxDecoration(
-                      color: Colors.black, shape: BoxShape.rectangle),
-                  markersMaxCount: 2,
-                  isTodayHighlighted: true,
-                  cellPadding: EdgeInsets.all(0),
-                  cellMargin: EdgeInsets.all(0),
-                  defaultDecoration: BoxDecoration(
-                    borderRadius: kDRadius,
-                  ),
-                  defaultTextStyle: TextStyle(
-                      fontSize: kDFontSizeText,
-                      fontFamily: kDFontFamilyParagraph,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold),
-                  todayTextStyle: TextStyle(
-                      fontSize: kDFontSizeText,
-                      fontFamily: kDFontFamilyParagraph,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
-                  todayDecoration: BoxDecoration(
-                    color: kDBackgroundColor,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10.0),
-                    ),
-                  ),
-                  weekendTextStyle: TextStyle(
-                      color: Colors.grey,
-                      fontSize: kDFontSizeText,
-                      fontFamily: kDFontFamilyParagraph),
+      body: SingleChildScrollView(
+        child: Container(
+          padding:
+              EdgeInsets.only(top: MediaQuery.of(context).size.height / 100 * 2),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                margin: const EdgeInsets.only(left: kDMargin, right: kDMargin),
+                padding: const EdgeInsets.only(
+                  left: kDMargin,
+                  right: kDMargin,
                 ),
-                headerStyle: const HeaderStyle(
-                  leftChevronIcon: Icon(Icons.arrow_back_ios_new_rounded,
-                      color: kDBackgroundColor),
-                  rightChevronIcon: Icon(Icons.arrow_forward_ios_rounded,
-                      color: kDBackgroundColor),
-                  formatButtonVisible: false,
-                  titleCentered: true,
-                  titleTextStyle: TextStyle(
-                    fontFamily: kDFontFamilyHeader,
-                    fontSize: kDFontSizeHeader,
-                    color: kDBackgroundColor,
-                  ),
-                ),
-                daysOfWeekStyle: const DaysOfWeekStyle(
-                  weekdayStyle: TextStyle(color: Colors.blueGrey),
-                  weekendStyle: TextStyle(color: Colors.blueGrey),
-                ),
-                calendarBuilders: CalendarBuilders(
-                  singleMarkerBuilder: (context, day, event) {
-                    //DateTime dayRaw = day;
-                    DateFormat dateFormat = DateFormat('d');
-                    String dayString = dateFormat.format(day);
-                    Widget? children;
-                    if (event.toString() == 'Směsný odpad') {
-                      children = MarkerEvent(kDColorWasteMixed, dayString);
-                    } else if (event.toString() == 'Papír') {
-                      children = MarkerEvent(kDColorWastePaper, dayString);
-                    } else if (event.toString() ==
-                        'Plast a nápojový karton, Drobné kovy') {
-                      children = MarkerEvent(kDColorWastePlastic, dayString);
-                    } else if (event.toString() == 'Bioodpad') {
-                      children = MarkerEventGradient(
-                          const [kDColorWastePlastic, kDColorWasteBio],
-                          dayString);
-                    }
-                    return children;
+                decoration: const BoxDecoration(
+                    color: kDBackgroundColorCalendar,
+                    borderRadius: kDRadiusLarge),
+                child: TableCalendar(
+                  rowHeight: MediaQuery.of(context).size.height / 100 * 6,
+                  eventLoader: (day) {
+                    return _getEventsForDay(day);
                   },
-                ),
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.all(10), width: double.infinity,
-              decoration:
-                  const BoxDecoration(color: kDBackgroundColor, boxShadow: [
-                BoxShadow(
-                    color: Colors.blueGrey,
-                    blurRadius: 2.0,
-                    offset: Offset(0, 0),
-                    spreadRadius: 2),
-              ]),
-              //margin: const EdgeInsets.only(top: kDMarginLarger),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width / 100 * 75,
-                    decoration: BoxDecoration(
-                        color: kDBackgroundColorCalendar,
-                        borderRadius: kDRadiusLarge),
-                    child: ListView(
-                      shrinkWrap: true,
-                      children: <Widget>[
-                        ListTileOfWaste('Dnešní den', kDBackgroundColor),
-                        ListTileOfWaste('Plast a nápojový karton, Drobné kovy',
-                            kDColorWastePlastic),
-                        ListTileOfWaste('Bioodpad', kDColorWasteBio),
-                        ListTileOfWaste('Papír', kDColorWastePaper),
-                        ListTileOfWaste('Směsný odpad', kDColorWasteMixed),
-                        ButtonSettings(onTap: () {Navigator.pushNamed(context, SettingsPage.id);}, title: 'Přejít na setting', subtitle: 'přejít', icon: Icons.settings),
-                      ],
+                  calendarFormat: CalendarFormat.month,
+                  startingDayOfWeek: StartingDayOfWeek.monday,
+                  focusedDay: dateTimeNow,
+                  firstDay: dateTimeFirstDay,
+                  lastDay: dateTimeLastDay,
+                  locale: 'cs_CZ',
+                  calendarStyle: const CalendarStyle(
+                    markerSizeScale: 1.35,
+                    canMarkersOverflow: true,
+                    outsideDaysVisible: false,
+                    markerDecoration: BoxDecoration(
+                        color: Colors.black, shape: BoxShape.rectangle),
+                    markersMaxCount: 2,
+                    isTodayHighlighted: true,
+                    cellPadding: EdgeInsets.all(0),
+                    cellMargin: EdgeInsets.all(0),
+                    defaultDecoration: BoxDecoration(
+                      borderRadius: kDRadius,
+                    ),
+                    defaultTextStyle: TextStyle(
+                        fontSize: kDFontSizeText,
+                        fontFamily: kDFontFamilyParagraph,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold),
+                    todayTextStyle: TextStyle(
+                        fontSize: kDFontSizeText,
+                        fontFamily: kDFontFamilyParagraph,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                    todayDecoration: BoxDecoration(
+                      color: kDBackgroundColor,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10.0),
+                      ),
+                    ),
+                    weekendTextStyle: TextStyle(
+                        color: Colors.grey,
+                        fontSize: kDFontSizeText,
+                        fontFamily: kDFontFamilyParagraph),
+                  ),
+                  headerStyle: const HeaderStyle(
+                    leftChevronIcon: Icon(Icons.arrow_back_ios_new_rounded,
+                        color: kDBackgroundColor),
+                    rightChevronIcon: Icon(Icons.arrow_forward_ios_rounded,
+                        color: kDBackgroundColor),
+                    formatButtonVisible: false,
+                    titleCentered: true,
+                    titleTextStyle: TextStyle(
+                      fontFamily: kDFontFamilyHeader,
+                      fontSize: kDFontSizeHeader,
+                      color: kDBackgroundColor,
                     ),
                   ),
-                ],
+                  daysOfWeekStyle: const DaysOfWeekStyle(
+                    weekdayStyle: TextStyle(color: Colors.blueGrey),
+                    weekendStyle: TextStyle(color: Colors.blueGrey),
+                  ),
+                  calendarBuilders: CalendarBuilders(
+                    singleMarkerBuilder: (context, day, event) {
+                      //DateTime dayRaw = day;
+                      DateFormat dateFormat = DateFormat('d');
+                      String dayString = dateFormat.format(day);
+                      Widget? children;
+                      if (event.toString() == 'Směsný odpad') {
+                        children = MarkerEvent(kDColorWasteMixed, dayString);
+                      } else if (event.toString() == 'Papír') {
+                        children = MarkerEvent(kDColorWastePaper, dayString);
+                      } else if (event.toString() ==
+                          'Plast a nápojový karton, Drobné kovy') {
+                        children = MarkerEvent(kDColorWastePlastic, dayString);
+                      } else if (event.toString() == 'Bioodpad') {
+                        children = MarkerEventGradient(
+                            const [kDColorWastePlastic, kDColorWasteBio],
+                            dayString);
+                      }
+                      return children;
+                    },
+                  ),
+                ),
               ),
-            ),
-          ],
+              Container(
+                padding: const EdgeInsets.all(10), width: double.infinity,
+                decoration:
+                    const BoxDecoration(color: kDBackgroundColor, boxShadow: [
+                  BoxShadow(
+                      color: Colors.blueGrey,
+                      blurRadius: 2.0,
+                      offset: Offset(0, 0),
+                      spreadRadius: 2),
+                ]),
+                //margin: const EdgeInsets.only(top: kDMarginLarger),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ButtonSettings(onTap: () {Navigator.pushNamed(context, SettingsPage.id);}, title: 'Přejít na setting', subtitle: 'přejít', icon: Icons.settings),
+                    Container(
+                      width: MediaQuery.of(context).size.width / 100 * 75,
+                      decoration: BoxDecoration(
+                          color: kDBackgroundColorCalendar,
+                          borderRadius: kDRadiusLarge),
+                      child: ListView(
+                        shrinkWrap: true,
+                        children: <Widget>[
+                          ListTileOfWaste('Dnešní den', kDBackgroundColor),
+                          ListTileOfWaste('Plast a nápojový karton, Drobné kovy',
+                              kDColorWastePlastic),
+                          ListTileOfWaste('Bioodpad', kDColorWasteBio),
+                          ListTileOfWaste('Papír', kDColorWastePaper),
+                          ListTileOfWaste('Směsný odpad', kDColorWasteMixed),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
