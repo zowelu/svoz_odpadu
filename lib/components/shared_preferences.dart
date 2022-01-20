@@ -9,18 +9,30 @@ class SharedPreferencesGlobal {
     preferences = await SharedPreferences.getInstance();
   }
 
+  void getAllPreferenceInMap() {
+    final Set<String>? keys = preferences?.getKeys();
+
+    final prefsMap = Map<String, dynamic>();
+    for (String key in keys!) {
+      prefsMap[key] = preferences?.get(key);
+      print('prefsMap[key]: ${prefsMap[key]}');
+    }
+
+    print(prefsMap);
+  }
+
   ///načte všechny uložené proměnné
   Future<void> getPreferencesWaste(bool isSwitchedWaste, String isSwitchedWasteString,TimeOfDay? reminderTimeWaste ,String reminderTimeWasteString, String selectedDayWaste) async {
     isSwitchedWaste =
-        preferences?.getBool(isSwitchedWasteString) ?? false;
+        preferences!.getBool(isSwitchedWasteString) ?? false;
 
     String timeStamp =
-        preferences?.getString(reminderTimeWasteString) ?? '00:00';
+        preferences!.getString(reminderTimeWasteString) ?? '00:00';
     reminderTimeWaste = TimeOfDay(
         hour: (int.parse(timeStamp.split(":")[0])),
         minute: (int.parse(timeStamp.split(":")[1])));
     selectedDayWaste =
-        preferences?.getString('plasticSelectedDay') ?? 'V daný den';
+        preferences!.getString('plasticSelectedDay') ?? 'V daný den';
     print(
         'load SharedPreferences $reminderTimeWasteString $isSwitchedWaste, $reminderTimeWaste, $selectedDayWaste');
   }
