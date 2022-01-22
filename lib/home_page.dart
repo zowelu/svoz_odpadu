@@ -1,6 +1,5 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:svoz_odpadu/city_picker_page.dart';
 import 'package:svoz_odpadu/components/button_settings.dart';
 import 'package:svoz_odpadu/components/shared_preferences.dart';
@@ -97,15 +96,16 @@ class _HomePageState extends State<HomePage> {
     );
 
     WidgetsBinding.instance!.addPostFrameCallback((_) {
-      sharedPreferencesGlobal.initializePreference();
-
-      /*if (valueCityPickedGlobal == false) {
+      sharedPreferencesGlobal.getPreferencesValueCity();
+      // ignore: avoid_print
+      print('valueCityPickedGlobal from home: $valueCityPickedGlobal');
+      if (valueCityPickedGlobal == false) {
         toCityPage();
-      }*/
+      }
     });
   }
 
-  SharedPreferencesGlobal sharedPreferencesGlobal = new SharedPreferencesGlobal();
+  SharedPreferencesGlobal sharedPreferencesGlobal = SharedPreferencesGlobal();
 
 
   void toCityPage() {
@@ -138,6 +138,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     initializeDateFormatting('cs');
+
     return Scaffold(
       appBar: const PreferredSize(
           preferredSize: Size.fromHeight(kDMyAppBarHeight), child: MyAppBar()),
@@ -260,12 +261,12 @@ class _HomePageState extends State<HomePage> {
                     ButtonSettings(onTap: () {Navigator.pushNamed(context, SettingsPage.id);}, title: 'Přejít na setting', subtitle: 'přejít', icon: Icons.settings),
                     Container(
                       width: MediaQuery.of(context).size.width / 100 * 75,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           color: kDBackgroundColorCalendar,
                           borderRadius: kDRadiusLarge),
                       child: ListView(
                         shrinkWrap: true,
-                        children: <Widget>[
+                        children: const <Widget>[
                           ListTileOfWaste('Dnešní den', kDBackgroundColor),
                           ListTileOfWaste('Plast a nápojový karton, Drobné kovy',
                               kDColorWastePlastic),
