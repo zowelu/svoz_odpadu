@@ -101,4 +101,10 @@ class SharedPreferencesGlobal {
     }
     print('getPreferencesValueCity: $valueCityPicked');
   }
+
+  Future<void> setPreferencesValueCity(String valueCityPicked, String valueCityPickedString ) async {
+    final SharedPreferences? preferences = await SharedPreferences.getInstance();
+    preferences!.setString(valueCityPickedString, valueCityPicked);
+
+  }
 }
