@@ -15,7 +15,6 @@ import 'package:flash/flash.dart';
 import 'package:svoz_odpadu/components/utils.dart';
 import 'package:svoz_odpadu/variables/constants.dart';
 import 'package:svoz_odpadu/variables/global_var.dart';
-import 'package:svoz_odpadu/components/shared_preferences.dart';
 
 class SettingsPage extends StatefulWidget {
   static const id = '/settingsPage';
@@ -26,27 +25,56 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  SharedPreferencesGlobal sharedPreferencesGlobal = new SharedPreferencesGlobal();
-
+  SharedPreferencesGlobal sharedPreferencesGlobal =
+      SharedPreferencesGlobal();
 
   ///načte všechny uložené preference
   Future<void> getPreferencesAll() async {
-    sharedPreferencesGlobal.getPreferencesWaste(isSwitchedPlastic, 'isSwitchedPlastic', plasticReminderTime, 'plasticReminderTime', plasticSelectedDay!);
-    sharedPreferencesGlobal.getPreferencesWaste(isSwitchedBio, 'isSwitchedBio', bioReminderTime, 'bioReminderTime', bioSelectedDay!);
-    sharedPreferencesGlobal.getPreferencesWaste(isSwitchedPaper, 'isSwitchedPaper', paperReminderTime, 'paperReminderTime', paperSelectedDay!);
-    sharedPreferencesGlobal.getPreferencesWaste(isSwitchedMixed, 'isSwitchedMixed', mixedReminderTime, 'mixedReminderTime', mixedSelectedDay!);
-
+    sharedPreferencesGlobal.getPreferencesWaste(
+        isSwitchedPlastic,
+        'isSwitchedPlastic',
+        plasticReminderTime,
+        'plasticReminderTime',
+        plasticSelectedDay!);
+    sharedPreferencesGlobal.getPreferencesWaste(isSwitchedBio, 'isSwitchedBio',
+        bioReminderTime, 'bioReminderTime', bioSelectedDay!);
+    sharedPreferencesGlobal.getPreferencesWaste(
+        isSwitchedPaper,
+        'isSwitchedPaper',
+        paperReminderTime,
+        'paperReminderTime',
+        paperSelectedDay!);
+    sharedPreferencesGlobal.getPreferencesWaste(
+        isSwitchedMixed,
+        'isSwitchedMixed',
+        mixedReminderTime,
+        'mixedReminderTime',
+        mixedSelectedDay!);
   }
 
   /// uložím všechny preference
   Future<void> setPreferencesAll() async {
-    sharedPreferencesGlobal.setPreferencesWaste(isSwitchedPlastic, 'isSwitchedPlastic', plasticReminderTime, 'plasticReminderTime', plasticSelectedDay!);
-    sharedPreferencesGlobal.setPreferencesWaste(isSwitchedBio, 'isSwitchedBio', bioReminderTime, 'bioReminderTime', bioSelectedDay!);
-    sharedPreferencesGlobal.setPreferencesWaste(isSwitchedPaper, 'isSwitchedPaper', paperReminderTime, 'paperReminderTime', paperSelectedDay!);
-    sharedPreferencesGlobal.setPreferencesWaste(isSwitchedMixed, 'isSwitchedMixed', mixedReminderTime, 'mixedReminderTime', mixedSelectedDay!);
+    sharedPreferencesGlobal.setPreferencesWaste(
+        isSwitchedPlastic,
+        'isSwitchedPlastic',
+        plasticReminderTime,
+        'plasticReminderTime',
+        plasticSelectedDay!);
+    sharedPreferencesGlobal.setPreferencesWaste(isSwitchedBio, 'isSwitchedBio',
+        bioReminderTime, 'bioReminderTime', bioSelectedDay!);
+    sharedPreferencesGlobal.setPreferencesWaste(
+        isSwitchedPaper,
+        'isSwitchedPaper',
+        paperReminderTime,
+        'paperReminderTime',
+        paperSelectedDay!);
+    sharedPreferencesGlobal.setPreferencesWaste(
+        isSwitchedMixed,
+        'isSwitchedMixed',
+        mixedReminderTime,
+        'mixedReminderTime',
+        mixedSelectedDay!);
   }
-
-
 
   @override
   void initState() {
@@ -58,17 +86,42 @@ class _SettingsPageState extends State<SettingsPage> {
       });
     });
   }
+
   @override
   void dispose() {
     currentPage = SettingsPage.id;
     super.dispose();
   }
 
+  void update() {
+    setState(() {
+      sharedPreferencesGlobal.getPreferencesWaste(
+          isSwitchedPlastic,
+          'isSwitchedPlastic',
+          plasticReminderTime,
+          'plasticReminderTime',
+          plasticSelectedDay!);
+      sharedPreferencesGlobal.getPreferencesWaste(isSwitchedBio,
+          'isSwitchedBio', bioReminderTime, 'bioReminderTime', bioSelectedDay!);
+      sharedPreferencesGlobal.getPreferencesWaste(
+          isSwitchedPaper,
+          'isSwitchedPaper',
+          paperReminderTime,
+          'paperReminderTime',
+          paperSelectedDay!);
+      sharedPreferencesGlobal.getPreferencesWaste(
+          isSwitchedMixed,
+          'isSwitchedMixed',
+          mixedReminderTime,
+          'mixedReminderTime',
+          mixedSelectedDay!);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     initializeDateFormatting('cs');
-
-    SharedPreferencesGlobal sharedPreferencesGlobal = new SharedPreferencesGlobal();
+    update();
 
     return Scaffold(
       appBar: const PreferredSize(
@@ -117,10 +170,10 @@ class _SettingsPageState extends State<SettingsPage> {
                     ],
                   ),
                   Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         color: kDBackgroundColorCalendar,
                         borderRadius: kDRadiusLarge),
-                    padding: EdgeInsets.all(5.0),
+                    padding: const EdgeInsets.all(5.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -146,8 +199,13 @@ class _SettingsPageState extends State<SettingsPage> {
                                     setState(
                                       () {
                                         isSwitchedPlastic = value;
-                                        sharedPreferencesGlobal.setPreferencesWaste(isSwitchedPlastic, 'isSwitchedplastic', plasticReminderTime, 'plasticReminderTime', plasticSelectedDay!);
-
+                                        sharedPreferencesGlobal
+                                            .setPreferencesWaste(
+                                                isSwitchedPlastic,
+                                                'isSwitchedPlastic',
+                                                plasticReminderTime,
+                                                'plasticReminderTime',
+                                                plasticSelectedDay!);
                                       },
                                     );
                                   }
@@ -196,7 +254,13 @@ class _SettingsPageState extends State<SettingsPage> {
                                                     showSnackBar(context,
                                                         'Notifikace zrušeny');
                                                     isSwitchedPlastic = value;
-                                                    sharedPreferencesGlobal.setPreferencesWaste(isSwitchedPlastic, 'isSwitchedplastic', plasticReminderTime, 'plasticReminderTime', plasticSelectedDay!);
+                                                    sharedPreferencesGlobal
+                                                        .setPreferencesWaste(
+                                                            isSwitchedPlastic,
+                                                            'isSwitchedplastic',
+                                                            plasticReminderTime,
+                                                            'plasticReminderTime',
+                                                            plasticSelectedDay!);
                                                   },
                                                 );
                                               },
@@ -236,7 +300,13 @@ class _SettingsPageState extends State<SettingsPage> {
                                     setState(
                                       () {
                                         isSwitchedBio = value;
-                                        //setPreferencesBio();
+                                        sharedPreferencesGlobal
+                                            .setPreferencesWaste(
+                                            isSwitchedBio,
+                                            'isSwitchedBio',
+                                            bioReminderTime,
+                                            'bioReminderTime',
+                                            bioSelectedDay!);
                                       },
                                     );
                                   }
@@ -286,6 +356,13 @@ class _SettingsPageState extends State<SettingsPage> {
                                                     showSnackBar(context,
                                                         'Notifikace zrušeny');
                                                     isSwitchedBio = value;
+                                                    sharedPreferencesGlobal
+                                                        .setPreferencesWaste(
+                                                        isSwitchedBio,
+                                                        'isSwitchedBio',
+                                                        bioReminderTime,
+                                                        'bioReminderTime',
+                                                        bioSelectedDay!);
                                                     //setPreferencesBio();
                                                   },
                                                 );
@@ -330,6 +407,13 @@ class _SettingsPageState extends State<SettingsPage> {
                                     setState(
                                       () {
                                         isSwitchedPaper = value;
+                                        sharedPreferencesGlobal
+                                            .setPreferencesWaste(
+                                            isSwitchedPaper,
+                                            'isSwitchedPaper',
+                                            paperReminderTime,
+                                            'paperReminderTime',
+                                            paperSelectedDay!);
                                         //setPreferencesPaper();
                                       },
                                     );
@@ -380,6 +464,13 @@ class _SettingsPageState extends State<SettingsPage> {
                                                     showSnackBar(context,
                                                         'Notifikace zrušeny');
                                                     isSwitchedPaper = value;
+                                                    sharedPreferencesGlobal
+                                                        .setPreferencesWaste(
+                                                        isSwitchedPaper,
+                                                        'isSwitchedPaper',
+                                                        paperReminderTime,
+                                                        'paperReminderTime',
+                                                        paperSelectedDay!);
                                                     //setPreferencesPaper();
                                                   },
                                                 );
@@ -424,6 +515,13 @@ class _SettingsPageState extends State<SettingsPage> {
                                     setState(
                                       () {
                                         isSwitchedMixed = value;
+                                        sharedPreferencesGlobal
+                                            .setPreferencesWaste(
+                                            isSwitchedMixed,
+                                            'isSwitchedMixed',
+                                            mixedReminderTime,
+                                            'mixedReminderTime',
+                                            mixedSelectedDay!);
                                         //setPreferencesMixed();
                                       },
                                     );
@@ -476,6 +574,13 @@ class _SettingsPageState extends State<SettingsPage> {
                                                     showSnackBar(context,
                                                         'Notifikace zrušeny');
                                                     isSwitchedMixed = value;
+                                                    sharedPreferencesGlobal
+                                                        .setPreferencesWaste(
+                                                        isSwitchedMixed,
+                                                        'isSwitchedMixed',
+                                                        mixedReminderTime,
+                                                        'mixedReminderTime',
+                                                        mixedSelectedDay!);
                                                     //setPreferencesMixed();
                                                   },
                                                 );
@@ -501,7 +606,13 @@ class _SettingsPageState extends State<SettingsPage> {
                       ],
                     ),
                   ),
-                  ButtonSettings(onTap: (){sharedPreferencesGlobal.getAllPreferenceInMap();}, title: 'Get all preferences', subtitle: 'get', icon: Icons.arrow_circle_down),
+                  ButtonSettings(
+                      onTap: () {
+                        sharedPreferencesGlobal.getAllPreferenceInMap();
+                      },
+                      title: 'Get all preferences',
+                      subtitle: 'get',
+                      icon: Icons.arrow_circle_down),
                   ButtonSettings(
                       color: Colors.blueGrey,
                       onTap: () {
