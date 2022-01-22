@@ -1,8 +1,7 @@
 // ignore_for_file: avoid_print
-
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:svoz_odpadu/components/my_appbar.dart';
+import 'package:svoz_odpadu/components/shared_preferences_global.dart';
 import 'package:svoz_odpadu/components/text_header.dart';
 import 'package:svoz_odpadu/components/text_normal.dart';
 import 'package:svoz_odpadu/variables/constants.dart';
@@ -23,33 +22,10 @@ class _CityPickerPageState extends State<CityPickerPage> {
     'Ivančice'
   ];
   String? valueCityPicked;
-  SharedPreferences? preferences;
 
-  Future<void> initializePreference() async {
-    preferences = await SharedPreferences.getInstance();
-  }
+  SharedPreferencesGlobal sharedPreferencesGlobal = SharedPreferencesGlobal();
 
-  Future<void> getPreferencesValueCity() async {
-    setState(() {
-      valueCityPicked =
-          preferences!.getString('valueCityPicked') ?? 'Vybrat obec/město';
 
-      if (valueCityPicked == 'Vybrat obec/město') {
-        valueCityPickedGlobal = false;
-      }
-      if (valueCityPicked != 'Vybrat obec/město') {
-        valueCityPickedGlobal = true;
-        print(valueCityPickedGlobal);
-      }
-    });
-    print('get preferences value: $valueCityPicked');
-  }
-
-  Future<void> setPreferencesValueCity() async {
-    setState(() {
-      preferences!.setString('valueCityPicked', valueCityPicked!);
-    });
-  }
 
   DropdownMenuItem<String> buildMenuItem(String item) {
     return DropdownMenuItem(
@@ -65,9 +41,9 @@ class _CityPickerPageState extends State<CityPickerPage> {
   void initState() {
     super.initState();
     currentPage = CityPickerPage.id;
-    initializePreference().whenComplete(() {
+    sharedPreferencesGlobal.initializePreference().whenComplete(() {
       setState(() {
-        getPreferencesValueCity();
+        sharedPreferencesGlobal.getPreferencesValueCity();
       });
     });
   }
@@ -145,7 +121,7 @@ class _CityPickerPageState extends State<CityPickerPage> {
                           onChanged: (value) => setState(
                             () {
                               valueCityPicked = value.toString();
-                              setPreferencesValueCity();
+                              sharedPreferencesGlobal.setPreferencesValueCity(valueCityPicked!, 'valueCityPicked');
                               print(valueCityPicked);
                             },
                           ),
