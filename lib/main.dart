@@ -2,6 +2,7 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:svoz_odpadu/city_picker_page.dart';
 import 'package:svoz_odpadu/home_page.dart';
+import 'package:svoz_odpadu/loading_page.dart';
 import 'package:svoz_odpadu/settings_page.dart';
 import 'package:easy_splash_screen/easy_splash_screen.dart';
 import 'package:svoz_odpadu/variables/constants.dart';
@@ -126,13 +127,14 @@ class MyApp extends StatelessWidget {
               fontFamily: kDFontFamilyParagraph,
               fontSize: kDFontSizeText),
         ),
-        navigator: const HomePage(),
+        navigator: const LoadingPage(),
       ),
       initialRoute: '/',
       routes: {
         HomePage.id: (context) => const HomePage(),
         SettingsPage.id: (context) => const SettingsPage(),
         CityPickerPage.id: (context) => const CityPickerPage(),
+        LoadingPage.id: (context) => const LoadingPage(),
       },
     );
   }
