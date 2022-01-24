@@ -607,13 +607,6 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                   ),
                   ButtonSettings(
-                      onTap: () {
-                        sharedPreferencesGlobal.getAllPreferenceInMap();
-                      },
-                      title: 'Get all preferences',
-                      subtitle: 'get',
-                      icon: Icons.arrow_circle_down),
-                  ButtonSettings(
                       color: Colors.blueGrey,
                       onTap: () {
                         Navigator.pushNamed(context, CityPickerPage.id);
