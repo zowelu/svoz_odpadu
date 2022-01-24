@@ -7,6 +7,7 @@ import 'package:svoz_odpadu/settings_page.dart';
 import 'package:easy_splash_screen/easy_splash_screen.dart';
 import 'package:svoz_odpadu/variables/constants.dart';
 import 'package:svoz_odpadu/variables/global_var.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 
 void main() {
   AwesomeNotifications().initialize(
@@ -90,7 +91,7 @@ void main() {
   );
   currentPage = 'main';
 
-  runApp(const MyApp());
+  runApp(Phoenix(child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
