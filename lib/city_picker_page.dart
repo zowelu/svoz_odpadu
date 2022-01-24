@@ -1,4 +1,5 @@
 // ignore_for_file: avoid_print
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:svoz_odpadu/components/my_appbar.dart';
 import 'package:svoz_odpadu/components/shared_preferences_global.dart';
@@ -6,6 +7,8 @@ import 'package:svoz_odpadu/components/text_header.dart';
 import 'package:svoz_odpadu/components/text_normal.dart';
 import 'package:svoz_odpadu/variables/constants.dart';
 import 'package:svoz_odpadu/variables/global_var.dart';
+import 'package:restart_app/restart_app.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 
 class CityPickerPage extends StatefulWidget {
   const CityPickerPage({Key? key}) : super(key: key);
@@ -21,11 +24,9 @@ class _CityPickerPageState extends State<CityPickerPage> {
     'Dolní Kounice',
     'Ivančice'
   ];
-  String? valueCityPicked;
+  //String? valueCityPicked;
 
   SharedPreferencesGlobal sharedPreferencesGlobal = SharedPreferencesGlobal();
-
-
 
   DropdownMenuItem<String> buildMenuItem(String item) {
     return DropdownMenuItem(
@@ -46,6 +47,14 @@ class _CityPickerPageState extends State<CityPickerPage> {
         sharedPreferencesGlobal.getPreferencesValueCity();
       });
     });
+  }
+
+  void restartApp(BuildContext context) async {
+    if (Platform.isAndroid) {
+      Restart.restartApp();
+    } else {
+      await Phoenix.rebirth(context);
+    }
   }
 
   @override
@@ -96,38 +105,47 @@ class _CityPickerPageState extends State<CityPickerPage> {
                       color: kDColorTextColorBackground,
                     ),
                   ),
-                  Container(
-                    width: MediaQuery.of(context).size.width / 100 * 75,
-                    decoration: const BoxDecoration(
-                        borderRadius: kDRadius, color: Colors.white),
-                    padding: const EdgeInsets.only(
-                        top: 9, left: 15, right: 15, bottom: 10),
-                    child: Center(
-                      child: DropdownButtonHideUnderline(
-                        child: DropdownButton(
-                          value: valueCityPicked,
-                          hint: TextNormal(
-                            text: valueCityPicked ?? 'Vyberte obci/město',
-                            fontWeight: FontWeight.bold,
-                          ),
-                          items: citiesOfWaste.map(buildMenuItem).toList(),
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: kDFontSizeText,
-                              fontFamily: kDFontFamilyParagraph),
-                          //dropdownColor: kDBackgroundColor,
-                          isExpanded: true,
-                          borderRadius: kDRadius,
-                          onChanged: (value) => setState(
-                            () {
-                              valueCityPicked = value.toString();
-                              sharedPreferencesGlobal.setPreferencesValueCity(valueCityPicked!, 'valueCityPicked');
-                              print(valueCityPicked);
-                            },
+                  Container(child: TextNormal(text: 'pozn.: Po zvolení dojde k restartu aplikace a načtení nových dat.', color: Colors.blueGrey,),),
+                  Column(
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width / 100 * 75,
+                        decoration: const BoxDecoration(
+                            borderRadius: kDRadius, color: Colors.white),
+                        padding: const EdgeInsets.only(
+                            top: 9, left: 15, right: 15, bottom: 10),
+                        child: Center(
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton(
+                              value: valueCityPicked,
+                              hint: TextNormal(
+                                text: valueCityPicked ?? 'Vyberte obci/město',
+                                fontWeight: FontWeight.bold,
+                              ),
+                              items: citiesOfWaste.map(buildMenuItem).toList(),
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: kDFontSizeText,
+                                  fontFamily: kDFontFamilyParagraph),
+                              //dropdownColor: kDBackgroundColor,
+                              isExpanded: true,
+                              borderRadius: kDRadius,
+                              onChanged: (value) {
+                                setState(
+                                  () {
+                                    valueCityPicked = value.toString();
+                                    sharedPreferencesGlobal.setPreferencesValueCity(
+                                        valueCityPicked!, 'valueCityPicked');
+                                    print(valueCityPicked);
+                                    restartApp(context);
+                                  },
+                                );
+                              },
+                            ),
                           ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
                 ],
               ),
