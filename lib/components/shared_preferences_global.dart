@@ -83,12 +83,12 @@ class SharedPreferencesGlobal {
     print(
         'Set SharedPreferencesPlastic $isSwitchedWaste, $reminderTimeWaste, $selectedDayWaste');
   }
-
+  ///přečte valueCityPicked z preferencí, přiřadí název proměnné $valueCityPicked a zvolí bool valueCityPickedBool
   Future<void> getPreferencesValueCity() async {
     final SharedPreferences? preferences =
         await SharedPreferences.getInstance();
     valueCityPicked = preferences?.getString('valueCityPicked');
-    print('valueCityPicked from preference homePage: $valueCityPicked');
+    print('valueCityPicked from preference LoadingPage: $valueCityPicked');
     if (valueCityPicked == 'Vybrat obec/město') {
       valueCityPickedGlobal = false;
       print('value cityPickedGlobal $valueCityPickedGlobal');
@@ -99,12 +99,12 @@ class SharedPreferencesGlobal {
       valueCityPickedGlobal = true;
       print('value cityPickedGlobal $valueCityPickedGlobal');
     }
-    print('getPreferencesValueCity: $valueCityPicked');
   }
 
-  Future<void> setPreferencesValueCity(String valueCityPicked, String valueCityPickedString ) async {
-    final SharedPreferences? preferences = await SharedPreferences.getInstance();
+  Future<void> setPreferencesValueCity(
+      String valueCityPicked, String valueCityPickedString) async {
+    final SharedPreferences? preferences =
+        await SharedPreferences.getInstance();
     preferences!.setString(valueCityPickedString, valueCityPicked);
-
   }
 }
