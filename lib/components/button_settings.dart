@@ -9,8 +9,9 @@ class ButtonSettings extends StatelessWidget {
       {Key? key,
       required this.onTap,
       required this.title,
-      required this.subtitle,
-      required this.icon, this.color = kDBackgroundColor})
+      this.subtitle = '',
+      required this.icon,
+      this.color = kDBackgroundColor})
       : super(key: key);
 
   // ignore: prefer_typing_uninitialized_variables
