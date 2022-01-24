@@ -1,9 +1,6 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
-import 'package:svoz_odpadu/city_picker_page.dart';
-import 'package:svoz_odpadu/components/button_settings.dart';
 import 'package:svoz_odpadu/components/shared_preferences_global.dart';
-import 'package:svoz_odpadu/settings_page.dart';
 import 'package:svoz_odpadu/variables/constants.dart';
 import 'package:svoz_odpadu/variables/global_var.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -32,46 +29,47 @@ class _HomePageState extends State<HomePage> {
     currentPage = HomePage.id;
     initializeDateFormatting(); //very important
     getAllEventsToMap();
-    AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
-      if (!isAllowed) {
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: const TextHeader(text: 'Souhlas s notifikacemi'),
-            content: const TextNormal(
-                text:
-                    'Aplikace by Vám ráda zasílala notifikace.\n\nBez Vašeho souhlasu Vás aplikace neupozorní na svoz odpadu'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: const Text(
-                  'Nesouhlasím',
-                  style:
-                      TextStyle(color: Colors.grey, fontSize: kDFontSizeText),
+    AwesomeNotifications().isNotificationAllowed().then(
+      (isAllowed) {
+        if (!isAllowed) {
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: const TextHeader(text: 'Souhlas s notifikacemi'),
+              content: const TextNormal(
+                  text:
+                      'Aplikace by Vám ráda zasílala notifikace.\n\nBez Vašeho souhlasu Vás aplikace neupozorní na svoz odpadu'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text(
+                    'Nesouhlasím',
+                    style:
+                        TextStyle(color: Colors.grey, fontSize: kDFontSizeText),
+                  ),
                 ),
-              ),
-              TextButton(
-                onPressed: () => AwesomeNotifications()
-                    .requestPermissionToSendNotifications()
-                    .then(
-                      (_) => Navigator.pop(context),
-                    ),
-                child: const Text(
-                  'Souhlasím',
-                  style: TextStyle(
-                      color: kDBackgroundColor,
-                      fontSize: kDFontSizeText,
-                      fontWeight: FontWeight.bold),
+                TextButton(
+                  onPressed: () => AwesomeNotifications()
+                      .requestPermissionToSendNotifications()
+                      .then(
+                        (_) => Navigator.pop(context),
+                      ),
+                  child: const Text(
+                    'Souhlasím',
+                    style: TextStyle(
+                        color: kDBackgroundColor,
+                        fontSize: kDFontSizeText,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
-              ),
-            ],
-          ),
-        );
-      }
-    });
-
+              ],
+            ),
+          );
+        }
+      },
+    );
     /*AwesomeNotifications().createdStream.listen((notification) {
       showSnackBar(context, 'Upozornění na každý týden bylo vytvořeno');
     });*/
@@ -94,28 +92,9 @@ class _HomePageState extends State<HomePage> {
             (route) => route.isFirst);
       },
     );
-
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
-      sharedPreferencesGlobal.getPreferencesValueCity();
-      // ignore: avoid_print
-      print('valueCityPickedGlobal from home: $valueCityPickedGlobal');
-      if (valueCityPickedGlobal == false) {
-        toCityPage();
-      }
-    });
   }
 
   SharedPreferencesGlobal sharedPreferencesGlobal = SharedPreferencesGlobal();
-
-
-  void toCityPage() {
-    Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-          builder: (_) => const CityPickerPage(),
-        ),
-        (route) => route.isFirst);
-  }
 
   @override
   void dispose() {
@@ -144,8 +123,8 @@ class _HomePageState extends State<HomePage> {
           preferredSize: Size.fromHeight(kDMyAppBarHeight), child: MyAppBar()),
       body: SingleChildScrollView(
         child: Container(
-          padding:
-              EdgeInsets.only(top: MediaQuery.of(context).size.height / 100 * 2),
+          padding: EdgeInsets.only(
+              top: MediaQuery.of(context).size.height / 100 * 2),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -258,7 +237,6 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    ButtonSettings(onTap: () {Navigator.pushNamed(context, SettingsPage.id);}, title: 'Přejít na setting', subtitle: 'přejít', icon: Icons.settings),
                     Container(
                       width: MediaQuery.of(context).size.width / 100 * 75,
                       decoration: const BoxDecoration(
@@ -268,7 +246,8 @@ class _HomePageState extends State<HomePage> {
                         shrinkWrap: true,
                         children: const <Widget>[
                           ListTileOfWaste('Dnešní den', kDBackgroundColor),
-                          ListTileOfWaste('Plast a nápojový karton, Drobné kovy',
+                          ListTileOfWaste(
+                              'Plast a nápojový karton, Drobné kovy',
                               kDColorWastePlastic),
                           ListTileOfWaste('Bioodpad', kDColorWasteBio),
                           ListTileOfWaste('Papír', kDColorWastePaper),
