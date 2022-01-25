@@ -35,7 +35,7 @@ class _AboutAppPageState extends State<AboutAppPage> {
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Container(
               color: kDBackgroundColorCalendar,
