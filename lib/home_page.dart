@@ -16,6 +16,7 @@ import 'package:svoz_odpadu/components/marker_event.dart';
 import 'package:svoz_odpadu/components/text_normal.dart';
 import 'package:svoz_odpadu/components/text_header.dart';
 import 'dart:io';
+import 'package:svoz_odpadu/components/notifications.dart';
 
 class HomePage extends StatefulWidget {
   static const id = '/homePage';
@@ -30,7 +31,8 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     currentPage = HomePage.id;
-    initializeDateFormatting(); //very important
+    initializeDateFormatting();
+    cancelScheduledNotifications('scheduled_channel');
     getAllEventsToMap();
     AwesomeNotifications().isNotificationAllowed().then(
       (isAllowed) {
