@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:svoz_odpadu/settings_page.dart';
-import 'package:svoz_odpadu/components/icon_on_current_page.dart';
 import 'package:svoz_odpadu/variables/constants.dart';
 
 class MyAppBar extends StatelessWidget {
@@ -11,41 +9,6 @@ class MyAppBar extends StatelessWidget {
     return AppBar(
       centerTitle: true,
       backgroundColor: kDBackgroundColor,
-      actions: [
-        /*(currentPage == SettingsPage.id)
-            ? IconOnCurrentPage(
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return const AboutAppDialog();
-                    },
-                  );
-                },
-                icon: const Icon(Icons.info),
-              )
-            : IconOnCurrentPage(
-                icon: const Icon(Icons.settings),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const SettingsPage(),
-                    ),
-                  );
-                },
-              )*/
-        IconOnCurrentPage(
-          icon: const Icon(Icons.settings),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const SettingsPage()),
-            );
-
-          },
-        )
-      ],
       //bottom: PreferredSize(child: TextWidget(), preferredSize: Size.fromHeight(4.0)),
       title: RichText(
         textAlign: TextAlign.center,
