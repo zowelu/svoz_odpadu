@@ -1,5 +1,6 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
+import 'package:svoz_odpadu/about_app_page.dart';
 import 'package:svoz_odpadu/city_picker_page.dart';
 import 'package:svoz_odpadu/home_page.dart';
 import 'package:svoz_odpadu/loading_page.dart';
@@ -136,6 +137,7 @@ class MyApp extends StatelessWidget {
         SettingsPage.id: (context) => const SettingsPage(),
         CityPickerPage.id: (context) => const CityPickerPage(),
         LoadingPage.id: (context) => const LoadingPage(),
+        AboutAppPage.id: (context) => const AboutAppPage(),
       },
     );
   }
