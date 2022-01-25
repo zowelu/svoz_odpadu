@@ -1,6 +1,7 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:svoz_odpadu/city_picker_page.dart';
-import 'package:svoz_odpadu/components/button_settings.dart';
 import 'package:svoz_odpadu/components/shared_preferences_global.dart';
 import 'package:svoz_odpadu/components/text_normal.dart';
 import 'package:svoz_odpadu/home_page.dart';
@@ -33,37 +34,32 @@ class _LoadingPageState extends State<LoadingPage>
     )..repeat(max: 1.0, reverse: false);
     _fadeInFadeOut = Tween<double>(begin: 0.0, end: 1.0).animate(animation);
 
-    animation.addListener((){
-      if(animation.isCompleted){
+    animation.addListener(() {
+      if (animation.isCompleted) {
         animation.reverse();
-      }else{
+      } else {
         animation.forward();
       }
     });
     animation.repeat();
 
     sharedPreferencesGlobal.initializePreference().whenComplete(() {
-      setState(() {
-
-      });
+      setState(() {});
       getPreference();
-
     });
   }
-
+  
   void getPreference() async {
     await sharedPreferencesGlobal.getPreferencesValueCity();
     print('sharedPreferenceLoading Page, $valueCityPicked');
-    if ((valueCityPicked == 'Vybrat obec/město') ||
-        (valueCityPicked == null)) {
+    if ((valueCityPicked == 'Vybrat obec/město') || (valueCityPicked == null)) {
       print('přesměrováno na CityPicker, $valueCityPicked');
       Future.delayed(const Duration(seconds: 4),
-            () => Navigator.popAndPushNamed(context, CityPickerPage.id));
-    }
-    else  {
+          () => Navigator.popAndPushNamed(context, CityPickerPage.id));
+    } else {
       print('přesměrováno na homePage, $valueCityPicked');
       Future.delayed(const Duration(seconds: 4),
-            () => Navigator.pushReplacementNamed(context, HomePage.id));
+          () => Navigator.pushReplacementNamed(context, HomePage.id));
     }
   }
 
@@ -82,20 +78,14 @@ class _LoadingPageState extends State<LoadingPage>
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          ButtonSettings(
-              onTap: () {
-                Navigator.pushNamed(context, HomePage.id);
-              },
-              title: 'Přejít na HomePage',
-              subtitle: 'přejít',
-              icon: Icons.home),
-          const SizedBox(height: 100),
           FadeTransition(
             opacity: _fadeInFadeOut,
             child: Column(
               children: [
                 // ignore: avoid_unnecessary_containers
-                Container(child: const TextNormal(text: 'Aplikaci vytvořili:')),
+                Container(
+                  child: const TextNormal(text: 'Aplikaci vytvořili:'),
+                ),
                 const SizedBox(
                   width: kDMarginLarger,
                 ),
