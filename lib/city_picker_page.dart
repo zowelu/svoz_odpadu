@@ -22,7 +22,6 @@ class _CityPickerPageState extends State<CityPickerPage> {
   List<String> citiesOfWaste = [
     'Vybrat obec/město',
     'Dolní Kounice',
-    'Ivančice'
   ];
   //String? valueCityPicked;
 
