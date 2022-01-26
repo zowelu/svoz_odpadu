@@ -2,6 +2,8 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:svoz_odpadu/about_app_page.dart';
 import 'package:svoz_odpadu/city_picker_page.dart';
+import 'package:svoz_odpadu/components/divider_menu.dart';
+import 'package:svoz_odpadu/components/open_url_in_browser.dart';
 import 'package:svoz_odpadu/components/shared_preferences_global.dart';
 import 'package:svoz_odpadu/settings_page.dart';
 import 'package:svoz_odpadu/variables/constants.dart';
@@ -127,77 +129,149 @@ class _HomePageState extends State<HomePage> {
           preferredSize: Size.fromHeight(kDMyAppBarHeight), child: MyAppBar()),
       drawer: Drawer(
         backgroundColor: kDBackgroundColorCalendar,
-        child: ListView(
-          // Important: Remove any padding from the ListView.
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              decoration: const BoxDecoration(color: kDBackgroundColor),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    'assets/images/app_icon.png',
-                    height: 100,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                DrawerHeader(
+                  decoration: const BoxDecoration(color: kDBackgroundColor),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Image.asset(
+                        'assets/images/app_icon.png',
+                        height: 100,
+                      ),
+                      const TextHeader(text: 'Svoz odpadu'),
+                    ],
                   ),
-                  const TextHeader(text: 'Svoz odpadu'),
-                ],
-              ),
+                ),
+                ListTile(
+                  leading: const Icon(
+                    Icons.perm_contact_calendar_outlined,
+                    size: 40,
+                    color: kDBackgroundColor,
+                  ),
+                  title: TextHeader(
+                    text: 'Kalendář',
+                    color: kDBackgroundColor,
+                    fontSize: fontSize,
+                  ),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                const DividerMenu(),
+                ListTile(
+                  leading: const Icon(
+                    Icons.home_outlined,
+                    size: 40,
+                    color: kDBackgroundColor,
+                  ),
+                  title: TextHeader(
+                      text: 'Vybrat město/obec',
+                      color: kDBackgroundColor,
+                      fontSize: fontSize),
+                  onTap: () {
+                    Navigator.popAndPushNamed(context, CityPickerPage.id);
+                  },
+                ),
+                const DividerMenu(),
+                ListTile(
+                  leading: const Icon(
+                    Icons.settings_outlined,
+                    size: 40,
+                    color: kDBackgroundColor,
+                  ),
+                  title: TextHeader(
+                      text: 'Nastavení',
+                      color: kDBackgroundColor,
+                      fontSize: fontSize),
+                  onTap: () {
+                    Navigator.popAndPushNamed(context, SettingsPage.id);
+                  },
+                ),
+                const DividerMenu(),
+                ListTile(
+                  leading: const Icon(
+                    Icons.announcement_outlined,
+                    size: 40,
+                    color: kDBackgroundColor,
+                  ),
+                  title: TextHeader(
+                      text: 'Ohodnotit',
+                      color: kDBackgroundColor,
+                      fontSize: fontSize),
+                  onTap: () {},
+                ),
+                const DividerMenu(),
+                ListTile(
+                  leading: const Icon(
+                    Icons.info_outline,
+                    size: 40,
+                    color: kDBackgroundColor,
+                  ),
+                  title: TextHeader(
+                      text: 'O aplikaci',
+                      color: kDBackgroundColor,
+                      fontSize: fontSize),
+                  onTap: () {
+                    Navigator.popAndPushNamed(context, AboutAppPage.id);
+                  },
+                ),
+                const DividerMenu(),
+              ],
             ),
-            ListTile(
-              leading: const Icon(
-                Icons.perm_contact_calendar_outlined,
-                size: 40,
-                color: kDBackgroundColor,
-              ),
-              title: TextHeader(text: 'Kalendář', color: kDBackgroundColor,fontSize: fontSize, ),
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            ListTile(
-              leading: const Icon(
-                Icons.home_outlined,
-                size: 40,
-                color: kDBackgroundColor,
-              ),
-              title: TextHeader(
-                  text: 'Vybrat město/obec', color: kDBackgroundColor,fontSize: fontSize),
-              onTap: () {
-                Navigator.popAndPushNamed(context, CityPickerPage.id);
-              },
-            ),
-            ListTile(
-              leading: const Icon(
-                Icons.settings_outlined,
-                size: 40,
-                color: kDBackgroundColor,
-              ),
-              title: TextHeader(text: 'Nastavení', color: kDBackgroundColor,fontSize: fontSize),
-              onTap: () {
-                Navigator.popAndPushNamed(context, SettingsPage.id);
-              },
-            ),
-            ListTile(
-              leading: const Icon(
-                Icons.announcement_outlined,
-                size: 40,
-                color: kDBackgroundColor,
-              ),
-              title: TextHeader(text: 'Ohodnotit', color: kDBackgroundColor,fontSize: fontSize),
-              onTap: () {},
-            ),
-            ListTile(
-              leading: const Icon(
-                Icons.info_outline,
-                size: 40,
-                color: kDBackgroundColor,
-              ),
-              title: TextHeader(text: 'O aplikaci', color: kDBackgroundColor,fontSize: fontSize),
-              onTap: () {
-                Navigator.popAndPushNamed(context, AboutAppPage.id);
-              },
+            Column(
+              children: [
+                const TextNormal(
+                  text: 'verze: $versionApp',
+                  color: kDBackgroundColor,
+                ),
+                Container(
+                  decoration: const BoxDecoration(color: kDBackgroundColor),
+                  padding: const EdgeInsets.all(kDMargin),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Flexible(
+                        flex: 2,
+                        child: InkWell(
+                          onTap: () {
+                            OpenUrlInBrowser()
+                                .openUrl('https://www.webstrong.cz');
+                          },
+                          child: Image.asset(
+                            'assets/images/webstrong-logo.png',
+                          ),
+                        ),
+                      ),
+                      const Flexible(
+                        flex: 1,
+                        child: SizedBox(
+                          width: 30,
+                        ),
+                      ),
+                      Flexible(
+                        flex: 2,
+                        child: InkWell(
+                          onTap: () {
+                            OpenUrlInBrowser()
+                                .openUrl('https://www.zowelu.cz');
+                          },
+                          child: Image.asset(
+                            'assets/images/zowelu_logo.png',
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ],
             ),
           ],
         ),
@@ -327,7 +401,7 @@ class _HomePageState extends State<HomePage> {
                     shrinkWrap: true,
                     children: const <Widget>[
                       ListTileOfWaste('Dnešní den', kDBackgroundColor),
-                      ListTileOfWaste('Plast a nápojový karton, Drobné kovy',
+                      ListTileOfWaste('Plast a nápojový karton,\nDrobné kovy',
                           kDColorWastePlastic),
                       ListTileOfWaste('Bioodpad', kDColorWasteBio),
                       ListTileOfWaste('Papír', kDColorWastePaper),
