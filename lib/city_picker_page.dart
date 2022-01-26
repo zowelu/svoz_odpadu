@@ -104,10 +104,12 @@ class _CityPickerPageState extends State<CityPickerPage> {
                       color: kDColorTextColorBackground,
                     ),
                   ),
-                  const TextNormal(
-                    text:
-                        'pozn.: Po zvolení dojde k restartu aplikace a načtení nových dat.',
-                    color: Colors.blueGrey,
+                  const Center(
+                    child: TextNormal(
+                      text:
+                          'pozn.: Po zvolení dojde k restartu aplikace a načtení nových dat.',
+                      color: Colors.blueGrey,
+                    ),
                   ),
                   Column(
                     children: [
@@ -139,10 +141,11 @@ class _CityPickerPageState extends State<CityPickerPage> {
                                     valueCityPicked = value.toString();
                                     sharedPreferencesGlobal
                                         .setPreferencesValueCity(
-                                            valueCityPicked!,
-                                            'valueCityPicked');
-                                    print(valueCityPicked);
-                                    restartApp(context);
+                                            valueCityPicked!, 'valueCityPicked')
+                                        .whenComplete(() {
+                                      print(valueCityPicked);
+                                      restartApp(context);
+                                    });
                                   },
                                 );
                               },
