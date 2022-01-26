@@ -138,14 +138,14 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Container(decoration: const BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
+                  Container(
+                    decoration: const BoxDecoration(boxShadow: [
+                      BoxShadow(
                         color: kDBoxShadowColor,
                         offset: Offset(2, 0),
                         blurRadius: 10,
-                        ),
-                  ]),
+                      ),
+                    ]),
                     child: DrawerHeader(
                       decoration: const BoxDecoration(color: kDBackgroundColor),
                       padding: const EdgeInsets.all(0),
@@ -165,7 +165,9 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
-                  Container(width: 300,padding: const EdgeInsets.all(10),
+                  Container(
+                    width: 300,
+                    padding: const EdgeInsets.all(10),
                     decoration: const BoxDecoration(
                         color: kDBackgroundColor,
                         borderRadius: kDRadiusLarge,
@@ -284,7 +286,8 @@ class _HomePageState extends State<HomePage> {
                     fontSize: 14,
                   ),
                   Container(
-                    decoration: const BoxDecoration(color: kDBackgroundColor,
+                    decoration: const BoxDecoration(
+                        color: kDBackgroundColor,
                         boxShadow: [
                           BoxShadow(
                               color: kDBoxShadowColor,
@@ -350,7 +353,13 @@ class _HomePageState extends State<HomePage> {
               ),
               decoration: const BoxDecoration(
                   color: kDBackgroundColorCalendar,
-                  borderRadius: kDRadiusLarge),
+                  borderRadius: kDRadiusLarge,
+                  boxShadow: [
+                    BoxShadow(
+                        color: kDBoxShadowColor,
+                        blurRadius: 10.0,
+                        spreadRadius: 1.0)
+                  ]),
               child: TableCalendar(
                 rowHeight: MediaQuery.of(context).size.height / 100 * 6,
                 eventLoader: (day) {
