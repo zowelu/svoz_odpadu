@@ -132,146 +132,205 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                DrawerHeader(
-                  decoration: const BoxDecoration(color: kDBackgroundColor),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Image.asset(
-                        'assets/images/app_icon.png',
-                        height: 100,
+            Flexible(
+              flex: 8,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Container(decoration: const BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                        color: kDBoxShadowColor,
+                        offset: Offset(2, 0),
+                        blurRadius: 10,
+                        ),
+                  ]),
+                    child: DrawerHeader(
+                      decoration: const BoxDecoration(color: kDBackgroundColor),
+                      padding: const EdgeInsets.all(0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Image.asset(
+                            'assets/images/app_icon.png',
+                            height: 100,
+                          ),
+                          const TextHeader(
+                            text: 'Svoz odpadu',
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
                       ),
-                      const TextHeader(text: 'Svoz odpadu'),
+                    ),
+                  ),
+                  Container(width: 300,padding: const EdgeInsets.all(10),
+                    decoration: const BoxDecoration(
+                        color: kDBackgroundColor,
+                        borderRadius: kDRadiusLarge,
+                        boxShadow: [
+                          BoxShadow(
+                              color: kDBoxShadowColor,
+                              offset: Offset(2, 2),
+                              blurRadius: 10,
+                              spreadRadius: 2),
+                        ]),
+                    child: Column(
+                      children: [
+                        ConstrainedBox(
+                            constraints: const BoxConstraints(maxHeight: 80),
+                            child: Image.asset(
+                              'assets/images/DK_znak_200px.png',
+                            )),
+                        const TextHeader(
+                          text: 'Město Dolní Kounice',
+                          color: Colors.white,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const DividerMenu(),
+                      ListTile(
+                        leading: const Icon(
+                          Icons.perm_contact_calendar_outlined,
+                          size: 30,
+                          color: kDBackgroundColor,
+                        ),
+                        title: TextHeader(
+                          text: 'Kalendář',
+                          color: kDBackgroundColor,
+                          fontSize: fontSize,
+                        ),
+                        onTap: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      const DividerMenu(),
+                      ListTile(
+                        leading: const Icon(
+                          Icons.home_outlined,
+                          size: 30,
+                          color: kDBackgroundColor,
+                        ),
+                        title: TextHeader(
+                            text: 'Vybrat město/obec',
+                            color: kDBackgroundColor,
+                            fontSize: fontSize),
+                        onTap: () {
+                          Navigator.popAndPushNamed(context, CityPickerPage.id);
+                        },
+                      ),
+                      const DividerMenu(),
+                      ListTile(
+                        leading: const Icon(
+                          Icons.settings_outlined,
+                          size: 30,
+                          color: kDBackgroundColor,
+                        ),
+                        title: TextHeader(
+                            text: 'Nastavení',
+                            color: kDBackgroundColor,
+                            fontSize: fontSize),
+                        onTap: () {
+                          Navigator.popAndPushNamed(context, SettingsPage.id);
+                        },
+                      ),
+                      const DividerMenu(),
+                      ListTile(
+                        leading: const Icon(
+                          Icons.announcement_outlined,
+                          size: 30,
+                          color: kDBackgroundColor,
+                        ),
+                        title: TextHeader(
+                            text: 'Ohodnotit',
+                            color: kDBackgroundColor,
+                            fontSize: fontSize),
+                        onTap: () {},
+                      ),
+                      const DividerMenu(),
+                      ListTile(
+                        leading: const Icon(
+                          Icons.info_outline,
+                          size: 30,
+                          color: kDBackgroundColor,
+                        ),
+                        title: TextHeader(
+                            text: 'O aplikaci',
+                            color: kDBackgroundColor,
+                            fontSize: fontSize),
+                        onTap: () {
+                          Navigator.popAndPushNamed(context, AboutAppPage.id);
+                        },
+                      ),
+                      const DividerMenu(),
                     ],
                   ),
-                ),
-                ListTile(
-                  leading: const Icon(
-                    Icons.perm_contact_calendar_outlined,
-                    size: 40,
-                    color: kDBackgroundColor,
-                  ),
-                  title: TextHeader(
-                    text: 'Kalendář',
-                    color: kDBackgroundColor,
-                    fontSize: fontSize,
-                  ),
-                  onTap: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-                const DividerMenu(),
-                ListTile(
-                  leading: const Icon(
-                    Icons.home_outlined,
-                    size: 40,
-                    color: kDBackgroundColor,
-                  ),
-                  title: TextHeader(
-                      text: 'Vybrat město/obec',
-                      color: kDBackgroundColor,
-                      fontSize: fontSize),
-                  onTap: () {
-                    Navigator.popAndPushNamed(context, CityPickerPage.id);
-                  },
-                ),
-                const DividerMenu(),
-                ListTile(
-                  leading: const Icon(
-                    Icons.settings_outlined,
-                    size: 40,
-                    color: kDBackgroundColor,
-                  ),
-                  title: TextHeader(
-                      text: 'Nastavení',
-                      color: kDBackgroundColor,
-                      fontSize: fontSize),
-                  onTap: () {
-                    Navigator.popAndPushNamed(context, SettingsPage.id);
-                  },
-                ),
-                const DividerMenu(),
-                ListTile(
-                  leading: const Icon(
-                    Icons.announcement_outlined,
-                    size: 40,
-                    color: kDBackgroundColor,
-                  ),
-                  title: TextHeader(
-                      text: 'Ohodnotit',
-                      color: kDBackgroundColor,
-                      fontSize: fontSize),
-                  onTap: () {},
-                ),
-                const DividerMenu(),
-                ListTile(
-                  leading: const Icon(
-                    Icons.info_outline,
-                    size: 40,
-                    color: kDBackgroundColor,
-                  ),
-                  title: TextHeader(
-                      text: 'O aplikaci',
-                      color: kDBackgroundColor,
-                      fontSize: fontSize),
-                  onTap: () {
-                    Navigator.popAndPushNamed(context, AboutAppPage.id);
-                  },
-                ),
-                const DividerMenu(),
-              ],
+                ],
+              ),
             ),
-            Column(
-              children: [
-                const TextNormal(
-                  text: 'verze: $versionApp',
-                  color: kDBackgroundColor,
-                ),
-                Container(
-                  decoration: const BoxDecoration(color: kDBackgroundColor),
-                  padding: const EdgeInsets.all(kDMargin),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Flexible(
-                        flex: 2,
-                        child: InkWell(
-                          onTap: () {
-                            OpenUrlInBrowser()
-                                .openUrl('https://www.webstrong.cz');
-                          },
-                          child: Image.asset(
-                            'assets/images/webstrong-logo.png',
-                          ),
-                        ),
-                      ),
-                      const Flexible(
-                        flex: 1,
-                        child: SizedBox(
-                          width: 30,
-                        ),
-                      ),
-                      Flexible(
-                        flex: 2,
-                        child: InkWell(
-                          onTap: () {
-                            OpenUrlInBrowser()
-                                .openUrl('https://www.zowelu.cz');
-                          },
-                          child: Image.asset(
-                            'assets/images/zowelu_logo.png',
-                          ),
-                        ),
-                      )
-                    ],
+            Flexible(
+              flex: 1,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const TextNormal(
+                    text: 'verze: $versionApp',
+                    color: kDBackgroundColor,
+                    fontSize: 14,
                   ),
-                ),
-              ],
+                  Container(
+                    decoration: const BoxDecoration(color: kDBackgroundColor,
+                        boxShadow: [
+                          BoxShadow(
+                              color: kDBoxShadowColor,
+                              offset: Offset(2, 2),
+                              blurRadius: 10,
+                              spreadRadius: 2),
+                        ]),
+                    padding: const EdgeInsets.all(kDMargin),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Flexible(
+                          flex: 2,
+                          child: InkWell(
+                            onTap: () {
+                              OpenUrlInBrowser()
+                                  .openUrl('https://www.webstrong.cz');
+                            },
+                            child: Image.asset(
+                              'assets/images/webstrong-logo.png',
+                            ),
+                          ),
+                        ),
+                        const Flexible(
+                          flex: 1,
+                          child: SizedBox(
+                            width: 30,
+                          ),
+                        ),
+                        Flexible(
+                          flex: 2,
+                          child: InkWell(
+                            onTap: () {
+                              OpenUrlInBrowser()
+                                  .openUrl('https://www.zowelu.cz');
+                            },
+                            child: Image.asset(
+                              'assets/images/zowelu_logo.png',
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
