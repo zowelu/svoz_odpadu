@@ -7,6 +7,7 @@ import 'package:svoz_odpadu/components/text_normal.dart';
 import 'package:svoz_odpadu/home_page.dart';
 import 'package:svoz_odpadu/variables/constants.dart';
 import 'package:svoz_odpadu/variables/global_var.dart';
+import 'package:http/http.dart';
 
 class LoadingPage extends StatefulWidget {
   const LoadingPage({Key? key}) : super(key: key);
