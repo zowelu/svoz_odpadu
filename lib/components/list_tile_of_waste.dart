@@ -8,29 +8,6 @@ class ListTileOfWaste extends StatelessWidget {
   final String text;
   final Color color;
 
-/*  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(0),
-      padding: EdgeInsets.all(0),
-      width: MediaQuery.of(context).size.width / 100 * 75,
-
-      child: ListTile(
-        title: TextNormal(
-          text: text,
-          color: color,
-          fontSize: 14,
-          lineHeight: 0.5,
-        ),
-        leading: Icon(Icons.circle, color: color),
-        dense: true,
-        horizontalTitleGap: 0.0,
-        minVerticalPadding: 0.0,
-        style: ListTileStyle.list,
-      ),
-    );
-  }*/
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -38,7 +15,6 @@ class ListTileOfWaste extends StatelessWidget {
         padding: const EdgeInsets.only(left: kDMargin, right: kDMargin),
         height: MediaQuery.of(context).size.height / 100 * 5,
         decoration: const BoxDecoration(
-            color: kDBackgroundColorCalendar,
             shape: BoxShape.rectangle,
             borderRadius: kDRadiusSmall),
         child: Row(
@@ -55,7 +31,7 @@ class ListTileOfWaste extends StatelessWidget {
             TextNormal(
               text: text,
               color: color,
-              fontSize: 14,
+              fontSize: 14,fontWeight: FontWeight.bold,
             ),
           ],
         ));
