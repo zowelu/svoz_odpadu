@@ -463,7 +463,7 @@ class _HomePageState extends State<HomePage> {
                 child: Container(
                   width: MediaQuery.of(context).size.width / 100 * 75,
                   decoration: const BoxDecoration(
-                      color: kDBackgroundColorCalendar,
+                      color: Colors.grey,
                       borderRadius: kDRadiusLarge),
                   child: ListView(
                     shrinkWrap: true,
