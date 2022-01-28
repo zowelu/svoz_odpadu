@@ -5,7 +5,6 @@ import 'package:svoz_odpadu/city_picker_page.dart';
 import 'package:svoz_odpadu/home_page.dart';
 import 'package:svoz_odpadu/loading_page.dart';
 import 'package:svoz_odpadu/settings_page.dart';
-import 'package:easy_splash_screen/easy_splash_screen.dart';
 import 'package:svoz_odpadu/variables/constants.dart';
 import 'package:svoz_odpadu/variables/global_var.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
@@ -106,31 +105,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      home: EasySplashScreen(
-        logo: Image.asset('assets/images/app_icon.png'),
-        logoSize: 200,
-        title: const Text(
-          'Kalendář svozu odpadu',
-          style: TextStyle(
-              fontFamily: kDFontFamilyHeader,
-              fontSize: kDFontSizeHeader,
-              color: Colors.white,
-              fontWeight: FontWeight.bold),
-          textAlign: TextAlign.center,
-        ),
-        backgroundColor: kDBackgroundColor,
-        durationInSeconds: 5,
-        loaderColor: Colors.white,
-        showLoader: true,
-        loadingText: const Text(
-          'Načítám...',
-          style: TextStyle(
-              color: Colors.white,
-              fontFamily: kDFontFamilyParagraph,
-              fontSize: kDFontSizeText),
-        ),
-        navigator: const LoadingPage(),
-      ),
+      home: const LoadingPage(),
       initialRoute: '/',
       routes: {
         HomePage.id: (context) => const HomePage(),
