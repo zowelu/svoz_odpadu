@@ -1,14 +1,39 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
-import 'package:svoz_odpadu/city_picker_page.dart';
 import 'package:svoz_odpadu/components/shared_preferences_global.dart';
 import 'package:svoz_odpadu/components/text_header.dart';
 import 'package:svoz_odpadu/components/text_normal.dart';
-import 'package:svoz_odpadu/home_page.dart';
 import 'package:svoz_odpadu/variables/constants.dart';
 import 'package:svoz_odpadu/variables/global_var.dart';
-import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+class CalendarItem {
+  final String status;
+  final String summary;
+  final String start;
+  final String end;
+  final String recurrence;
+
+  CalendarItem(
+      {required this.status,required this.summary,
+      required this.start,
+      required this.end,
+      this.recurrence = ''});
+
+  /*factory CalendarItem.fromJson(dynamic parsedJson) {
+    return CalendarItem(
+        summary: parsedJson['summary'],
+        start: parsedJson['start']['date'],
+        end: parsedJson['end']['date'],
+        recurrence: parsedJson['recurrence']);
+  }*/
+  @override
+  String toString() {
+    return '{${this.status}, ${this.summary}, ${this.start}, ${this.end}, ${this.recurrence}}';
+  }
+}
 
 class LoadingPage extends StatefulWidget {
   const LoadingPage({Key? key}) : super(key: key);
@@ -44,6 +69,7 @@ class _LoadingPageState extends State<LoadingPage>
         sharedPreferencesGlobal.initializePreference().whenComplete(() {
           setState(() {});
           getPreference();
+          getData();
         });
       } else {
         animation.forward();
@@ -59,12 +85,12 @@ class _LoadingPageState extends State<LoadingPage>
       if ((valueCityPicked == 'Vybrat obec/město') ||
           (valueCityPicked == null)) {
         print('přesměrováno na CityPicker, $valueCityPicked');
-        Future.delayed(const Duration(seconds: 4),
-            () => Navigator.popAndPushNamed(context, CityPickerPage.id));
+        /*Future.delayed(const Duration(seconds: 4),
+            () => Navigator.popAndPushNamed(context, CityPickerPage.id));*/
       } else {
         print('přesměrováno na homePage, $valueCityPicked');
-        Future.delayed(const Duration(seconds: 4),
-            () => Navigator.pushReplacementNamed(context, HomePage.id));
+        /*Future.delayed(const Duration(seconds: 4),
+            () => Navigator.pushReplacementNamed(context, HomePage.id));*/
       }
     }
   }
@@ -76,6 +102,46 @@ class _LoadingPageState extends State<LoadingPage>
     super.dispose();
   }
 
+  void getData() async {
+    Map<String, String> calendarID = {
+      'směsný': '13r56ftkqvl368a14fimn1ifc4@group.calendar.google.com',
+      'plast': 'go5dkg6cnflo277vhc6cbemt3k@group.calendar.google.com',
+      'papír': 'p7g0np51igvv0bko1bf4nmtmf0@group.calendar.google.com',
+      'bioodpad': 'bnjcsj8qmn2guo40789odlvrvo@group.calendar.google.com'
+    };
+
+
+    for(int i = 0; i<calendarID.length; i++) {
+      String calendarIDindex = calendarID.values.elementAt(i);
+      int index = i;
+      print('index $index, calendarIDindex $calendarIDindex');
+      final url = Uri.parse(
+          'https://www.googleapis.com/calendar/v3/calendars/$calendarIDindex/events?key=AIzaSyCCpkDJ_trt3VZpmaSqQRdLTPJBAVmg5vY');
+      http.Response response = await http.get(url);
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        List<CalendarItem> calendarItems = [];
+        String responseData = response.body;
+        List<dynamic> itemsResponseData = jsonDecode(responseData)['items'];
+        for (int i = 0; i < itemsResponseData.length; i++) {
+          if( itemsResponseData[i]['status'] != 'cancelled') {
+            CalendarItem calendarItem = CalendarItem(
+              status:  itemsResponseData[i]['status'],
+                summary: itemsResponseData[i]['summary'],
+                start: itemsResponseData[i]['start']['date'],
+                end: itemsResponseData[i]['end']['date'],
+                recurrence: itemsResponseData[i]['recurrence'] != null
+                    ? itemsResponseData[i]['recurrence'][0]
+                    : 'not');
+            print(calendarItem);
+            calendarItems.add(calendarItem);
+          }
+        }
+      } else
+        print(response.statusCode);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,14 +149,17 @@ class _LoadingPageState extends State<LoadingPage>
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Expanded(flex: 9,
+          Expanded(
+            flex: 9,
             child: FadeTransition(
               opacity: _fadeInFadeOut,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const SizedBox(height: kDMarginLarger,),
+                  const SizedBox(
+                    height: kDMarginLarger,
+                  ),
                   Image.asset('assets/images/app_icon.png'),
                   const SizedBox(
                     height: kDMarginLarger,
@@ -99,7 +168,9 @@ class _LoadingPageState extends State<LoadingPage>
                     text: 'Svoz odpadu',
                     fontSize: 30,
                   ),
-                  const SizedBox(height: kDMarginLarger*3,),
+                  const SizedBox(
+                    height: kDMarginLarger * 3,
+                  ),
                   // ignore: avoid_unnecessary_containers
                   Container(
                     child: const TextNormal(text: 'Aplikaci vytvořili:'),
@@ -117,7 +188,8 @@ class _LoadingPageState extends State<LoadingPage>
                         Flexible(
                           flex: 1,
                           child: Container(
-                              padding: const EdgeInsets.only(left: 30, right: 30),
+                              padding:
+                                  const EdgeInsets.only(left: 30, right: 30),
                               child: Image.asset(
                                 'assets/images/webstrong-logo.png',
                                 height: 50,
@@ -130,8 +202,10 @@ class _LoadingPageState extends State<LoadingPage>
                         Flexible(
                           flex: 1,
                           child: Container(
-                              padding: const EdgeInsets.only(left: 30, right: 30),
-                              child: Image.asset('assets/images/zowelu_logo.png',
+                              padding:
+                                  const EdgeInsets.only(left: 30, right: 30),
+                              child: Image.asset(
+                                  'assets/images/zowelu_logo.png',
                                   height: 50)),
                         ),
                       ],
@@ -141,21 +215,24 @@ class _LoadingPageState extends State<LoadingPage>
               ),
             ),
           ),
-          Expanded(flex: 2,
-            child: Container(padding: const EdgeInsets.all(kDMargin),
-                child: isLoading
-                    ? Column(
-                        children: const [
-                          CircularProgressIndicator(
-                            color: Colors.white,
-                          ),
-                          SizedBox(height: kDMarginLarger),
-                          TextNormal(
-                            text: 'Načítám...',
-                          )
-                        ],
-                      )
-                    : const TextNormal(text: 'Načteno'),),
+          Expanded(
+            flex: 2,
+            child: Container(
+              padding: const EdgeInsets.all(kDMargin),
+              child: isLoading
+                  ? Column(
+                      children: const [
+                        CircularProgressIndicator(
+                          color: Colors.white,
+                        ),
+                        SizedBox(height: kDMarginLarger),
+                        TextNormal(
+                          text: 'Načítám...',
+                        )
+                      ],
+                    )
+                  : const TextNormal(text: 'Načteno'),
+            ),
           ),
         ],
       ),
