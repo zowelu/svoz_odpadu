@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:svoz_odpadu/city_picker_page.dart';
 import 'package:svoz_odpadu/components/shared_preferences_global.dart';
+import 'package:svoz_odpadu/components/text_header.dart';
 import 'package:svoz_odpadu/components/text_normal.dart';
 import 'package:svoz_odpadu/home_page.dart';
 import 'package:svoz_odpadu/variables/constants.dart';
@@ -24,6 +25,7 @@ class _LoadingPageState extends State<LoadingPage>
 
   late AnimationController animation;
   late Animation<double> _fadeInFadeOut;
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -37,30 +39,33 @@ class _LoadingPageState extends State<LoadingPage>
 
     animation.addListener(() {
       if (animation.isCompleted) {
-        animation.reverse();
+        animation.stop();
+        isLoading = false;
+        sharedPreferencesGlobal.initializePreference().whenComplete(() {
+          setState(() {});
+          getPreference();
+        });
       } else {
         animation.forward();
       }
     });
     animation.repeat();
-
-    sharedPreferencesGlobal.initializePreference().whenComplete(() {
-      setState(() {});
-      getPreference();
-    });
   }
-  
+
   void getPreference() async {
     await sharedPreferencesGlobal.getPreferencesValueCity();
     print('sharedPreferenceLoading Page, $valueCityPicked');
-    if ((valueCityPicked == 'Vybrat obec/město') || (valueCityPicked == null)) {
-      print('přesměrováno na CityPicker, $valueCityPicked');
-      Future.delayed(const Duration(seconds: 4),
-          () => Navigator.popAndPushNamed(context, CityPickerPage.id));
-    } else {
-      print('přesměrováno na homePage, $valueCityPicked');
-      Future.delayed(const Duration(seconds: 4),
-          () => Navigator.pushReplacementNamed(context, HomePage.id));
+    if (!isLoading) {
+      if ((valueCityPicked == 'Vybrat obec/město') ||
+          (valueCityPicked == null)) {
+        print('přesměrováno na CityPicker, $valueCityPicked');
+        Future.delayed(const Duration(seconds: 4),
+            () => Navigator.popAndPushNamed(context, CityPickerPage.id));
+      } else {
+        print('přesměrováno na homePage, $valueCityPicked');
+        Future.delayed(const Duration(seconds: 4),
+            () => Navigator.pushReplacementNamed(context, HomePage.id));
+      }
     }
   }
 
@@ -76,32 +81,43 @@ class _LoadingPageState extends State<LoadingPage>
     return Scaffold(
       backgroundColor: kDBackgroundColor,
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          FadeTransition(
-            opacity: _fadeInFadeOut,
-            child: Column(
-              children: [
-                // ignore: avoid_unnecessary_containers
-                Container(
-                  child: const TextNormal(text: 'Aplikaci vytvořili:'),
-                ),
-                const SizedBox(
-                  width: kDMarginLarger,
-                ),
-                Container(
-                  margin: EdgeInsets.only(
-                      bottom: MediaQuery.of(context).size.height / 100 * 10),
-                  child: Row(
+          Expanded(flex: 9,
+            child: FadeTransition(
+              opacity: _fadeInFadeOut,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const SizedBox(height: kDMarginLarger,),
+                  Image.asset('assets/images/app_icon.png'),
+                  const SizedBox(
+                    height: kDMarginLarger,
+                  ),
+                  const TextHeader(
+                    text: 'Svoz odpadu',
+                    fontSize: 30,
+                  ),
+                  const SizedBox(height: kDMarginLarger*3,),
+                  // ignore: avoid_unnecessary_containers
+                  Container(
+                    child: const TextNormal(text: 'Aplikaci vytvořili:'),
+                  ),
+                  const SizedBox(
+                    width: kDMarginLarger,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).size.height / 100 * 10),
+                    child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Flexible(
                           flex: 1,
                           child: Container(
-                              padding:
-                                  const EdgeInsets.only(left: 30, right: 30),
+                              padding: const EdgeInsets.only(left: 30, right: 30),
                               child: Image.asset(
                                 'assets/images/webstrong-logo.png',
                                 height: 50,
@@ -114,16 +130,32 @@ class _LoadingPageState extends State<LoadingPage>
                         Flexible(
                           flex: 1,
                           child: Container(
-                              padding:
-                                  const EdgeInsets.only(left: 30, right: 30),
-                              child: Image.asset(
-                                  'assets/images/zowelu_logo.png',
+                              padding: const EdgeInsets.only(left: 30, right: 30),
+                              child: Image.asset('assets/images/zowelu_logo.png',
                                   height: 50)),
                         ),
-                      ]),
-                ),
-              ],
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
+          ),
+          Expanded(flex: 2,
+            child: Container(padding: const EdgeInsets.all(kDMargin),
+                child: isLoading
+                    ? Column(
+                        children: const [
+                          CircularProgressIndicator(
+                            color: Colors.white,
+                          ),
+                          SizedBox(height: kDMarginLarger),
+                          TextNormal(
+                            text: 'Načítám...',
+                          )
+                        ],
+                      )
+                    : const TextNormal(text: 'Načteno'),),
           ),
         ],
       ),
