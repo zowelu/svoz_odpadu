@@ -277,26 +277,25 @@ class _HomePageState extends State<HomePage> {
             ),
             Flexible(
               flex: 1,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const TextNormal(
-                    text: 'verze: $versionApp',
+              child: Container(
+                decoration: const BoxDecoration(
                     color: kDBackgroundColor,
-                    fontSize: 14,
-                  ),
-                  Container(
-                    decoration: const BoxDecoration(
-                        color: kDBackgroundColor,
-                        boxShadow: [
-                          BoxShadow(
-                              color: kDBoxShadowColor,
-                              offset: Offset(2, 2),
-                              blurRadius: 10,
-                              spreadRadius: 2),
-                        ]),
-                    padding: const EdgeInsets.all(kDMargin),
-                    child: Row(
+                    boxShadow: [
+                      BoxShadow(
+                          color: kDBoxShadowColor,
+                          offset: Offset(2, 2),
+                          blurRadius: 10,
+                          spreadRadius: 2),
+                    ]),
+                padding: const EdgeInsets.only(left: kDMargin,right: kDMargin, bottom: kDMargin),
+                child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const TextNormal(
+                      text: 'verze: $versionApp',
+                      color: Colors.white,
+                      fontSize: 14,
+                    ),
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Flexible(
@@ -331,8 +330,8 @@ class _HomePageState extends State<HomePage> {
                         )
                       ],
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ],
