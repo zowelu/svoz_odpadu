@@ -104,7 +104,7 @@ class _LoadingPageState extends State<LoadingPage>
           if (itemsResponseData[i]['status'] != 'cancelled') {
             CalendarItem calendarItem = CalendarItem(
                 status: itemsResponseData[i]['status'],
-                summary: itemsResponseData[i]['summary'],
+                summary: itemsResponseData[i]['summary'].toString().toLowerCase(),
                 start: itemsResponseData[i]['start']['date'],
                 end: itemsResponseData[i]['end']['date'],
                 recurrence: itemsResponseData[i]['recurrence'] != null
