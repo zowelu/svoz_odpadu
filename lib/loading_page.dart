@@ -8,32 +8,9 @@ import 'package:svoz_odpadu/variables/constants.dart';
 import 'package:svoz_odpadu/variables/global_var.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:svoz_odpadu/components/calendar_item.dart';
 
-class CalendarItem {
-  final String status;
-  final String summary;
-  final String start;
-  final String end;
-  final String recurrence;
 
-  CalendarItem(
-      {required this.status,required this.summary,
-      required this.start,
-      required this.end,
-      this.recurrence = ''});
-
-  /*factory CalendarItem.fromJson(dynamic parsedJson) {
-    return CalendarItem(
-        summary: parsedJson['summary'],
-        start: parsedJson['start']['date'],
-        end: parsedJson['end']['date'],
-        recurrence: parsedJson['recurrence']);
-  }*/
-  @override
-  String toString() {
-    return '{${this.status}, ${this.summary}, ${this.start}, ${this.end}, ${this.recurrence}}';
-  }
-}
 
 class LoadingPage extends StatefulWidget {
   const LoadingPage({Key? key}) : super(key: key);
@@ -103,15 +80,15 @@ class _LoadingPageState extends State<LoadingPage>
   }
 
   void getData() async {
+    //map pro získání index a zároveň odkazy na calendarID
     Map<String, String> calendarID = {
       'směsný': '13r56ftkqvl368a14fimn1ifc4@group.calendar.google.com',
       'plast': 'go5dkg6cnflo277vhc6cbemt3k@group.calendar.google.com',
       'papír': 'p7g0np51igvv0bko1bf4nmtmf0@group.calendar.google.com',
       'bioodpad': 'bnjcsj8qmn2guo40789odlvrvo@group.calendar.google.com'
     };
-
-
-    for(int i = 0; i<calendarID.length; i++) {
+    //cyklus o počtu opakování dle počtu kalendářů
+    for (int i = 0; i < calendarID.length; i++) {
       String calendarIDindex = calendarID.values.elementAt(i);
       int index = i;
       print('index $index, calendarIDindex $calendarIDindex');
@@ -124,9 +101,9 @@ class _LoadingPageState extends State<LoadingPage>
         String responseData = response.body;
         List<dynamic> itemsResponseData = jsonDecode(responseData)['items'];
         for (int i = 0; i < itemsResponseData.length; i++) {
-          if( itemsResponseData[i]['status'] != 'cancelled') {
+          if (itemsResponseData[i]['status'] != 'cancelled') {
             CalendarItem calendarItem = CalendarItem(
-              status:  itemsResponseData[i]['status'],
+                status: itemsResponseData[i]['status'],
                 summary: itemsResponseData[i]['summary'],
                 start: itemsResponseData[i]['start']['date'],
                 end: itemsResponseData[i]['end']['date'],
