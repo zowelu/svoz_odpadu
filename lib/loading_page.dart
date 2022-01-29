@@ -6,9 +6,7 @@ import 'package:svoz_odpadu/components/text_header.dart';
 import 'package:svoz_odpadu/components/text_normal.dart';
 import 'package:svoz_odpadu/variables/constants.dart';
 import 'package:svoz_odpadu/variables/global_var.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'package:svoz_odpadu/components/calendar_item.dart';
+import 'package:svoz_odpadu/components/calendar_data.dart';
 
 
 
@@ -28,6 +26,15 @@ class _LoadingPageState extends State<LoadingPage>
   late AnimationController animation;
   late Animation<double> _fadeInFadeOut;
   bool isLoading = true;
+  final CalendarData calendarData = CalendarData();
+
+  //map pro získání index a zároveň odkazy na calendarID
+  Map<String, String> calendarID = {
+    'směsný': '13r56ftkqvl368a14fimn1ifc4@group.calendar.google.com',
+    'plast': 'go5dkg6cnflo277vhc6cbemt3k@group.calendar.google.com',
+    'papír': 'p7g0np51igvv0bko1bf4nmtmf0@group.calendar.google.com',
+    'bioodpad': 'bnjcsj8qmn2guo40789odlvrvo@group.calendar.google.com'
+  };
 
   @override
   void initState() {
@@ -43,16 +50,20 @@ class _LoadingPageState extends State<LoadingPage>
       if (animation.isCompleted) {
         animation.stop();
         isLoading = false;
-        sharedPreferencesGlobal.initializePreference().whenComplete(() {
-          setState(() {});
-          getPreference();
-          getData();
-        });
+        sortOutData();
       } else {
         animation.forward();
       }
     });
     animation.repeat();
+  }
+
+  void sortOutData()async {
+    sharedPreferencesGlobal.initializePreference().whenComplete(() {
+      getPreference();
+    });
+    await calendarData.getCalendarData(calendarID);
+    calendarData.classifyCalendarData();
   }
 
   void getPreference() async {
@@ -77,46 +88,6 @@ class _LoadingPageState extends State<LoadingPage>
     currentPage = LoadingPage.id;
     animation.dispose();
     super.dispose();
-  }
-
-  void getData() async {
-    //map pro získání index a zároveň odkazy na calendarID
-    Map<String, String> calendarID = {
-      'směsný': '13r56ftkqvl368a14fimn1ifc4@group.calendar.google.com',
-      'plast': 'go5dkg6cnflo277vhc6cbemt3k@group.calendar.google.com',
-      'papír': 'p7g0np51igvv0bko1bf4nmtmf0@group.calendar.google.com',
-      'bioodpad': 'bnjcsj8qmn2guo40789odlvrvo@group.calendar.google.com'
-    };
-    //cyklus o počtu opakování dle počtu kalendářů
-    for (int i = 0; i < calendarID.length; i++) {
-      String calendarIDindex = calendarID.values.elementAt(i);
-      int index = i;
-      print('index $index, calendarIDindex $calendarIDindex');
-      final url = Uri.parse(
-          'https://www.googleapis.com/calendar/v3/calendars/$calendarIDindex/events?key=AIzaSyCCpkDJ_trt3VZpmaSqQRdLTPJBAVmg5vY');
-      http.Response response = await http.get(url);
-      print(response.statusCode);
-      if (response.statusCode == 200) {
-        List<CalendarItem> calendarItems = [];
-        String responseData = response.body;
-        List<dynamic> itemsResponseData = jsonDecode(responseData)['items'];
-        for (int i = 0; i < itemsResponseData.length; i++) {
-          if (itemsResponseData[i]['status'] != 'cancelled') {
-            CalendarItem calendarItem = CalendarItem(
-                status: itemsResponseData[i]['status'],
-                summary: itemsResponseData[i]['summary'].toString().toLowerCase(),
-                start: itemsResponseData[i]['start']['date'],
-                end: itemsResponseData[i]['end']['date'],
-                recurrence: itemsResponseData[i]['recurrence'] != null
-                    ? itemsResponseData[i]['recurrence'][0]
-                    : 'not');
-            print(calendarItem);
-            calendarItems.add(calendarItem);
-          }
-        }
-      } else
-        print(response.statusCode);
-    }
   }
 
   @override
