@@ -76,6 +76,7 @@ class _LoadingPageState extends State<LoadingPage>
         print('přesměrováno na homePage, $valueCityPicked');
         await calendarData.getCalendarData(calendarID);
         calendarData.classifyCalendarData();
+        calendarData.createMapOfWasteCalendarData(calendarData.mixedCalendarItems, calendarData.mixedWasteEvents);
         Future.delayed(const Duration(seconds: 4),
             () => Navigator.pushReplacementNamed(context, HomePage.id));
       }
