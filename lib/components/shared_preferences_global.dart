@@ -87,12 +87,9 @@ class SharedPreferencesGlobal {
   Future<void> getPreferencesValueCity() async {
     final SharedPreferences? preferences =
         await SharedPreferences.getInstance();
-    valueCityPicked = preferences!.getString('valueCityPicked') ?? 'Vybrat obec/město';
+    valueCityPicked = preferences?.getString('valueCityPicked') ?? 'Vybrat obec/město';
     print('valueCityPicked from preference LoadingPage: $valueCityPicked');
-    if (valueCityPicked == 'Vybrat obec/město') {
-      valueCityPickedGlobal = false;
-      print('value cityPickedGlobal $valueCityPickedGlobal');
-    } else if (valueCityPicked == null) {
+    if (valueCityPicked == 'Vybrat obec/město' || valueCityPicked == null) {
       valueCityPickedGlobal = false;
       print('value cityPickedGlobal $valueCityPickedGlobal');
     } else {

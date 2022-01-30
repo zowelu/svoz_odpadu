@@ -29,3 +29,6 @@ bool valueCityPickedGlobal = false;
 String? valueCityPicked;
 
 String? appVersion;
+String? appName;
+String? packageName;
+String? buildNumber;
