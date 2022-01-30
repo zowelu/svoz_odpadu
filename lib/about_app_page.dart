@@ -87,9 +87,9 @@ class _AboutAppPageState extends State<AboutAppPage> {
                                   fontFamily: kDFontFamilyHeader),
                               textAlign: TextAlign.center,
                             ),
-                            const Text(
-                              'verze: $versionApp',
-                              style: TextStyle(
+                            Text(
+                              'verze: $appVersion',
+                              style: const TextStyle(
                                   fontSize: kDFontSizeText,
                                   fontFamily: kDFontFamilyParagraph),
                               textAlign: TextAlign.center,

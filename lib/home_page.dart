@@ -290,8 +290,8 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.only(left: kDMargin,right: kDMargin, bottom: kDMargin),
                 child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const TextNormal(
-                      text: 'verze: $versionApp',
+                    TextNormal(
+                      text: 'verze: $appVersion',
                       color: Colors.white,
                       fontSize: 14,
                     ),

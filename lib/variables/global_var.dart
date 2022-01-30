@@ -27,3 +27,5 @@ String? mixedSelectedDay = 'Den Předem';
 
 bool valueCityPickedGlobal = false;
 String? valueCityPicked;
+
+String? appVersion;
