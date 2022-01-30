@@ -8,6 +8,8 @@ import 'package:svoz_odpadu/settings_page.dart';
 import 'package:svoz_odpadu/variables/constants.dart';
 import 'package:svoz_odpadu/variables/global_var.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
+import 'package:svoz_odpadu/components/utilities.dart';
+
 
 void main() {
   AwesomeNotifications().initialize(
@@ -90,7 +92,7 @@ void main() {
     ],
   );
   currentPage = 'main';
-
+  getPackageInfo();
   runApp(Phoenix(child: const MyApp()));
 }
 
