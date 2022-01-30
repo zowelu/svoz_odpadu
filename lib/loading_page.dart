@@ -1,6 +1,8 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:svoz_odpadu/components/button_settings.dart';
 import 'package:svoz_odpadu/components/shared_preferences_global.dart';
 import 'package:svoz_odpadu/components/text_header.dart';
 import 'package:svoz_odpadu/components/text_normal.dart';
@@ -58,9 +60,15 @@ class _LoadingPageState extends State<LoadingPage>
     animation.repeat();
   }
 
+  /*void getFictionPreference()async{
+    final SharedPreferences? preferences =
+    await SharedPreferences.getInstance();
+    String text = preferences!.get('ahoj').toString();
+    print('textFisction: $text');
+  }*/
   void sortOutData()async {
-    sharedPreferencesGlobal.initializePreference().whenComplete(() {
-      getPreference();
+    await sharedPreferencesGlobal.initializePreference().whenComplete(() {
+     getPreference();
     });
     await calendarData.getCalendarData(calendarID);
     calendarData.classifyCalendarData();
@@ -119,9 +127,10 @@ class _LoadingPageState extends State<LoadingPage>
                   const SizedBox(
                     height: kDMarginLarger * 3,
                   ),
+                  ButtonSettings(onTap: (){/*getFictionPreference();*/}, title: 'Get', icon: Icons.arrow_circle_down_rounded,),
                   // ignore: avoid_unnecessary_containers
                   Container(
-                    child: const TextNormal(text: 'Aplikaci vytvořili:'),
+                    child: const TextNormal(text: 'Aplikaci vytvořili:', fontWeight: FontWeight.bold,),
                   ),
                   const SizedBox(
                     width: kDMarginLarger,
@@ -145,7 +154,7 @@ class _LoadingPageState extends State<LoadingPage>
                         ),
                         const SizedBox(
                           width: kDMarginLarger,
-                          child: Center(child: TextNormal(text: 'a')),
+                          child: Center(child: TextNormal(text: 'a', fontWeight: FontWeight.bold,),),
                         ),
                         Flexible(
                           flex: 1,
