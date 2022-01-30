@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:svoz_odpadu/components/button_settings.dart';
 import 'package:svoz_odpadu/components/shared_preferences_global.dart';
 import 'package:svoz_odpadu/components/text_header.dart';
@@ -52,26 +51,14 @@ class _LoadingPageState extends State<LoadingPage>
       if (animation.isCompleted) {
         animation.stop();
         isLoading = false;
-        sortOutData();
+        sharedPreferencesGlobal.initializePreference().whenComplete(() {
+          getPreference();
+        });
       } else {
         animation.forward();
       }
     });
     animation.repeat();
-  }
-
-  /*void getFictionPreference()async{
-    final SharedPreferences? preferences =
-    await SharedPreferences.getInstance();
-    String text = preferences!.get('ahoj').toString();
-    print('textFisction: $text');
-  }*/
-  void sortOutData()async {
-    await sharedPreferencesGlobal.initializePreference().whenComplete(() {
-     getPreference();
-    });
-    await calendarData.getCalendarData(calendarID);
-    calendarData.classifyCalendarData();
   }
 
   void getPreference() async {
@@ -81,12 +68,14 @@ class _LoadingPageState extends State<LoadingPage>
       if ((valueCityPicked == 'Vybrat obec/město') ||
           (valueCityPicked == null)) {
         print('přesměrováno na CityPicker, $valueCityPicked');
-        /*Future.delayed(const Duration(seconds: 4),
-            () => Navigator.popAndPushNamed(context, CityPickerPage.id));*/
+        Future.delayed(const Duration(seconds: 4),
+            () => Navigator.popAndPushNamed(context, CityPickerPage.id));
       } else {
         print('přesměrováno na homePage, $valueCityPicked');
-        /*Future.delayed(const Duration(seconds: 4),
-            () => Navigator.pushReplacementNamed(context, HomePage.id));*/
+        await calendarData.getCalendarData(calendarID);
+        calendarData.classifyCalendarData();
+        Future.delayed(const Duration(seconds: 4),
+            () => Navigator.pushReplacementNamed(context, HomePage.id));
       }
     }
   }
