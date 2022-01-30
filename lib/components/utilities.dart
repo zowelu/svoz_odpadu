@@ -132,7 +132,9 @@ Future<NotificationWeekAndTime?> pickSchedule(
       selectedDayGlobal = day[selectedDay].toString();
       selectedTimeOfDayGlobal = timeOfDay;
       return NotificationWeekAndTime(
-          dayOfTheWeek: selectedDay, timeOfDay: timeOfDay, selectedDay: day[selectedDay].toString());
+          dayOfTheWeek: selectedDay,
+          timeOfDay: timeOfDay,
+          selectedDay: day[selectedDay].toString());
     }
   }
   return null;
@@ -210,7 +212,9 @@ Future<NotificationWeekAndTime?> pickScheduleWeekly(
       selectedDayGlobal = weekdays[selectedDay! - 1].toString();
       selectedTimeOfDayGlobal = timeOfDay;
       return NotificationWeekAndTime(
-          dayOfTheWeek: selectedDay!, timeOfDay: timeOfDay, selectedDay: weekdays[selectedDay! - 1].toString());
+          dayOfTheWeek: selectedDay!,
+          timeOfDay: timeOfDay,
+          selectedDay: weekdays[selectedDay! - 1].toString());
     }
   }
   return null;
@@ -297,8 +301,18 @@ void createNotificationReminder(
   // ignore: avoid_print
   print('$mapOfEventsOfWaste, $channelKey, created');
 }
+
 ///zjistí verzi aplikace z pubspec
-void getPackageInfo()async{
+Future getPackageInfo() async {
   PackageInfo packageInfo = await PackageInfo.fromPlatform();
+  await WidgetsFlutterBinding.ensureInitialized();
   appVersion = packageInfo.version;
+  appName = packageInfo.appName;
+  packageName = packageInfo.packageName;
+  buildNumber = packageInfo.buildNumber;
+  /*print(appVersion);
+  print(appName);
+  print(packageName);
+  print(buildNumber);*/
+
 }
