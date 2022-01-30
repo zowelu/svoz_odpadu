@@ -11,7 +11,7 @@ import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:svoz_odpadu/components/utilities.dart';
 
 
-void main() {
+void main() async {
   AwesomeNotifications().initialize(
     'resource://drawable/res_notification_app_icon',
     [
@@ -92,7 +92,7 @@ void main() {
     ],
   );
   currentPage = 'main';
-  getPackageInfo();
+  await getPackageInfo();
   runApp(Phoenix(child: const MyApp()));
 }
 
