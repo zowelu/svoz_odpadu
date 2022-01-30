@@ -5,6 +5,7 @@ import 'package:svoz_odpadu/components/text_header.dart';
 import 'package:svoz_odpadu/components/text_normal.dart';
 import 'package:svoz_odpadu/variables/constants.dart';
 import 'package:svoz_odpadu/variables/global_var.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 int createUniqueId() {
   return DateTime.now().millisecondsSinceEpoch.remainder(100000);
@@ -295,4 +296,9 @@ void createNotificationReminder(
   }
   // ignore: avoid_print
   print('$mapOfEventsOfWaste, $channelKey, created');
+}
+///zjistí verzi aplikace z pubspec
+void getPackageInfo()async{
+  PackageInfo packageInfo = await PackageInfo.fromPlatform();
+  appVersion = packageInfo.version;
 }
