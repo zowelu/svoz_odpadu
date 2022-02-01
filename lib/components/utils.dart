@@ -1,5 +1,6 @@
 import 'dart:collection';
 import 'package:svoz_odpadu/components/calendar_data.dart';
+import 'package:sortedmap/sortedmap.dart';
 
 /// Example event class.
 /*class Event {
@@ -24,16 +25,19 @@ int getHashCode(DateTime key) {
   return key.day * 1000000 + key.month * 10000 + key.year;
 }
 
+Map<DateTime, List<Event>> allWasteEvents = {};
+Map<DateTime, List<Event>> allWasteEventsMap = {};
+
 /// nakopírování všech Map do jednoho
 Map getAllEventsToMap() {
-  allWasteEvents.addAll(mixedWasteEvents);
-  allWasteEvents.addAll(plasticWasteEvents);
-  allWasteEvents.addAll(paperWasteEvents);
-  allWasteEvents.addAll(bioWasteEvents);
+  allWasteEventsMap.addAll(mixedWasteEvents);
+  allWasteEventsMap.addAll(plasticWasteEvents);
+  allWasteEventsMap.addAll(paperWasteEvents);
+  allWasteEventsMap.addAll(bioWasteEvents);
+  allWasteEvents = new SortedMap(Ordering.byKey());
+  allWasteEvents.addAll(allWasteEventsMap);
   return allWasteEvents;
 }
-
-Map<DateTime, List<Event>> allWasteEvents = {};
 
 Map<DateTime, List<Event>> mixedWasteEvents = {
   /*DateTime(2022, 1, 12): [const Event('Směsný odpad')],
