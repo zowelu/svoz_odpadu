@@ -25,20 +25,22 @@ class CalendarData {
   List<List<CalendarItem>> nonZeroCalendarsItems = [];
 
   List<List<CalendarItem>> listOfNonZeroCalendarsItems() {
-    List<List<CalendarItem>> nonZeroCalendarsItems = [];
-    List calendarsItems = [
+    List<List<CalendarItem>> allCalendarsItems = [
       mixedCalendarItems,
       plasticCalendarItems,
       paperCalendarItems,
       bioCalendarItems
     ];
-    for (List<CalendarItem> calendar in calendarsItems) {
+
+    for (var calendar in allCalendarsItems) {
+      int index = nonZeroCalendarsItems.length;
       if (calendar.isNotEmpty) {
-        nonZeroCalendarsItems.add(calendar);
+        nonZeroCalendarsItems.insert(index, calendar);
       }
     }
+
     print(nonZeroCalendarsItems.length);
-    print('nonZeroCalendars: $nonZeroCalendarsItems');
+    //print('nonZeroCalendars: $nonZeroCalendarsItems');
     return nonZeroCalendarsItems;
   }
 
@@ -76,30 +78,26 @@ class CalendarData {
         .whenComplete(() => classifyCalendarData(calendarItems))
         .then(
       (value) {
-        for (int i = 0; i <= nonZeroCalendarsItems.length -1; i++) {
-          for (List<CalendarItem> calendar in nonZeroCalendarsItems) {
-            Map<DateTime, List<Event>> wasteEvents = {};
-            for (CalendarItem item in calendar) {
-              if (item.summary == ('směs') ||
-                  item.summary == ('směsný odpad')) {
-                wasteEvents = mixedWasteEvents;
-                print('mixedWasteEvents');
-              } else if (item.summary == ('plast') ||
-                  item.summary == ('plastový odpad')) {
-                wasteEvents = plasticWasteEvents;
-                print('plasticWasteEvents');
-              } else if (item.summary == ('papír') ||
-                  item.summary == ('papírový odpad')) {
-                wasteEvents = paperWasteEvents;
-                print('paperWasteEvents');
-              } else if (item.summary == ('bio') ||
-                  item.summary == ('bioodpad')) {
-                wasteEvents = bioWasteEvents;
-                print('bioWasteEvents');
-              }
-              createMapOfWasteCalendarData(
-                  nonZeroCalendarsItems[i], wasteEvents);
+        for (List calendar in nonZeroCalendarsItems) {
+          Map<DateTime, List<Event>> wasteEvents = {};
+          for (CalendarItem item in calendar) {
+            if (item.summary == ('směs') || item.summary == ('směsný odpad')) {
+              wasteEvents = mixedWasteEvents;
+              //('mixedWasteEvents');
+            } else if (item.summary == ('plast') ||
+                item.summary == ('plastový odpad')) {
+              wasteEvents = plasticWasteEvents;
+              //print('plasticWasteEvents');
+            } else if (item.summary == ('papír') ||
+                item.summary == ('papírový odpad')) {
+              wasteEvents = paperWasteEvents;
+              //print('paperWasteEvents');
+            } else if (item.summary == ('bio') ||
+                item.summary == ('bioodpad')) {
+              wasteEvents = bioWasteEvents;
+              //print('bioWasteEvents');
             }
+            createMapOfWasteCalendarData(nonZeroCalendarsItems, wasteEvents);
           }
         }
       },
@@ -119,7 +117,6 @@ class CalendarData {
       //print('index $index, calendarIDindex $calendarIDindex');
       final url = Uri.parse(
           'https://www.googleapis.com/calendar/v3/calendars/$calendarIDindex/events?key=AIzaSyCCpkDJ_trt3VZpmaSqQRdLTPJBAVmg5vY');
-
       try {
         http.Response response = await http.get(url);
         //print(response.statusCode);
@@ -178,121 +175,134 @@ class CalendarData {
           //print('Přidáno do paper');
         } else if (element.summary == 'bio' || element.summary == 'bioodpad') {
           bioCalendarItems.add(element);
-          //print('Přidáno do bio');
+          //print('Přidáno do bio$bioCalendarItems');
         }
       }
     }
-
-    nonZeroCalendarsItems = listOfNonZeroCalendarsItems();
+    listOfNonZeroCalendarsItems();
+    /*for (List<CalendarItem> calendar in nonZeroCalendarsItems) {
+      print('nonzerocalendar v classify: $calendar');
+    }*/
     print('classifyCalendarData complete, ${nonZeroCalendarsItems.length}');
   }
 
-  void createMapOfWasteCalendarData(List wasteCalendarItems, Map wasteEvents) {
+  void createMapOfWasteCalendarData(List<List<CalendarItem>> wasteCalendarItems,
+      Map<DateTime, List<Event>> wasteEvents) {
     String? freq;
-    // ignore: unused_local_variable
+
     String? wkst;
     String? until;
     String? interval;
-    // ignore: unused_local_variable
+    List<DateTime> daysList = [];
+
     String? byDay;
     String? nameOfWasteEvents;
-    List<DateTime> daysList = [];
-    for (CalendarItem item in wasteCalendarItems) {
-      String recurrence = item.recurrence;
-      String start = item.start;
-      //print('item v create: $item');
-      if (recurrence != 'not') {
-        //print('recurrence není not');
-        List<String> recurrenceSplit = recurrence.substring(6).split(';');
-        //print('recurrenceSplit: $recurrenceSplit');
-        for (var element in recurrenceSplit) {
-          if (element.startsWith('FREQ')) {
-            freq = element.substring(5);
-            //print('freq: $freq');
+
+    for (List<CalendarItem> list in wasteCalendarItems) {
+      for (CalendarItem item in list) {
+        String? itemName = item.summary;
+
+        String recurrence = item.recurrence;
+        String start = item.start;
+
+        //print('item v create: $item');
+        if (recurrence != 'not') {
+          //print('recurrence není not');
+          List<String> recurrenceSplit = recurrence.substring(6).split(';');
+          //print('recurrenceSplit: $recurrenceSplit');
+          for (var element in recurrenceSplit) {
+            if (element.startsWith('FREQ')) {
+              freq = element.substring(5);
+              //print('freq: $freq');
+            }
+            if (element.startsWith('WKST')) {
+              wkst = element.substring(5);
+              //print('wkst: $wkst');
+            }
+            if (element.startsWith('UNTIL')) {
+              until = element.substring(6);
+              //print('until: $until');
+            }
+            if (element.startsWith('INTERVAL')) {
+              interval = element.substring(9);
+              //print('interval: $interval');
+            }
+            if (element.startsWith('BYDAY')) {
+              byDay = element.substring(6);
+              //print('byday: $byDay');
+            }
           }
-          if (element.startsWith('WKST')) {
-            wkst = element.substring(5);
-            //print('wkst: $wkst');
-          }
-          if (element.startsWith('UNTIL')) {
-            until = element.substring(6);
-            //print('until: $until');
-          }
-          if (element.startsWith('INTERVAL')) {
-            interval = element.substring(9);
-            //print('interval: $interval');
-          }
-          if (element.startsWith('BYDAY')) {
-            byDay = element.substring(6);
-            //print('byday: $byDay');
-          }
-        }
-        DateTime startDate = DateTime.parse(start);
-        // print('startDate: $startDate');
-        DateTime endDate = DateTime.parse(until!);
-        //print('endDate: $endDate');
-        if (freq == 'WEEKLY') {
-          //print('freq je weekly');
-          int days = 7 * int.parse(interval!);
-          DateTime tmp =
-              DateTime(startDate.year, startDate.month, startDate.day);
-          for (tmp;
-              tmp.compareTo(endDate) <= 0 /*|| tmp.isAtSameMomentAs(endDate)*/;
-              tmp = tmp.add(
-            Duration(days: days),
-          ),) {
-            daysList.add(tmp);
-          }
-          //print(daysList);
-        } else if (freq == 'MONTHLY') {
-          //print('freq je monthly');
-          int? tmpDays;
-          int days = tmpDays! * int.parse(interval!);
-          DateTime tmp =
-              DateTime(startDate.year, startDate.month, startDate.day);
-          for (tmp;
-              tmp.compareTo(endDate) <= 0 /*|| tmp.isAtSameMomentAs(endDate)*/;
-              tmp = tmp.add(Duration(days: days))) {
-            if (tmp.month == DateTime.january ||
-                tmp.month == DateTime.march ||
-                tmp.month == DateTime.may ||
-                tmp.month == DateTime.july ||
-                tmp.month == DateTime.august ||
-                tmp.month == DateTime.october ||
-                tmp.month == DateTime.december) {
-              tmpDays = 31;
-            } else if (tmp.month == DateTime.april ||
-                tmp.month == DateTime.june ||
-                tmp.month == DateTime.september ||
-                tmp.month == DateTime.november) {
-              tmpDays = 30;
-            } else {
-              if (isLeapYear(tmp.year)) {
+          DateTime startDate = DateTime.parse(start);
+          // print('startDate: $startDate');
+          DateTime endDate = DateTime.parse(until!);
+          //print('endDate: $endDate');
+          if (freq == 'WEEKLY') {
+            //print('freq je weekly');
+            int days = 7 * int.parse(interval!);
+            DateTime tmp =
+                DateTime(startDate.year, startDate.month, startDate.day);
+            for (tmp;
+                tmp.compareTo(endDate) <=
+                    0 /*|| tmp.isAtSameMomentAs(endDate)*/;
                 tmp = tmp.add(
-                  const Duration(days: 29),
-                );
-              } else {
-                tmp = tmp.add(
-                  const Duration(days: 28),
-                );
-              }
+              Duration(days: days),
+            ),) {
               daysList.add(tmp);
             }
             //print(daysList);
+          } else if (freq == 'MONTHLY') {
+            //print('freq je monthly');
+            int? tmpDays;
+            int days = tmpDays! * int.parse(interval!);
+            DateTime tmp =
+                DateTime(startDate.year, startDate.month, startDate.day);
+            for (tmp;
+                tmp.compareTo(endDate) <=
+                    0 /*|| tmp.isAtSameMomentAs(endDate)*/;
+                tmp = tmp.add(Duration(days: days))) {
+              if (tmp.month == DateTime.january ||
+                  tmp.month == DateTime.march ||
+                  tmp.month == DateTime.may ||
+                  tmp.month == DateTime.july ||
+                  tmp.month == DateTime.august ||
+                  tmp.month == DateTime.october ||
+                  tmp.month == DateTime.december) {
+                tmpDays = 31;
+              } else if (tmp.month == DateTime.april ||
+                  tmp.month == DateTime.june ||
+                  tmp.month == DateTime.september ||
+                  tmp.month == DateTime.november) {
+                tmpDays = 30;
+              } else {
+                if (isLeapYear(tmp.year)) {
+                  tmp = tmp.add(
+                    const Duration(days: 29),
+                  );
+                } else {
+                  tmp = tmp.add(
+                    const Duration(days: 28),
+                  );
+                }
+                daysList.add(tmp);
+              }
+              //print(daysList);
+            }
+          } else {
+            daysList.add(startDate);
+          }
+          for (DateTime date in daysList) {
+            //if(wasteEvents.keys.contains(date)){
+            if (!wasteEvents.containsKey(date)) {
+              wasteEvents[date] = [Event(item.summary)];
+            } else if (wasteEvents.containsKey(date)) {
+              if (!wasteEvents[date]!.contains(Event(item.summary))) {
+                wasteEvents[date]!
+                    .insert(wasteEvents[date]!.length, Event(item.summary));
+              }
+            }
           }
         }
       }
-      for (DateTime dateTime in daysList) {
-        wasteEvents.putIfAbsent(
-            dateTime,
-            () => [
-                  Event(item.summary),
-                ]);
-        //print(wasteEvents);
-        nameOfWasteEvents = item.summary;
-      }
     }
-    print('wasteEvents : ${wasteEvents.length}');
-    print('createMapOfWasteCalendarData $nameOfWasteEvents. is complete');
   }
 }
