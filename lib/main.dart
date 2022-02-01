@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:svoz_odpadu/about_app_page.dart';
 import 'package:svoz_odpadu/city_picker_page.dart';
 import 'package:svoz_odpadu/home_page.dart';
+import 'package:svoz_odpadu/list_of_waste_page.dart';
 import 'package:svoz_odpadu/loading_page.dart';
 import 'package:svoz_odpadu/settings_page.dart';
 import 'package:svoz_odpadu/variables/constants.dart';
@@ -115,6 +116,7 @@ class MyApp extends StatelessWidget {
         CityPickerPage.id: (context) => const CityPickerPage(),
         LoadingPage.id: (context) => const LoadingPage(),
         AboutAppPage.id: (context) => const AboutAppPage(),
+        ListOfWastePage.id: (context) => const ListOfWastePage(),
       },
     );
   }
