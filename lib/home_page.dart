@@ -2,6 +2,7 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:svoz_odpadu/about_app_page.dart';
 import 'package:svoz_odpadu/city_picker_page.dart';
+import 'package:svoz_odpadu/components/calendar_data.dart';
 import 'package:svoz_odpadu/components/divider_menu.dart';
 import 'package:svoz_odpadu/components/open_url_in_browser.dart';
 import 'package:svoz_odpadu/components/shared_preferences_global.dart';
