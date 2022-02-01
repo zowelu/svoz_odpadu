@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:svoz_odpadu/components/text_normal.dart';
 import 'package:svoz_odpadu/variables/constants.dart';
 
-class ListTileOfWaste extends StatelessWidget {
+class ListTileOfWasteHint extends StatelessWidget {
   // ignore: use_key_in_widget_constructors
-  const ListTileOfWaste(this.text, this.color);
+  const ListTileOfWasteHint(this.text, this.color);
   final String text;
   final Color color;
 
