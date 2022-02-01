@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:svoz_odpadu/variables/constants.dart';
 
 class FABHome extends StatefulWidget {
-  const FABHome({Key? key}) : super(key: key);
+  const FABHome({Key? key,}) : super(key: key);
+
+
 
   @override
   _FABHomeState createState() => _FABHomeState();
@@ -13,12 +15,12 @@ class _FABHomeState extends State<FABHome> with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<Color?> _animateColor;
   late Animation<double> _animateIcon;
-  Curve _curve = Curves.easeOut;
+  final Curve _curve = Curves.easeOut;
 
   @override
   void initState() {
     _animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 500))
+        AnimationController(vsync: this, duration: const Duration(milliseconds: 500))
           ..addListener(() {
             setState(() {});
           });
@@ -52,11 +54,11 @@ class _FABHomeState extends State<FABHome> with SingleTickerProviderStateMixin {
 
   Widget toggle() {
     return FloatingActionButton(
-      backgroundColor: kDBackgroundColorCalendar,
+      backgroundColor: _animateColor.value,
       tooltip: 'Toggle',
       onPressed: animate,
       child:
-          AnimatedIcon(icon: AnimatedIcons.list_view,color: kDBackgroundColor, progress: _animateIcon),
+          AnimatedIcon(icon: AnimatedIcons.list_view,color: isOpened ? kDBackgroundColor : Colors.white, progress: _animateIcon),
     );
   }
 
