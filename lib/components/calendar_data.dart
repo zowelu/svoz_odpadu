@@ -38,7 +38,7 @@ class CalendarData {
       }
     }
     print(nonZeroCalendarsItems.length);
-    print('nonZeroCalendars: ${nonZeroCalendarsItems}');
+    print('nonZeroCalendars: $nonZeroCalendarsItems');
     return nonZeroCalendarsItems;
   }
 
