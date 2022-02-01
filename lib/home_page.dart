@@ -12,7 +12,7 @@ import 'package:svoz_odpadu/variables/constants.dart';
 import 'package:svoz_odpadu/variables/global_var.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:svoz_odpadu/components/my_appbar.dart';
-import 'package:svoz_odpadu/components/list_tile_of_waste.dart';
+import 'package:svoz_odpadu/components/list_tile_of_waste_hint.dart';
 import 'package:svoz_odpadu/components/utils.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
@@ -105,9 +105,9 @@ class _HomePageState extends State<HomePage> {
 
 
   double fontSize = 16;
-  bool isSwitchedHome = false;
 
   SharedPreferencesGlobal sharedPreferencesGlobal = SharedPreferencesGlobal();
+  FABHome fabHome = const FABHome();
 
   @override
   void dispose() {
@@ -343,7 +343,7 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      floatingActionButton: FABHome(),
+      floatingActionButton: fabHome,
       body: Container(
         padding:
             EdgeInsets.only(top: MediaQuery.of(context).size.height / 100 * 2),
@@ -474,12 +474,12 @@ class _HomePageState extends State<HomePage> {
                   child: ListView(
                     shrinkWrap: true,
                     children: const <Widget>[
-                      ListTileOfWaste('Dnešní den', kDBackgroundColor),
-                      ListTileOfWaste('Plast a nápojový karton,\nDrobné kovy',
+                      ListTileOfWasteHint('Dnešní den', kDBackgroundColor),
+                      ListTileOfWasteHint('Plast a nápojový karton,\nDrobné kovy',
                           kDColorWastePlastic),
-                      ListTileOfWaste('Bioodpad', kDColorWasteBio),
-                      ListTileOfWaste('Papír', kDColorWastePaper),
-                      ListTileOfWaste('Směsný odpad', kDColorWasteMixed),
+                      ListTileOfWasteHint('Bioodpad', kDColorWasteBio),
+                      ListTileOfWasteHint('Papír', kDColorWastePaper),
+                      ListTileOfWasteHint('Směsný odpad', kDColorWasteMixed),
                     ],
                   ),
                 ),
