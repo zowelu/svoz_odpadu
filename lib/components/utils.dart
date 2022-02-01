@@ -34,7 +34,7 @@ Map getAllEventsToMap() {
   allWasteEventsMap.addAll(plasticWasteEvents);
   allWasteEventsMap.addAll(paperWasteEvents);
   allWasteEventsMap.addAll(bioWasteEvents);
-  allWasteEvents = new SortedMap(Ordering.byKey());
+  allWasteEvents = SortedMap(const Ordering.byKey());
   allWasteEvents.addAll(allWasteEventsMap);
   return allWasteEvents;
 }
