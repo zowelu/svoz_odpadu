@@ -4,6 +4,7 @@ import 'package:svoz_odpadu/about_app_page.dart';
 import 'package:svoz_odpadu/city_picker_page.dart';
 import 'package:svoz_odpadu/components/calendar_data.dart';
 import 'package:svoz_odpadu/components/divider_menu.dart';
+import 'package:svoz_odpadu/components/fab_home.dart';
 import 'package:svoz_odpadu/components/open_url_in_browser.dart';
 import 'package:svoz_odpadu/components/shared_preferences_global.dart';
 import 'package:svoz_odpadu/settings_page.dart';
@@ -102,6 +103,10 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+
+  double fontSize = 16;
+  bool isSwitchedHome = false;
+
   SharedPreferencesGlobal sharedPreferencesGlobal = SharedPreferencesGlobal();
 
   @override
@@ -121,7 +126,7 @@ class _HomePageState extends State<HomePage> {
   //List<Event> _getEventsForMonth(DateTime month) {
   //  return kEvents[month] ?? [];
   // }
-  double fontSize = 16;
+
   @override
   Widget build(BuildContext context) {
     initializeDateFormatting('cs');
@@ -338,6 +343,7 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
+      floatingActionButton: FABHome(),
       body: Container(
         padding:
             EdgeInsets.only(top: MediaQuery.of(context).size.height / 100 * 2),
