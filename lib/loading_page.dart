@@ -31,14 +31,6 @@ class _LoadingPageState extends State<LoadingPage>
   bool isLoading = true;
   final CalendarData calendarData = CalendarData();
 
-  //map pro získání index a zároveň odkazy na calendarID
-  Map<String, String> calendarID = {
-    'směsný': '13r56ftkqvl368a14fimn1ifc4@group.calendar.google.com',
-    'plast': 'go5dkg6cnflo277vhc6cbemt3k@group.calendar.google.com',
-    'papír': 'p7g0np51igvv0bko1bf4nmtmf0@group.calendar.google.com',
-    'bioodpad': 'bnjcsj8qmn2guo40789odlvrvo@group.calendar.google.com'
-  };
-
   @override
   void initState() {
     super.initState();
@@ -74,9 +66,7 @@ class _LoadingPageState extends State<LoadingPage>
             () => Navigator.popAndPushNamed(context, CityPickerPage.id));
       } else {
         print('přesměrováno na homePage, $valueCityPicked');
-        await calendarData.getCalendarData(calendarID);
-        calendarData.classifyCalendarData();
-        calendarData.createMapOfWasteCalendarData(calendarData.mixedCalendarItems, calendarData.mixedWasteEvents);
+        calendarData.getCalendarData(valueCityPicked!);
         Future.delayed(const Duration(seconds: 4),
             () => Navigator.pushReplacementNamed(context, HomePage.id));
       }
