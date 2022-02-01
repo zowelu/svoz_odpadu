@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:svoz_odpadu/list_of_waste_page.dart';
 import 'package:svoz_odpadu/variables/constants.dart';
 
 class FABHome extends StatefulWidget {
-  const FABHome({Key? key,}) : super(key: key);
-
-
+  const FABHome({
+    Key? key,
+  }) : super(key: key);
+//final _FABHomeState fabHomeState = new _FABHomeState();
 
   @override
   _FABHomeState createState() => _FABHomeState();
@@ -12,53 +14,28 @@ class FABHome extends StatefulWidget {
 
 class _FABHomeState extends State<FABHome> with SingleTickerProviderStateMixin {
   bool isOpened = false;
-  late AnimationController _animationController;
-  late Animation<Color?> _animateColor;
-  late Animation<double> _animateIcon;
-  final Curve _curve = Curves.easeOut;
 
   @override
   void initState() {
-    _animationController =
-        AnimationController(vsync: this, duration: const Duration(milliseconds: 500))
-          ..addListener(() {
-            setState(() {});
-          });
-    _animateIcon =
-        Tween<double>(begin: 0.0, end: 1.0).animate(_animationController);
-    _animateColor =
-        ColorTween(begin: kDBackgroundColor, end: kDBackgroundColor)
-            .animate(
-      CurvedAnimation(
-        parent: _animationController,
-        curve: Interval(0.00, 1.00, curve: _curve),
-      ),
-    );
     super.initState();
   }
 
   @override
   void dispose() {
-    _animationController.dispose();
     super.dispose();
-  }
-
-  animate() {
-    if (!isOpened) {
-      _animationController.forward();
-    } else {
-      _animationController.reverse();
-    }
-    isOpened = !isOpened;
   }
 
   Widget toggle() {
     return FloatingActionButton(
-      backgroundColor: _animateColor.value,
+      backgroundColor: kDBackgroundColorCalendar,
       tooltip: 'Toggle',
-      onPressed: animate,
-      child:
-          AnimatedIcon(icon: AnimatedIcons.list_view,color: isOpened ? kDBackgroundColor : Colors.white, progress: _animateIcon),
+      onPressed: () {
+        Navigator.pushNamed(context, ListOfWastePage.id);
+      },
+      child: const Icon(
+        Icons.view_list_rounded,
+        color: kDBackgroundColor,
+      ),
     );
   }
 
