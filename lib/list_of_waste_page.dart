@@ -80,8 +80,8 @@ class _ListOfWastePageState extends State<ListOfWastePage> {
                       } else if (nameOfWaste == 'papír') {
                         nameOfWaste = 'Papírový odpad';
                         color = kDColorWastePaper;
-                      } else if (nameOfWaste == 'bio') {
-                        nameOfWaste = 'Bio odpad';
+                      } else if (nameOfWaste == 'bio' || nameOfWaste == 'bioodpad' ) {
+                        nameOfWaste = 'Bioodpad';
                         color = kDColorWasteBio;
                       }
 
