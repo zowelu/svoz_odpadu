@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:collection';
 import 'package:svoz_odpadu/components/calendar_data.dart';
 import 'package:sortedmap/sortedmap.dart';
@@ -31,6 +33,10 @@ Map<DateTime, List<Event>> allWasteEventsMap = {};
 /// nakopírování všech Map do jednoho
 Map getAllEventsToMap() {
   allWasteEventsMap.addAll(mixedWasteEvents);
+  print('mixed: $mixedWasteEvents');
+  print('plastic: $plasticWasteEvents');
+  print('paper: $paperWasteEvents');
+  print('bio: $bioWasteEvents');
   allWasteEventsMap.addAll(plasticWasteEvents);
   allWasteEventsMap.addAll(paperWasteEvents);
   allWasteEventsMap.addAll(bioWasteEvents);
