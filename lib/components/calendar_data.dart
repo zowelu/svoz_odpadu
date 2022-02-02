@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, unused_local_variable
 
 import 'package:http/http.dart' as http;
 import 'package:svoz_odpadu/components/calendar_item.dart';
@@ -86,7 +86,7 @@ class CalendarData {
   }
 
   ///stáhne data z calendarID a roztřídí je do wasteCalendarItems
-  void getCalendarData(String cityPicked) async {
+  Future getCalendarData(String cityPicked) async {
     Map? calendarID;
     /*Map<String, String> assignmentCityPickedToClass = {
       'Vybrat obec/město': '',
@@ -101,6 +101,7 @@ class CalendarData {
 
     await getCalendarDataFromGCalendar(calendarID!)
         .whenComplete(classifyAndCreateWasteEvents);
+    return allWasteEvents;
   }
 
   void classifyAndCreateWasteEvents() {
@@ -325,7 +326,7 @@ class CalendarData {
         if (!wasteEvents.containsKey(date)) {
           wasteEvents[date] = [Event(item.summary)];
         } else if (wasteEvents.containsKey(date)) {
-          date.add(Duration(hours: 1));
+          date.add(const Duration(hours: 1));
           wasteEvents[date]!.add(Event(item.summary));
         }
       }
