@@ -6,12 +6,11 @@ import 'package:svoz_odpadu/components/button_settings.dart';
 import 'package:svoz_odpadu/components/shared_preferences_global.dart';
 import 'package:svoz_odpadu/components/text_header.dart';
 import 'package:svoz_odpadu/components/text_normal.dart';
+import 'package:svoz_odpadu/components/utilities.dart';
 import 'package:svoz_odpadu/home_page.dart';
 import 'package:svoz_odpadu/variables/constants.dart';
 import 'package:svoz_odpadu/variables/global_var.dart';
 import 'package:svoz_odpadu/components/calendar_data.dart';
-
-
 
 class LoadingPage extends StatefulWidget {
   const LoadingPage({Key? key}) : super(key: key);
@@ -66,9 +65,12 @@ class _LoadingPageState extends State<LoadingPage>
             () => Navigator.popAndPushNamed(context, CityPickerPage.id));
       } else {
         print('přesměrováno na homePage, $valueCityPicked');
-        calendarData.getCalendarData(valueCityPicked!);
-        Future.delayed(const Duration(seconds: 4),
-            () => Navigator.pushReplacementNamed(context, HomePage.id));
+        await calendarData.getCalendarData(valueCityPicked!).whenComplete(() {
+          showSnackBar(context, 'Data načtena');
+          Future.delayed(const Duration(seconds: 4), () {
+            Navigator.pushReplacementNamed(context, HomePage.id);
+          });
+        });
       }
     }
   }
@@ -109,10 +111,17 @@ class _LoadingPageState extends State<LoadingPage>
                   const SizedBox(
                     height: kDMarginLarger * 3,
                   ),
-                  ButtonSettings(onTap: (){/*getFictionPreference();*/}, title: 'Get', icon: Icons.arrow_circle_down_rounded,),
+                  ButtonSettings(
+                    onTap: () {/*getFictionPreference();*/},
+                    title: 'Get',
+                    icon: Icons.arrow_circle_down_rounded,
+                  ),
                   // ignore: avoid_unnecessary_containers
                   Container(
-                    child: const TextNormal(text: 'Aplikaci vytvořili:', fontWeight: FontWeight.bold,),
+                    child: const TextNormal(
+                      text: 'Aplikaci vytvořili:',
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   const SizedBox(
                     width: kDMarginLarger,
@@ -136,7 +145,12 @@ class _LoadingPageState extends State<LoadingPage>
                         ),
                         const SizedBox(
                           width: kDMarginLarger,
-                          child: Center(child: TextNormal(text: 'a', fontWeight: FontWeight.bold,),),
+                          child: Center(
+                            child: TextNormal(
+                              text: 'a',
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                         Flexible(
                           flex: 1,
