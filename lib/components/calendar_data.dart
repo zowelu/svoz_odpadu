@@ -106,7 +106,7 @@ class CalendarData {
 
   void classifyAndCreateWasteEvents() {
     for (List<CalendarItem> calendar in nonZeroCalendarsItems) {
-      print('classify: $calendar');
+      //print('classify: $calendar');
       if (calendar.first.summary == 'směsný' ||
           calendar.first.summary == 'směsný odpad') {
         createMapOfWasteCalendarData(calendar, mixedWasteEvents);
@@ -144,6 +144,7 @@ class CalendarData {
           List<dynamic> itemsResponseData = jsonDecode(responseData)['items'];
           //opakuje cyklus dle počtu items v ve staženém json
           for (int i = 0; i < itemsResponseData.length; i++) {
+            //TODO: vytvořit calendar item pro všechny a hodit je do listu. Až poté třídit do non cancelled a cancellled
             if (itemsResponseData[i]['status'] != 'cancelled') {
               CalendarItem calendarItem = CalendarItem(
                   status: itemsResponseData[i]['status'],
@@ -175,7 +176,7 @@ class CalendarData {
                 bioCalendarItems.add(calendarItem);
                 //print('Přidáno do bio$bioCalendarItems');
               }
-            } else if (itemsResponseData[i]['status'] == 'cancelled') {
+            } else {
               CalendarItem calendarItem = CalendarItem(
                   status: itemsResponseData[i]['status'],
                   summary:
@@ -183,7 +184,7 @@ class CalendarData {
                   start: itemsResponseData[i]['originalStartTime']['date'],
                   end: 'not',
                   recurrence: 'not');
-
+              print('cancelled: $calendarItem');
               //daný objekt rozřadí dle pojmenování do jednotlivých listů items odpadů
               if (calendarItem.summary == 'směsný' ||
                   calendarItem.summary == 'směsný odpad' ||
@@ -202,7 +203,7 @@ class CalendarData {
               } else if (calendarItem.summary == 'bio' ||
                   calendarItem.summary == 'bioodpad') {
                 bioCalendarItemsCancelled.add(calendarItem);
-                //print('Přidáno do bio$bioCalendarItems');
+                print('Přidáno do bio$bioCalendarItemsCancelled');
               }
             }
           }
@@ -235,7 +236,15 @@ class CalendarData {
       String itemName = item.summary;
       String recurrence = item.recurrence;
       String start = item.start;
+      String cancelledWasteItemsCalendar = '';
       DateTime startDate = DateTime.parse(start);
+      Map<String, List<CalendarItem>> clasiffyListOfWasteItemsCancelled = {
+        'směsný': mixedCalendarItemsCancelled,
+        'plast': plasticCalendarItemsCancelled,
+        'papír': paperCalendarItemsCancelled,
+        'bio': bioCalendarItemsCancelled
+      };
+      List<CalendarItem> listOfWasteItemsCancelled;
       //print('item v create: $item');
 
       if (recurrence != 'not') {
@@ -321,6 +330,35 @@ class CalendarData {
         daysList.add(startDate);
       }
       //TODO: implementovat listofcalendarscancelled tak, aby se odstranili zrušené datetime
+
+      if (wasteCalendarItems.first.summary == 'směsný' ||
+          wasteCalendarItems.first.summary == 'směsný odpad' ||
+          wasteCalendarItems.first.summary == 'komunální odpad' ||
+          wasteCalendarItems.first.summary == 'komunální') {
+        cancelledWasteItemsCalendar = 'směsný';
+      } else if (wasteCalendarItems.first.summary == 'plast' ||
+          wasteCalendarItems.first.summary == 'plastový odpad') {
+        cancelledWasteItemsCalendar = 'plast';
+      } else if (wasteCalendarItems.first.summary == 'papír' ||
+          wasteCalendarItems.first.summary == 'papírový odpad') {
+        cancelledWasteItemsCalendar = 'papír';
+      } else if (wasteCalendarItems.first.summary == 'bio' ||
+          wasteCalendarItems.first.summary == 'bioodpad') {
+        cancelledWasteItemsCalendar = 'bio';
+      }
+      listOfWasteItemsCancelled =
+          clasiffyListOfWasteItemsCancelled[cancelledWasteItemsCalendar]!;
+
+      for (DateTime date in daysList) {
+        for (CalendarItem item in listOfWasteItemsCancelled) {
+          if (daysList.contains(DateTime.parse(item.start))) {
+            print('cancelled date: ${DateTime.parse(item.start)}');
+            daysList.remove(DateTime.parse(item.start));
+          }
+        }
+      }
+
+
       for (DateTime date in daysList) {
         //if(wasteEvents.keys.contains(date)){
         if (!wasteEvents.containsKey(date)) {
