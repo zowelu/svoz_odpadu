@@ -56,11 +56,11 @@ class _ListOfWastePageState extends State<ListOfWastePage> {
                     physics: const NeverScrollableScrollPhysics(),
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
-                    itemCount: allWasteEvents.length,
+                    itemCount: allWasteEventsOverviewList.length,
                     itemBuilder: (context, int index) {
                       Color? color;
                       DateTime date =
-                          allWasteEvents.keys.elementAt(index);
+                          allWasteEventsOverviewList.keys.elementAt(index);
 
                       DateFormat formatter = DateFormat('dd. MM. yyyy');
                       String dateFormatted = formatter.format(date);
@@ -68,7 +68,7 @@ class _ListOfWastePageState extends State<ListOfWastePage> {
                       String dayOfWeek = date.weekday.toString();
 
                       String name =
-                          allWasteEvents.values.elementAt(index).toString();
+                          allWasteEventsOverviewList.values.elementAt(index).toString();
                       String nameOfWaste = name.substring(1, name.length - 1);
                       if (nameOfWaste == 'plast') {
                         nameOfWaste = 'Plast a nápojový karton\nDrobné kovy';
