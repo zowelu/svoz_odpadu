@@ -37,7 +37,6 @@ class _HomePageState extends State<HomePage> {
     currentPage = HomePage.id;
     initializeDateFormatting();
     cancelScheduledNotifications('scheduled_channel');
-    getAllEventsToMap();
     AwesomeNotifications().isNotificationAllowed().then(
       (isAllowed) {
         if (!isAllowed) {
