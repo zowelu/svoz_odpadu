@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:svoz_odpadu/city_picker_page.dart';
-import 'package:svoz_odpadu/components/button_settings.dart';
 import 'package:svoz_odpadu/components/shared_preferences_global.dart';
 import 'package:svoz_odpadu/components/text_header.dart';
 import 'package:svoz_odpadu/components/text_normal.dart';
@@ -108,13 +107,8 @@ class _LoadingPageState extends State<LoadingPage>
                     text: 'Svoz odpadu',
                     fontSize: 30,
                   ),
-                  const SizedBox(
-                    height: kDMarginLarger * 3,
-                  ),
-                  ButtonSettings(
-                    onTap: () {/*getFictionPreference();*/},
-                    title: 'Get',
-                    icon: Icons.arrow_circle_down_rounded,
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height/100*10,
                   ),
                   // ignore: avoid_unnecessary_containers
                   Container(
