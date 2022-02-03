@@ -6,6 +6,7 @@ import 'package:svoz_odpadu/components/calendar_item.dart';
 import 'dart:convert';
 import 'package:svoz_odpadu/towns/towns.dart';
 import 'package:svoz_odpadu/components/utils.dart';
+import 'package:sortedmap/sortedmap.dart';
 
 /// Example event class.
 class Event {
@@ -29,6 +30,7 @@ class CalendarData {
   List<CalendarItem> bioCalendarItemsCancelled = [];
   List<CalendarItem> mixedCalendarItemsCancelled = [];
   List<List<CalendarItem>> nonZeroCalendarsItemsCancelled = [];
+  bool isForCalendar = false;
 
   /*List<List<CalendarItem>> listOfNonZeroCalendarsItems() {
     List<List<CalendarItem>> allCalendarsItems = [
@@ -115,6 +117,8 @@ class CalendarData {
         await createMapOfWasteCalendarData(calendar);
       }
     }
+    await getAllWasteEventCalendar(isForCalendar);
+    await getAllWasteEventCalendar(!isForCalendar);
     return;
   }
 
@@ -259,6 +263,7 @@ class CalendarData {
       String? until;
       String? interval;
       DateTime? endDate;
+      int hours = 2;
 
       String? byDay;
       DateTime startDate = DateTime.parse(start);
@@ -300,6 +305,7 @@ class CalendarData {
             tmp = tmp.add(
           Duration(days: days),
         ),) {
+          tmp.add(Duration(hours: hours));
           daysList.add(tmp);
         }
         //print(daysList);
@@ -335,9 +341,11 @@ class CalendarData {
               );
             }
           }
+          tmp.add(Duration(hours: hours));
           daysList.add(tmp);
         }
       } else {
+        startDate.add(Duration(hours: hours));
         daysList.add(startDate);
       }
     }
@@ -350,9 +358,14 @@ class CalendarData {
       }
     }
     List<DateTime> daysListFormatted = [];
+
+    //projede každý date v daysList a přidá mu dvě hodiny, abychom předešli střídání času +- hodina letní a zimní
     for (DateTime date in daysList) {
-      DateFormat formatter = DateFormat('yyyy-MM-dd');
+      var newHour = 2;
+      DateFormat formatter = DateFormat('yyyy-MM-dd hh:mm');
       DateTime dateFormated = DateTime.parse(formatter.format(date));
+      dateFormated =
+          DateTime(date.year, date.month, date.day, newHour, date.minute);
       daysListFormatted.add(dateFormated);
       print('date: $dateFormated');
     }
@@ -374,6 +387,7 @@ class CalendarData {
     return daysListCancelled;
   }
 
+  //dle jednotlivých wasteCalendarItems přidá do jednotlivých wasteEvents vytvořené map s event
   Future<void> createMapOfWasteCalendarData(
       List<CalendarItem> wasteCalendarItems) async {
     Map<List<CalendarItem>, Map<DateTime, List<Event>>>
@@ -391,13 +405,110 @@ class CalendarData {
     String name = wasteCalendarItems.first.calendarName;
     //todo vyřešit odlišení event ve stejný den nebo těch ve stejný den přidat do listu pod sebe
     for (DateTime date in daysList) {
-      if (wasteEvents.keys.contains(date)) {
-        date.add(const Duration(hours: 1));
-        wasteEvents[date] = [Event(name)];
-        //wasteEvents[date] = [Event(name)];
-      } else {
-        wasteEvents[date] = [Event(name)];
+      wasteEvents[date] = [Event(name)];
+    }
+    print('createMapOfWasteCalendarData completed');
+  }
+
+/*  Future<Map<DateTime, List<Event>>> getAllWasteEventOverviewList() async {
+    List<Map<DateTime, List<Event>>> listOfWasteEvents = [
+      mixedWasteEvents,
+      plasticWasteEvents,
+      paperWasteEvents,
+      bioWasteEvents,
+    ];
+
+    int hours;
+    String keyDate = '';
+
+    for (Map<DateTime, List<Event>> wasteEvents in listOfWasteEvents) {
+      if (wasteEvents.isNotEmpty) {
+        for (int i = 0; i < wasteEvents.length; i++) {
+          DateTime dateTime = wasteEvents.keys.elementAt(i);
+          List<Event> listEvent = wasteEvents.values.elementAt(i);
+          Event event = listEvent.first;
+
+          if (allWasteEvents.keys.contains(dateTime)) {
+            hours = 4;
+            DateTime tmp = DateTime(dateTime.year, dateTime.month, dateTime.day,
+                hours, dateTime.minute);
+            allWasteEvents[tmp] = listEvent;
+          } else {
+            hours = 2;
+            DateTime tmp = DateTime(dateTime.year, dateTime.month, dateTime.day,
+                hours, dateTime.minute);
+            allWasteEvents[tmp] = listEvent;
+          }
+        }
       }
     }
+    allWasteEventsOverviewList = SortedMap(Ordering.byKey());
+    allWasteEventsOverviewList.addAll(allWasteEvents);
+    print('getAllWasteEvent completed');
+    for (int i = 0; i < allWasteEventsOverviewList.length; i++) {
+      print(
+          'key: ${allWasteEventsOverviewList.keys.elementAt(i)}, value ${allWasteEventsOverviewList.values.elementAt(i)}');
+    }
+    return allWasteEventsOverviewList;
+  }*/
+
+  Future<Map<DateTime, List<Event>>> getAllWasteEventCalendar(
+      bool isForCalendar) async {
+    List<Map<DateTime, List<Event>>> listOfWasteEvents = [
+      mixedWasteEvents,
+      plasticWasteEvents,
+      paperWasteEvents,
+      bioWasteEvents,
+    ];
+
+    int hours;
+    String keyDate = '';
+    Map<DateTime, List<Event>> returningList={};
+
+    for (Map<DateTime, List<Event>> wasteEvents in listOfWasteEvents) {
+      if (wasteEvents.isNotEmpty) {
+        for (int i = 0; i < wasteEvents.length; i++) {
+          DateTime dateTime = wasteEvents.keys.elementAt(i);
+          List<Event> listEvent = wasteEvents.values.elementAt(i);
+          Event event = listEvent.first;
+          if (isForCalendar) {
+            if (allWasteEvents.keys.contains(dateTime)) {
+              /*hours = 4;
+              DateTime tmp = DateTime(dateTime.year, dateTime.month,
+                  dateTime.day, hours, dateTime.minute);*/
+              listEvent.add(event);
+              allWasteEvents[dateTime] = listEvent;
+            } else {
+             /* hours = 2;
+              DateTime tmp = DateTime(dateTime.year, dateTime.month,
+                  dateTime.day, hours, dateTime.minute);*/
+              allWasteEvents[dateTime] = listEvent;
+            }
+            returningList = allWasteEventsCalendar;
+          } else {
+            if (allWasteEvents.keys.contains(dateTime)) {
+              hours = 4;
+              DateTime tmp = DateTime(dateTime.year, dateTime.month,
+                  dateTime.day, hours, dateTime.minute);
+              allWasteEvents[tmp] = listEvent;
+            } else {
+              hours = 2;
+              DateTime tmp = DateTime(dateTime.year, dateTime.month,
+                  dateTime.day, hours, dateTime.minute);
+              allWasteEvents[tmp] = listEvent;
+            }
+            returningList = allWasteEventsOverviewList;
+          }
+        }
+      }
+    }
+    allWasteEventsOverviewList = SortedMap(Ordering.byKey());
+    allWasteEventsOverviewList.addAll(allWasteEvents);
+    print('getAllWasteEvent completed');
+    /*for (int i = 0; i < allWasteEventsOverviewList.length; i++) {
+      print(
+          'key: ${allWasteEventsOverviewList.keys.elementAt(i)}, value ${allWasteEventsOverviewList.values.elementAt(i)}');
+    }*/
+    return returningList;
   }
 }
