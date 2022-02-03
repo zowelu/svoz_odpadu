@@ -30,6 +30,7 @@ int getHashCode(DateTime key) {
 Map<DateTime, List<Event>> allWasteEvents = {};
 Map<DateTime, List<Event>> allWasteEventsOverviewList = {};
 Map<DateTime, List<Event>> allWasteEventsCalendar = {};
+Map<DateTime, List<Event>> allWasteEventsOverviewListFromNow = {};
 
 Map<DateTime, List<Event>> mixedWasteEvents = {
   /*DateTime(2022, 1, 12): [const Event('Směsný odpad')],
