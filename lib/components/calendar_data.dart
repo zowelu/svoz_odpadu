@@ -511,4 +511,9 @@ class CalendarData {
     }*/
     return returningList;
   }
+
+  Future<Map<DateTime, List<Event>>> getAllWasteEventFromNow() async {
+
+    return allWasteEventsOverviewListFromNow;
+  }
 }
