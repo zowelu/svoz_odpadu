@@ -24,53 +24,10 @@ class CalendarData {
   List<CalendarItem> paperCalendarItems = [];
   List<CalendarItem> bioCalendarItems = [];
   List<CalendarItem> mixedCalendarItems = [];
-  List<List<CalendarItem>> nonZeroCalendarsItems = [];
   List<CalendarItem> plasticCalendarItemsCancelled = [];
   List<CalendarItem> paperCalendarItemsCancelled = [];
   List<CalendarItem> bioCalendarItemsCancelled = [];
   List<CalendarItem> mixedCalendarItemsCancelled = [];
-  List<List<CalendarItem>> nonZeroCalendarsItemsCancelled = [];
-  bool isForCalendar = false;
-
-  /*List<List<CalendarItem>> listOfNonZeroCalendarsItems() {
-    List<List<CalendarItem>> allCalendarsItems = [
-      mixedCalendarItems,
-      plasticCalendarItems,
-      paperCalendarItems,
-      bioCalendarItems
-    ];
-
-    for (List<CalendarItem> calendar in allCalendarsItems) {
-      int index = nonZeroCalendarsItems.length;
-      if (calendar.isNotEmpty) {
-        nonZeroCalendarsItems.insert(index, calendar);
-      }
-    }
-
-    print(nonZeroCalendarsItems.length);
-    //print('nonZeroCalendars: $nonZeroCalendarsItems');
-    return nonZeroCalendarsItems;
-  }*/
-
-  /*List<List<CalendarItem>> listOfNonZeroCalendarsItemsCancelled() {
-    List<List<CalendarItem>> allCalendarsItems = [
-      mixedCalendarItemsCancelled,
-      plasticCalendarItemsCancelled,
-      paperCalendarItemsCancelled,
-      bioCalendarItemsCancelled
-    ];
-
-    for (List<CalendarItem> calendar in allCalendarsItems) {
-      int index = nonZeroCalendarsItemsCancelled.length;
-      if (calendar.isNotEmpty) {
-        nonZeroCalendarsItemsCancelled.insert(index, calendar);
-      }
-    }
-
-    print('nonZeroCancelled: ${nonZeroCalendarsItemsCancelled.length}');
-    //print('nonZeroCalendars: $nonZeroCalendarsItems');
-    return nonZeroCalendarsItemsCancelled;
-  }*/
 
   bool isLeapYear(int year) {
     if (year % 4 == 0) {
@@ -117,8 +74,10 @@ class CalendarData {
         await createMapOfWasteCalendarData(calendar);
       }
     }
-    await getAllWasteEventCalendar(isForCalendar);
-    await getAllWasteEventCalendar(!isForCalendar);
+    await getAllWasteEventCalendar();
+    await getAllWasteEventOverviewList();
+
+    await getAllWasteEventFromNow();
     return;
   }
 
@@ -367,7 +326,7 @@ class CalendarData {
       dateFormated =
           DateTime(date.year, date.month, date.day, newHour, date.minute);
       daysListFormatted.add(dateFormated);
-      print('date: $dateFormated');
+      //print('date: $dateFormated');
     }
     //print('createAllWasteItems: ${wasteCalendarItems.first.calendarName} completed');
     return daysListFormatted;
@@ -403,57 +362,19 @@ class CalendarData {
 
     List<DateTime> daysList = await createAllWasteItems(wasteCalendarItems);
     String name = wasteCalendarItems.first.calendarName;
-    //todo vyřešit odlišení event ve stejný den nebo těch ve stejný den přidat do listu pod sebe
     for (DateTime date in daysList) {
       wasteEvents[date] = [Event(name)];
+      //print('classify: ${wasteEvents[date]} , ${Event(name)}');
     }
     print('createMapOfWasteCalendarData completed');
   }
 
-/*  Future<Map<DateTime, List<Event>>> getAllWasteEventOverviewList() async {
-    List<Map<DateTime, List<Event>>> listOfWasteEvents = [
-      mixedWasteEvents,
-      plasticWasteEvents,
-      paperWasteEvents,
-      bioWasteEvents,
-    ];
-
-    int hours;
-    String keyDate = '';
-
-    for (Map<DateTime, List<Event>> wasteEvents in listOfWasteEvents) {
-      if (wasteEvents.isNotEmpty) {
-        for (int i = 0; i < wasteEvents.length; i++) {
-          DateTime dateTime = wasteEvents.keys.elementAt(i);
-          List<Event> listEvent = wasteEvents.values.elementAt(i);
-          Event event = listEvent.first;
-
-          if (allWasteEvents.keys.contains(dateTime)) {
-            hours = 4;
-            DateTime tmp = DateTime(dateTime.year, dateTime.month, dateTime.day,
-                hours, dateTime.minute);
-            allWasteEvents[tmp] = listEvent;
-          } else {
-            hours = 2;
-            DateTime tmp = DateTime(dateTime.year, dateTime.month, dateTime.day,
-                hours, dateTime.minute);
-            allWasteEvents[tmp] = listEvent;
-          }
-        }
-      }
-    }
-    allWasteEventsOverviewList = SortedMap(Ordering.byKey());
-    allWasteEventsOverviewList.addAll(allWasteEvents);
-    print('getAllWasteEvent completed');
-    for (int i = 0; i < allWasteEventsOverviewList.length; i++) {
+  Future<Map<DateTime, List<Event>>> getAllWasteEventCalendar() async {
+    for (int i = 0; i < bioWasteEvents.length; i++) {
       print(
-          'key: ${allWasteEventsOverviewList.keys.elementAt(i)}, value ${allWasteEventsOverviewList.values.elementAt(i)}');
+          'getAllWasteEventCalendar key: ${bioWasteEvents.keys.elementAt(i)}, value ${bioWasteEvents.values.elementAt(i)}');
     }
-    return allWasteEventsOverviewList;
-  }*/
 
-  Future<Map<DateTime, List<Event>>> getAllWasteEventCalendar(
-      bool isForCalendar) async {
     List<Map<DateTime, List<Event>>> listOfWasteEvents = [
       mixedWasteEvents,
       plasticWasteEvents,
@@ -463,57 +384,106 @@ class CalendarData {
 
     int hours;
     String keyDate = '';
-    Map<DateTime, List<Event>> returningList={};
 
     for (Map<DateTime, List<Event>> wasteEvents in listOfWasteEvents) {
       if (wasteEvents.isNotEmpty) {
         for (int i = 0; i < wasteEvents.length; i++) {
           DateTime dateTime = wasteEvents.keys.elementAt(i);
           List<Event> listEvent = wasteEvents.values.elementAt(i);
-          Event event = listEvent.first;
-          if (isForCalendar) {
-            if (allWasteEvents.keys.contains(dateTime)) {
-              /*hours = 4;
-              DateTime tmp = DateTime(dateTime.year, dateTime.month,
-                  dateTime.day, hours, dateTime.minute);*/
-              listEvent.add(event);
-              allWasteEvents[dateTime] = listEvent;
-            } else {
-             /* hours = 2;
-              DateTime tmp = DateTime(dateTime.year, dateTime.month,
-                  dateTime.day, hours, dateTime.minute);*/
-              allWasteEvents[dateTime] = listEvent;
+          Event event = listEvent.single;
+          if (allWasteEventsCalendar.keys.contains(dateTime)) {
+            List<Event> newListEvent = listEvent;
+            if (!newListEvent.contains(event)) {
+              newListEvent.add(event);
+              allWasteEventsCalendar[dateTime] = newListEvent;
             }
-            returningList = allWasteEventsCalendar;
           } else {
-            if (allWasteEvents.keys.contains(dateTime)) {
-              hours = 4;
-              DateTime tmp = DateTime(dateTime.year, dateTime.month,
-                  dateTime.day, hours, dateTime.minute);
-              allWasteEvents[tmp] = listEvent;
-            } else {
-              hours = 2;
-              DateTime tmp = DateTime(dateTime.year, dateTime.month,
-                  dateTime.day, hours, dateTime.minute);
-              allWasteEvents[tmp] = listEvent;
-            }
-            returningList = allWasteEventsOverviewList;
+            allWasteEventsCalendar[dateTime] = listEvent;
           }
         }
       }
     }
-    allWasteEventsOverviewList = SortedMap(Ordering.byKey());
-    allWasteEventsOverviewList.addAll(allWasteEvents);
+
+    Map<DateTime, List<Event>> allWasteEventsCalendarSorted =
+        SortedMap(Ordering.byKey());
+    allWasteEventsCalendarSorted.addAll(allWasteEventsCalendar);
+    allWasteEventsCalendar.clear();
+    allWasteEventsCalendar.addAll(allWasteEventsCalendarSorted);
+
     print('getAllWasteEvent completed');
     /*for (int i = 0; i < allWasteEventsOverviewList.length; i++) {
       print(
           'key: ${allWasteEventsOverviewList.keys.elementAt(i)}, value ${allWasteEventsOverviewList.values.elementAt(i)}');
     }*/
-    return returningList;
+    return allWasteEventsCalendar;
+  }
+
+  Future<Map<DateTime, List<Event>>> getAllWasteEventOverviewList() async {
+    for (int i = 0; i < bioWasteEvents.length; i++) {
+      print(
+          'getAllWasteEventOverviewList key: ${bioWasteEvents.keys.elementAt(i)}, value ${bioWasteEvents.values.elementAt(i)}');
+    }
+
+    List<Map<DateTime, List<Event>>> listOfWasteEvents = [
+      mixedWasteEvents,
+      plasticWasteEvents,
+      paperWasteEvents,
+      bioWasteEvents,
+    ];
+
+    int hours;
+    String keyDate = '';
+
+    for (Map<DateTime, List<Event>> wasteEvents in listOfWasteEvents) {
+      if (wasteEvents.isNotEmpty) {
+        for (int i = 0; i < wasteEvents.length; i++) {
+          DateTime dateTime = wasteEvents.keys.elementAt(i);
+          List<Event> listEvent = wasteEvents.values.elementAt(i);
+          Event event = listEvent.first;
+          if (allWasteEventsOverviewList.keys.contains(dateTime)) {
+            hours = 4;
+            DateTime tmp = DateTime(dateTime.year, dateTime.month, dateTime.day,
+                hours, dateTime.minute);
+            allWasteEventsOverviewList[tmp] = listEvent;
+          } else {
+            hours = 2;
+            DateTime tmp = DateTime(dateTime.year, dateTime.month, dateTime.day,
+                hours, dateTime.minute);
+            allWasteEventsOverviewList[tmp] = listEvent;
+          }
+        }
+      }
+    }
+
+    Map<DateTime, List<Event>> allWasteEventsOverviewListSorted =
+        SortedMap(Ordering.byKey());
+    allWasteEventsOverviewListSorted.addAll(allWasteEventsOverviewList);
+    allWasteEventsOverviewList.clear();
+    allWasteEventsOverviewList.addAll(allWasteEventsOverviewListSorted);
+
+    print('getAllWasteEvent completed');
+    /*for (int i = 0; i < allWasteEventsOverviewList.length; i++) {
+      print(
+          'key: ${allWasteEventsOverviewList.keys.elementAt(i)}, value ${allWasteEventsOverviewList.values.elementAt(i)}');
+    }*/
+    return allWasteEventsOverviewList;
   }
 
   Future<Map<DateTime, List<Event>>> getAllWasteEventFromNow() async {
+    DateTime now = DateTime.now();
 
+    for (int i = 0; i < allWasteEventsOverviewList.length; i++) {
+      DateTime dateTime = allWasteEventsOverviewList.keys.elementAt(i);
+      List<Event> listEvent = allWasteEventsOverviewList.values.elementAt(i);
+      if (now.isBefore(allWasteEventsOverviewList.keys.elementAt(i))) {
+        allWasteEventsOverviewListFromNow[dateTime] = listEvent;
+      }
+    }
+    for (int i = 0; i < allWasteEventsOverviewListFromNow.length; i++) {
+      print(
+          'key: ${allWasteEventsOverviewListFromNow.keys.elementAt(i)}, value ${allWasteEventsOverviewListFromNow.values.elementAt(i)}');
+    }
+    print('allWasteEventsOverviewListFromNow is completed');
     return allWasteEventsOverviewListFromNow;
   }
 }
