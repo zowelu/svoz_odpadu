@@ -20,7 +20,7 @@ import 'package:svoz_odpadu/components/calendar_data.dart';
 final kEvents = LinkedHashMap<DateTime, List<Event>>(
   equals: isSameDay,
   hashCode: getHashCode,
-)..addAll(allWasteEvents);
+)..addAll(allWasteEventsCalendar);
 //final kEvents = _mixedWasteEvents;
 
 int getHashCode(DateTime key) {
