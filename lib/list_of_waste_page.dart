@@ -15,6 +15,16 @@ class ListOfWastePage extends StatefulWidget {
 }
 
 class _ListOfWastePageState extends State<ListOfWastePage> {
+  Map<int, String> daysOfWeek = {
+    1: 'Pondělí',
+    2: 'Úterý',
+    3: 'Středa',
+    4: 'Čtvrtek',
+    5: 'Pátek',
+    6: 'Sobota',
+    7: 'Neděle',
+  };
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +54,9 @@ class _ListOfWastePageState extends State<ListOfWastePage> {
                     ),
                   ),
                 ),
-                SizedBox(height: kDMargin,),
+                SizedBox(
+                  height: kDMargin,
+                ),
                 Container(
                   decoration: const BoxDecoration(
                       color: kDBackgroundColorCalendar,
@@ -56,40 +68,49 @@ class _ListOfWastePageState extends State<ListOfWastePage> {
                     physics: const NeverScrollableScrollPhysics(),
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
-                    itemCount: allWasteEventsOverviewList.length,
+                    itemCount: allWasteEventsOverviewListFromNow.length,
                     itemBuilder: (context, int index) {
                       Color? color;
-                      DateTime date =
-                          allWasteEventsOverviewList.keys.elementAt(index);
+                      String? asset;
+                      DateTime date = allWasteEventsOverviewListFromNow.keys
+                          .elementAt(index);
 
                       DateFormat formatter = DateFormat('dd. MM. yyyy');
                       String dateFormatted = formatter.format(date);
 
-                      String dayOfWeek = date.weekday.toString();
+                      String dayOfWeek = daysOfWeek[date.weekday]!;
 
-                      String name =
-                          allWasteEventsOverviewList.values.elementAt(index).toString();
+                      String name = allWasteEventsOverviewListFromNow.values
+                          .elementAt(index)
+                          .toString();
                       String nameOfWaste = name.substring(1, name.length - 1);
                       if (nameOfWaste == 'plast') {
-                        nameOfWaste = 'Plast a nápojový karton\nDrobné kovy';
+                        nameOfWaste = 'Plast a nápojový karton,\nDrobné kovy';
                         color = kDColorWastePlastic;
+                        asset = 'assets/images/icons/plastic.png';
                       } else if (nameOfWaste == 'směsný' ||
                           nameOfWaste == ('směsný odpad')) {
                         nameOfWaste = 'Směsný odpad';
                         color = kDColorWasteMixed;
+                        asset = 'assets/images/icons/mixed.png';
                       } else if (nameOfWaste == 'papír') {
                         nameOfWaste = 'Papírový odpad';
+                        asset = 'assets/images/icons/paper.png';
                         color = kDColorWastePaper;
-                      } else if (nameOfWaste == 'bio' || nameOfWaste == 'bioodpad' ) {
+                      } else if (nameOfWaste == 'bio' ||
+                          nameOfWaste == 'bioodpad') {
                         nameOfWaste = 'Bioodpad';
                         color = kDColorWasteBio;
+                        asset = 'assets/images/icons/bio.png';
                       }
 
                       return ListTileOfWaste(
-                          text: nameOfWaste,
-                          color: color,
-                          date: dateFormatted,
-                          dayOfWeek: dayOfWeek);
+                        text: nameOfWaste,
+                        color: color,
+                        date: dateFormatted,
+                        dayOfWeek: dayOfWeek,
+                        asset: asset,
+                      );
                     },
                   ),
                 ),
