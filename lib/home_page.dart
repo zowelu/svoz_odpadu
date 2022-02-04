@@ -355,6 +355,7 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.only(
                 left: kDMargin,
                 right: kDMargin,
+                bottom: kDMargin
               ),
               decoration: const BoxDecoration(
                   color: kDBackgroundColorCalendar,
@@ -449,7 +450,7 @@ class _HomePageState extends State<HomePage> {
                   },
                 ),
               ) : TableCalendar(
-                rowHeight: MediaQuery.of(context).size.height / 100 * 6,
+                rowHeight: 45/*MediaQuery.of(context).size.height / 100 * 6*/,
                 eventLoader: (day) {
                   return _getEventsForDay(day);
                 },
@@ -462,16 +463,18 @@ class _HomePageState extends State<HomePage> {
                 calendarStyle: const CalendarStyle(
                   //markerSizeScale: 1.35,
                   canMarkersOverflow: true,
-                  outsideDaysVisible: true,
+                  outsideDaysVisible: false,
                   markerDecoration: BoxDecoration(
                       color: Colors.yellow, shape: BoxShape.rectangle),
                   markersMaxCount: 5,
                   isTodayHighlighted: true,
-                  cellPadding: EdgeInsets.all(0),
-                  cellMargin: EdgeInsets.all(0),
-                  defaultDecoration: BoxDecoration(
+                  /*cellPadding: EdgeInsets.all(10),
+                  cellMargin: EdgeInsets.all(15),*/
+                    //cellMargin: EdgeInsets.all(15),
+                  /*defaultDecoration: BoxDecoration(
                     borderRadius: kDRadius,
-                  ),
+                  ),*/
+                  //defaultDecoration: BoxDecoration(),
                   defaultTextStyle: TextStyle(
                       fontSize: kDFontSizeText,
                       fontFamily: kDFontFamilyParagraph,
@@ -482,8 +485,8 @@ class _HomePageState extends State<HomePage> {
                       fontFamily: kDFontFamilyParagraph,
                       fontWeight: FontWeight.bold,
                       color: Colors.white),
-                  todayDecoration: BoxDecoration(
-                    color: kDBackgroundColor,
+                  markerSizeScale: 0.4,todayDecoration: BoxDecoration(
+                    color: kDBackgroundColor,shape: BoxShape.rectangle,
                     borderRadius: BorderRadius.all(
                       Radius.circular(10.0),
                     ),
@@ -530,12 +533,10 @@ class _HomePageState extends State<HomePage> {
                   if(event.toString() == 'bioodpad'){
                     cor = colorsOfWaste['bioodpad']!;
                   }
-
+                  double size = 14;
                   return Container(
-                    decoration: BoxDecoration(shape: BoxShape.circle, color: cor),
-                    width: 7.0,
-                    height: 7.0,
-                    margin: const EdgeInsets.symmetric(horizontal: 1.5),
+                    margin: EdgeInsets.only(bottom: 100),
+                    child: Icon(Icons.circle, color: cor,size: size,),
                   );
                 },
                 ),
