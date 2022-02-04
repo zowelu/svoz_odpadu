@@ -78,6 +78,12 @@ class CalendarData {
     await getAllWasteEventOverviewList();
 
     await getAllWasteEventFromNow();
+
+    /*for (int i = 0; i < allWasteEventsCalendar.length; i++) {
+      print(
+          'key: ${allWasteEventsCalendar.keys.elementAt(i)}, value ${allWasteEventsCalendar.values.elementAt(i)}');
+    }
+*/
     return;
   }
 
@@ -390,13 +396,12 @@ class CalendarData {
         for (int i = 0; i < wasteEvents.length; i++) {
           DateTime dateTime = wasteEvents.keys.elementAt(i);
           List<Event> listEvent = wasteEvents.values.elementAt(i);
-          Event event = listEvent.single;
           if (allWasteEventsCalendar.keys.contains(dateTime)) {
-            List<Event> newListEvent = listEvent;
-            if (!newListEvent.contains(event)) {
+            List<Event> newListEvent = allWasteEventsCalendar[dateTime]!;
+            for(Event event in listEvent){
               newListEvent.add(event);
-              allWasteEventsCalendar[dateTime] = newListEvent;
             }
+            allWasteEventsCalendar[dateTime] = newListEvent;
           } else {
             allWasteEventsCalendar[dateTime] = listEvent;
           }
