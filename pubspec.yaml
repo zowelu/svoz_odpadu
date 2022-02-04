@@ -70,7 +70,7 @@ flutter:
   assets:
     - assets/
     - assets/images/
-    - assets/images/icon_of_waste
+    - assets/images/icons/
 
   fonts:
     - family: Nunito
