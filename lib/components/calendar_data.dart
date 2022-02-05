@@ -74,16 +74,37 @@ class CalendarData {
         await createMapOfWasteCalendarData(calendar);
       }
     }
-    await getAllWasteEventCalendar();
     await getAllWasteEventOverviewList();
-
     await getAllWasteEventFromNow();
+    await getAllWasteEventCalendar();
+
 
     /*for (int i = 0; i < allWasteEventsCalendar.length; i++) {
       print(
-          'key: ${allWasteEventsCalendar.keys.elementAt(i)}, value ${allWasteEventsCalendar.values.elementAt(i)}');
+          'allWasteEventsCalendar key: ${allWasteEventsCalendar.keys.elementAt(i)}, value ${allWasteEventsCalendar.values.elementAt(i)}');
     }
-*/
+    for (int i = 0; i < allWasteEventsOverviewList.length; i++) {
+      print(
+          'allWasteEventsOverviewList key: ${allWasteEventsOverviewList.keys.elementAt(i)}, value ${allWasteEventsOverviewList.values.elementAt(i)}');
+    }*/
+    /*for (int i = 0; i < allWasteEventsOverviewListFromNow.length; i++) {
+      print(
+          'allWasteEventsOverviewListFromNow key: ${allWasteEventsOverviewListFromNow.keys.elementAt(i)}, value ${allWasteEventsOverviewListFromNow.values.elementAt(i)}');
+    }*/
+    /*for (int i = 0; i < mixedWasteEvents.length; i++) {
+      print(
+          'mixedWasteEvents key: ${mixedWasteEvents.keys.elementAt(i)}, value ${mixedWasteEvents.values.elementAt(i)}');
+    }*/
+    /*for (int i = 0; i < plasticWasteEvents.length; i++) {
+      print(
+          'plasticWasteEvents after allkey: ${plasticWasteEvents.keys.elementAt(i)}, value ${plasticWasteEvents.values.elementAt(i)}');
+    }*//*for (int i = 0; i < paperWasteEvents.length; i++) {
+      print(
+          'paperWasteEvents key: ${paperWasteEvents.keys.elementAt(i)}, value ${paperWasteEvents.values.elementAt(i)}');
+    }for (int i = 0; i < bioWasteEvents.length; i++) {
+      print(
+          'bioWasteEvents key: ${bioWasteEvents.keys.elementAt(i)}, value ${bioWasteEvents.values.elementAt(i)}');
+    }*/
     return;
   }
 
@@ -376,10 +397,10 @@ class CalendarData {
   }
 
   Future<Map<DateTime, List<Event>>> getAllWasteEventCalendar() async {
-    for (int i = 0; i < bioWasteEvents.length; i++) {
+    /*for (int i = 0; i < bioWasteEvents.length; i++) {
       print(
           'getAllWasteEventCalendar key: ${bioWasteEvents.keys.elementAt(i)}, value ${bioWasteEvents.values.elementAt(i)}');
-    }
+    }*/
 
     List<Map<DateTime, List<Event>>> listOfWasteEvents = [
       mixedWasteEvents,
@@ -389,9 +410,12 @@ class CalendarData {
     ];
 
     int hours;
-    String keyDate = '';
-
+    //allWasteEventsCalendar.clear();
     for (Map<DateTime, List<Event>> wasteEvents in listOfWasteEvents) {
+     /* for (int i = 0; i < wasteEvents.length; i++) {
+        print(
+            'wasteEvents key: ${wasteEvents.keys.elementAt(i)}, value ${wasteEvents.values.elementAt(i)}');
+      }*/
       if (wasteEvents.isNotEmpty) {
         for (int i = 0; i < wasteEvents.length; i++) {
           DateTime dateTime = wasteEvents.keys.elementAt(i);
@@ -415,7 +439,7 @@ class CalendarData {
     allWasteEventsCalendar.clear();
     allWasteEventsCalendar.addAll(allWasteEventsCalendarSorted);
 
-    print('getAllWasteEvent completed');
+    print('getAllWasteEventCalendar completed');
     /*for (int i = 0; i < allWasteEventsOverviewList.length; i++) {
       print(
           'key: ${allWasteEventsOverviewList.keys.elementAt(i)}, value ${allWasteEventsOverviewList.values.elementAt(i)}');
@@ -424,10 +448,10 @@ class CalendarData {
   }
 
   Future<Map<DateTime, List<Event>>> getAllWasteEventOverviewList() async {
-    for (int i = 0; i < bioWasteEvents.length; i++) {
+    /*for (int i = 0; i < bioWasteEvents.length; i++) {
       print(
           'getAllWasteEventOverviewList key: ${bioWasteEvents.keys.elementAt(i)}, value ${bioWasteEvents.values.elementAt(i)}');
-    }
+    }*/
 
     List<Map<DateTime, List<Event>>> listOfWasteEvents = [
       mixedWasteEvents,
@@ -436,29 +460,46 @@ class CalendarData {
       bioWasteEvents,
     ];
 
-    int hours;
-    String keyDate = '';
 
+   /* for (int i = 0; i < plasticWasteEvents.length; i++) {
+      print(
+          'plasticWasteEvents OverviewList key: ${plasticWasteEvents.keys.elementAt(i)}, value ${plasticWasteEvents.values.elementAt(i)}');
+    }
+    for (int i = 0; i < bioWasteEvents.length; i++) {
+      print(
+          'bioWasteEvents OverviewList key: ${bioWasteEvents.keys.elementAt(i)}, value ${bioWasteEvents.values.elementAt(i)}');
+    }*/
+    int hours;
+    //allWasteEventsOverviewList.clear();
     for (Map<DateTime, List<Event>> wasteEvents in listOfWasteEvents) {
       if (wasteEvents.isNotEmpty) {
         for (int i = 0; i < wasteEvents.length; i++) {
           DateTime dateTime = wasteEvents.keys.elementAt(i);
           List<Event> listEvent = wasteEvents.values.elementAt(i);
-          Event event = listEvent.first;
+          /*print(
+              'event calendar key: ${plasticWasteEvents.keys.elementAt(i)}, value ${plasticWasteEvents.values.elementAt(i)}');*/
           if (allWasteEventsOverviewList.keys.contains(dateTime)) {
             hours = 4;
             DateTime tmp = DateTime(dateTime.year, dateTime.month, dateTime.day,
                 hours, dateTime.minute);
             allWasteEventsOverviewList[tmp] = listEvent;
           } else {
-            hours = 2;
-            DateTime tmp = DateTime(dateTime.year, dateTime.month, dateTime.day,
-                hours, dateTime.minute);
-            allWasteEventsOverviewList[tmp] = listEvent;
+            List<Event> newListEvent = [];
+            newListEvent.add(listEvent.first);
+            allWasteEventsOverviewList[dateTime] = newListEvent;
           }
         }
       }
     }
+
+    /*for (int i = 0; i < plasticWasteEvents.length; i++) {
+      print(
+          'plasticWasteEvents OverviewList 2 key: ${plasticWasteEvents.keys.elementAt(i)}, value ${plasticWasteEvents.values.elementAt(i)}');
+    }
+    for (int i = 0; i < bioWasteEvents.length; i++) {
+      print(
+          'bioWasteEvents OverviewList 2 key: ${bioWasteEvents.keys.elementAt(i)}, value ${bioWasteEvents.values.elementAt(i)}');
+    }*/
 
     Map<DateTime, List<Event>> allWasteEventsOverviewListSorted =
         SortedMap(Ordering.byKey());
@@ -466,7 +507,7 @@ class CalendarData {
     allWasteEventsOverviewList.clear();
     allWasteEventsOverviewList.addAll(allWasteEventsOverviewListSorted);
 
-    print('getAllWasteEvent completed');
+    print('getAllWasteEventOverviewList completed');
     /*for (int i = 0; i < allWasteEventsOverviewList.length; i++) {
       print(
           'key: ${allWasteEventsOverviewList.keys.elementAt(i)}, value ${allWasteEventsOverviewList.values.elementAt(i)}');
@@ -484,10 +525,10 @@ class CalendarData {
         allWasteEventsOverviewListFromNow[dateTime] = listEvent;
       }
     }
-    for (int i = 0; i < allWasteEventsOverviewListFromNow.length; i++) {
+    /*for (int i = 0; i < allWasteEventsOverviewListFromNow.length; i++) {
       print(
           'key: ${allWasteEventsOverviewListFromNow.keys.elementAt(i)}, value ${allWasteEventsOverviewListFromNow.values.elementAt(i)}');
-    }
+    }*/
     print('allWasteEventsOverviewListFromNow is completed');
     return allWasteEventsOverviewListFromNow;
   }
