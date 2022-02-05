@@ -4,10 +4,14 @@ import 'package:svoz_odpadu/components/text_header.dart';
 import 'package:svoz_odpadu/components/divider_menu.dart';
 
 class ListTileOfMenu extends StatelessWidget {
-  const ListTileOfMenu({
-    Key? key,
-    this.fontSize = 14, required this.text, required this.onTap, this.iconSize = 30, this.colorOfTile = kDBackgroundColorCalendar
-  }) : super(key: key);
+  ListTileOfMenu(
+      {Key? key,
+      this.fontSize = 14,
+      required this.text,
+      required this.onTap,
+      this.iconSize = 30,
+      this.colorOfTile = kDBackgroundColorCalendar})
+      : super(key: key);
 
   final double fontSize;
   final String text;
@@ -15,13 +19,22 @@ class ListTileOfMenu extends StatelessWidget {
   final double iconSize;
   final Color colorOfTile;
 
+  Map<String, IconData> iconByName = {
+    'Kalendář': Icons.perm_contact_calendar_outlined,
+    'Vybrat město/obec': Icons.location_city_rounded,
+    'Nastavení': Icons.settings_rounded,
+    'Ohodnotit': Icons.message_outlined,
+    'O aplikaci': Icons.info_outline,
+  };
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ListTile(tileColor: colorOfTile,
+        ListTile(
+          tileColor: colorOfTile,
           leading: Icon(
-            Icons.perm_contact_calendar_outlined,
+            iconByName[text] ?? Icons.web_asset_outlined,
             size: iconSize,
             color: kDBackgroundColor,
           ),
@@ -32,7 +45,7 @@ class ListTileOfMenu extends StatelessWidget {
           ),
           onTap: onTap,
         ),
-        DividerMenu(),
+        const DividerMenu(),
       ],
     );
   }
