@@ -27,7 +27,6 @@ int getHashCode(DateTime key) {
   return key.day * 1000000 + key.month * 10000 + key.year;
 }
 
-Map<DateTime, List<Event>> allWasteEvents = {};
 Map<DateTime, List<Event>> allWasteEventsOverviewList = {};
 Map<DateTime, List<Event>> allWasteEventsCalendar = {};
 Map<DateTime, List<Event>> allWasteEventsOverviewListFromNow = {};
