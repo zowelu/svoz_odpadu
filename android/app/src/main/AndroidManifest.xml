@@ -27,7 +27,7 @@
         </intent>
     </queries>
    <application
-        android:label="Svoz odpadu - Dolní Kounice"
+        android:label="Svoz odpadu"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
