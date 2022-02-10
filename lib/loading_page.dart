@@ -108,7 +108,7 @@ class _LoadingPageState extends State<LoadingPage>
                     fontSize: 30,
                   ),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height/100*10,
+                    height: MediaQuery.of(context).size.height / 100 * 10,
                   ),
                   // ignore: avoid_unnecessary_containers
                   Container(
