@@ -22,7 +22,7 @@ class SharedPreferencesGlobal {
     print(prefsMap);
   }
 
-  ///načte všechny uložené proměnné
+  ///načte všechny uložené proměnné o odpadech
   Future<void> getPreferencesWaste(
       bool isSwitchedWaste,
       String isSwitchedWasteString,
@@ -103,5 +103,39 @@ class SharedPreferencesGlobal {
     final SharedPreferences? preferences =
         await SharedPreferences.getInstance();
     preferences!.setString(valueCityPickedString, valueCityPicked);
+  }
+
+  void setPreferenceReminder()async{
+    final SharedPreferences? preferences =
+        await SharedPreferences.getInstance();
+    preferences!.setBool('isSetReminder', isSetReminder);
+    String timeStampHour = setReminderTime!.hour.toString();
+    String timeStampMinute = setReminderTime!.minute.toString();
+    preferences.setString(
+        'setReminderTimeString', '$timeStampHour:$timeStampMinute');
+    preferences.setString('setReminderDateString', setReminderDate!);
+    print(
+        'Set setPreferenceReminder $isSetReminder, $setReminderTime, $setReminderDate');
+  }
+
+  void getPreferenceReminder()async{
+    final SharedPreferences? preferences =
+    await SharedPreferences.getInstance();
+
+    isSetReminder = preferences?.getBool('isSetReminder') ?? false;
+
+    String timeStamp =
+        preferences?.getString('setReminderTimeString') ?? '00:00';
+
+    setReminderTime = TimeOfDay(
+        hour: (int.parse(timeStamp.split(":")[0])),
+        minute: (int.parse(timeStamp.split(":")[1])));
+
+    setReminderDate =
+        preferences?.getString('setReminderDateString') ?? 'V daný den';
+
+
+    print(
+        'load SharedPreferences Reminder $isSetReminder $setReminderTime, $setReminderDate');
   }
 }
