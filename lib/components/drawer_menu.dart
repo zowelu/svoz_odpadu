@@ -108,7 +108,11 @@ class DrawerMenu extends StatelessWidget {
                           ),
                           ListTileOfMenu(
                             text: 'Ohodnotit',
-                            onTap: () {},
+                            onTap: () async {
+                              //po stisknutí otevře stránku v externím prohlížeči
+                              OpenUrlInBrowser()
+                                  .openUrl('https://play.google.com/store/apps/details?id=cz.zowelu.svoz_odpadu&hl=cs');
+                            },
                           ),
                           ListTileOfMenu(
                             text: 'O aplikaci',
