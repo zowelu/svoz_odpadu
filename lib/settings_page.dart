@@ -1,7 +1,6 @@
 // ignore_for_file: unnecessary_this, avoid_print
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
-import 'package:svoz_odpadu/city_picker_page.dart';
 import 'package:svoz_odpadu/components/list_tile_of_waste_notification.dart';
 import 'package:svoz_odpadu/components/notifications.dart';
 import 'package:svoz_odpadu/components/shared_preferences_global.dart';
@@ -10,7 +9,6 @@ import 'package:svoz_odpadu/components/text_normal.dart';
 import 'package:svoz_odpadu/components/my_appbar.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:svoz_odpadu/components/utilities.dart';
-import 'package:svoz_odpadu/components/button_settings.dart';
 import 'package:flash/flash.dart';
 import 'package:svoz_odpadu/components/utils.dart';
 import 'package:svoz_odpadu/variables/constants.dart';
@@ -25,8 +23,7 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  SharedPreferencesGlobal sharedPreferencesGlobal =
-      SharedPreferencesGlobal();
+  SharedPreferencesGlobal sharedPreferencesGlobal = SharedPreferencesGlobal();
 
   ///načte všechny uložené preference
   Future<void> getPreferencesAll() async {
@@ -83,6 +80,7 @@ class _SettingsPageState extends State<SettingsPage> {
     sharedPreferencesGlobal.initializePreference().whenComplete(() {
       setState(() {
         getPreferencesAll();
+        sharedPreferencesGlobal.getPreferenceReminder();
       });
     });
   }
@@ -90,6 +88,8 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   void dispose() {
     currentPage = SettingsPage.id;
+    sharedPreferencesGlobal.setPreferenceReminder();
+    setPreferencesAll();
     super.dispose();
   }
 
@@ -127,14 +127,15 @@ class _SettingsPageState extends State<SettingsPage> {
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(kDMyAppBarHeight),
         child: MyAppBar(),
-      ),backgroundColor: kDBackgroundColor,
+      ),
+      backgroundColor: kDBackgroundColor,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-
           Column(
-            crossAxisAlignment: CrossAxisAlignment.center, mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
                 color: kDBackgroundColorCalendar,
@@ -153,12 +154,184 @@ class _SettingsPageState extends State<SettingsPage> {
                   text: 'Nastavení notikací',
                 ),
               ),
+              Container(padding: const EdgeInsets.all(kDMargin),
+                child: const TextNormal(text: 'Nejprve si nastavte den a čas'),
+              ),
+              Container(
+                decoration: const BoxDecoration(
+                    color: kDBackgroundColorCalendar,
+                    borderRadius: kDRadiusLarge),
+                padding: const EdgeInsets.only(
+                    top: 2.0,
+                    bottom: 2.0,
+                    left: kDMarginLarger,
+                    right: kDMarginLarger),
+                margin: const EdgeInsets.only(left: kDMargin, right: kDMargin),
+                child: Column(
+                  children: [
+                    Container(
+                        child: !isSetReminder
+                            ? const TextHeader(
+                                text: 'Vypnuto',
+                                color: Colors.grey,
+                              )
+                            : const TextHeader(
+                                text: 'Zapnuto',
+                                color: Colors.red,
+                              )),
+                    Row(
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: Container(
+                            alignment: Alignment.center,
+                            child: TextNormal(
+                              text: isSetReminder
+                                  ? '${setReminderTime!.hour}: ${setReminderTime!.minute}'
+                                  : '',
+                              color: kDBackgroundColor,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: Container(
+                            alignment: Alignment.center,
+                            child: TextNormal(
+                                text: isSetReminder
+                                    ? '$setReminderDate'
+                                    : '',
+                                color: kDBackgroundColor,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Expanded(
+                          child: Switch(
+                            value: isSetReminder,
+                            onChanged: !isSetReminder
+                                ? (value) async {
+                                    NotificationWeekAndTime? pickedShedule =
+                                        await pickSchedule(context);
+                                    if (pickedShedule != null) {
+                                      showSnackBar(context,
+                                          'Upozorňování zapnuta v $setReminderDate v ${setReminderTime!.hour}:${setReminderTime!.minute}');
+                                      setState(
+                                        () {
+                                          isSetReminder = value;
+                                          pickedSheduleVar = pickedShedule;
+                                          sharedPreferencesGlobal
+                                              .setPreferenceReminder();
+                                        },
+                                      );
+                                    }
+                                  }
+                                : (value) async {
+                                    showFlash(
+                                      context: context,
+                                      builder: (context, controller) {
+                                        return Flash.dialog(
+                                          controller: controller,
+                                          borderRadius: const BorderRadius.all(
+                                            Radius.circular(8),
+                                          ),
+                                          child: FlashBar(
+                                            content: const Center(
+                                              child: TextNormal(
+                                                text:
+                                                    'Chcete zrušit všechny notifikace',
+                                                color: kDBackgroundColor,
+                                              ),
+                                            ),
+                                            title: const Center(
+                                              child: TextHeader(
+                                                text: 'Zrušit upozornění',
+                                                color: kDBackgroundColor,
+                                              ),
+                                            ),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () {
+                                                  controller.dismiss();
+                                                },
+                                                child: const TextNormal(
+                                                  text: 'Ne',
+                                                  color: kDBackgroundColor,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              TextButton(
+                                                onPressed: () {
+                                                  cancelScheduledNotificationsAll();
+                                                  setState(
+                                                    () {
+                                                      controller.dismiss();
+                                                      showSnackBar(context,
+                                                          'Notifikace zrušeny');
+                                                      isSetReminder = value;
+
+                                                      isSwitchedPlastic = value;
+                                                      isSwitchedPaper = value;
+                                                      isSwitchedBio = value;
+                                                      isSwitchedMixed = value;
+                                                      sharedPreferencesGlobal
+                                                          .setPreferencesWaste(
+                                                              isSwitchedPlastic,
+                                                              'isSwitchedPlastic',
+                                                              plasticReminderTime,
+                                                              'plasticReminderTime',
+                                                              plasticSelectedDay!);
+                                                      sharedPreferencesGlobal
+                                                          .setPreferencesWaste(
+                                                              isSwitchedPaper,
+                                                              'isSwitchedPaper',
+                                                              paperReminderTime,
+                                                              'paperReminderTime',
+                                                              plasticSelectedDay!);
+                                                      sharedPreferencesGlobal
+                                                          .setPreferencesWaste(
+                                                              isSwitchedBio,
+                                                              'isSwitchedBio',
+                                                              bioReminderTime,
+                                                              'bioReminderTime',
+                                                              bioSelectedDay!);
+                                                      sharedPreferencesGlobal
+                                                          .setPreferencesWaste(
+                                                              isSwitchedMixed,
+                                                              'isSwitchedMixed',
+                                                              mixedReminderTime,
+                                                              'mixedReminderTime',
+                                                              mixedSelectedDay!);
+                                                      sharedPreferencesGlobal
+                                                          .setPreferenceReminder();
+                                                    },
+                                                  );
+                                                },
+                                                child: const TextNormal(
+                                                  text:
+                                                      'Ano, zrušit notifikace',
+                                                  color: kDBackgroundColor,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
               Container(
                 padding: const EdgeInsets.all(kDMargin),
                 child: const Center(
                   child: TextNormal(
-                    text:
-                        'Nastavte si notikace pro jednotlivé druhy odpadů',
+                    text: 'Nastavte si notikace pro jednotlivé druhy odpadů',
                   ),
                 ),
               ),
@@ -166,7 +339,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 decoration: const BoxDecoration(
                     color: kDBackgroundColorCalendar,
                     borderRadius: kDRadiusLarge),
-                padding: const EdgeInsets.all(2.0),margin: const EdgeInsets.only(left: kDMargin, right: kDMargin),
+                padding: const EdgeInsets.all(2.0),
+                margin: const EdgeInsets.only(left: kDMargin, right: kDMargin),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -177,11 +351,9 @@ class _SettingsPageState extends State<SettingsPage> {
                       valueOfSwitch: isSwitchedPlastic,
                       onChanged: !isSwitchedPlastic
                           ? (value) async {
-                              NotificationWeekAndTime? pickedShedule =
-                                  await pickSchedule(context);
-                              if (pickedShedule != null) {
+                              if (isSetReminder != false) {
                                 createNotificationReminder(
-                                    pickedShedule,
+                                    pickedSheduleVar!,
                                     plasticWasteEvents,
                                     'Plast',
                                     '${Emojis.symbols_red_exclamation_mark} Popelnice  - Plast a nápojový karton + drobné kovy${Emojis.symbols_red_exclamation_mark}',
@@ -192,13 +364,12 @@ class _SettingsPageState extends State<SettingsPage> {
                                 setState(
                                   () {
                                     isSwitchedPlastic = value;
-                                    sharedPreferencesGlobal
-                                        .setPreferencesWaste(
-                                            isSwitchedPlastic,
-                                            'isSwitchedPlastic',
-                                            plasticReminderTime,
-                                            'plasticReminderTime',
-                                            plasticSelectedDay!);
+                                    sharedPreferencesGlobal.setPreferencesWaste(
+                                        isSwitchedPlastic,
+                                        'isSwitchedPlastic',
+                                        plasticReminderTime,
+                                        'plasticReminderTime',
+                                        plasticSelectedDay!);
                                   },
                                 );
                               }
@@ -278,11 +449,9 @@ class _SettingsPageState extends State<SettingsPage> {
                       valueOfSwitch: isSwitchedBio,
                       onChanged: !isSwitchedBio
                           ? (value) async {
-                              NotificationWeekAndTime? pickedShedule =
-                                  await pickSchedule(context);
-                              if (pickedShedule != null) {
+                              if (isSetReminder != false) {
                                 createNotificationReminder(
-                                    pickedShedule,
+                                    pickedSheduleVar!,
                                     bioWasteEvents,
                                     'Bioodpad',
                                     '${Emojis.symbols_red_exclamation_mark} Popelnice - Bioodpad${Emojis.symbols_red_exclamation_mark}',
@@ -293,8 +462,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                 setState(
                                   () {
                                     isSwitchedBio = value;
-                                    sharedPreferencesGlobal
-                                        .setPreferencesWaste(
+                                    sharedPreferencesGlobal.setPreferencesWaste(
                                         isSwitchedBio,
                                         'isSwitchedBio',
                                         bioReminderTime,
@@ -351,11 +519,11 @@ class _SettingsPageState extends State<SettingsPage> {
                                                 isSwitchedBio = value;
                                                 sharedPreferencesGlobal
                                                     .setPreferencesWaste(
-                                                    isSwitchedBio,
-                                                    'isSwitchedBio',
-                                                    bioReminderTime,
-                                                    'bioReminderTime',
-                                                    bioSelectedDay!);
+                                                        isSwitchedBio,
+                                                        'isSwitchedBio',
+                                                        bioReminderTime,
+                                                        'bioReminderTime',
+                                                        bioSelectedDay!);
                                                 //setPreferencesBio();
                                               },
                                             );
@@ -365,8 +533,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                             style: TextStyle(
                                                 color: kDBackgroundColor,
                                                 fontSize: kDFontSizeText,
-                                                fontWeight:
-                                                    FontWeight.bold),
+                                                fontWeight: FontWeight.bold),
                                           ),
                                         ),
                                       ],
@@ -384,11 +551,9 @@ class _SettingsPageState extends State<SettingsPage> {
                       valueOfSwitch: isSwitchedPaper,
                       onChanged: !isSwitchedPaper
                           ? (value) async {
-                              NotificationWeekAndTime? pickedShedule =
-                                  await pickSchedule(context);
-                              if (pickedShedule != null) {
+                              if (isSetReminder != false) {
                                 createNotificationReminder(
-                                  pickedShedule,
+                                  pickedSheduleVar!,
                                   paperWasteEvents,
                                   'Papír',
                                   '${Emojis.symbols_red_exclamation_mark} Popelnice - Papír${Emojis.symbols_red_exclamation_mark}',
@@ -400,8 +565,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                 setState(
                                   () {
                                     isSwitchedPaper = value;
-                                    sharedPreferencesGlobal
-                                        .setPreferencesWaste(
+                                    sharedPreferencesGlobal.setPreferencesWaste(
                                         isSwitchedPaper,
                                         'isSwitchedPaper',
                                         paperReminderTime,
@@ -459,11 +623,11 @@ class _SettingsPageState extends State<SettingsPage> {
                                                 isSwitchedPaper = value;
                                                 sharedPreferencesGlobal
                                                     .setPreferencesWaste(
-                                                    isSwitchedPaper,
-                                                    'isSwitchedPaper',
-                                                    paperReminderTime,
-                                                    'paperReminderTime',
-                                                    paperSelectedDay!);
+                                                        isSwitchedPaper,
+                                                        'isSwitchedPaper',
+                                                        paperReminderTime,
+                                                        'paperReminderTime',
+                                                        paperSelectedDay!);
                                                 //setPreferencesPaper();
                                               },
                                             );
@@ -473,8 +637,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                             style: TextStyle(
                                                 color: kDBackgroundColor,
                                                 fontSize: kDFontSizeText,
-                                                fontWeight:
-                                                    FontWeight.bold),
+                                                fontWeight: FontWeight.bold),
                                           ),
                                         ),
                                       ],
@@ -492,11 +655,9 @@ class _SettingsPageState extends State<SettingsPage> {
                       valueOfSwitch: isSwitchedMixed,
                       onChanged: !isSwitchedMixed
                           ? (value) async {
-                              NotificationWeekAndTime? pickedShedule =
-                                  await pickSchedule(context);
-                              if (pickedShedule != null) {
+                              if (isSetReminder != false) {
                                 createNotificationReminder(
-                                  pickedShedule,
+                                  pickedSheduleVar!,
                                   mixedWasteEvents,
                                   'Směsný odpad',
                                   '${Emojis.symbols_red_exclamation_mark} Popelnice - Směsný odpad ${Emojis.symbols_red_exclamation_mark}',
@@ -508,8 +669,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                 setState(
                                   () {
                                     isSwitchedMixed = value;
-                                    sharedPreferencesGlobal
-                                        .setPreferencesWaste(
+                                    sharedPreferencesGlobal.setPreferencesWaste(
                                         isSwitchedMixed,
                                         'isSwitchedMixed',
                                         mixedReminderTime,
@@ -569,11 +729,11 @@ class _SettingsPageState extends State<SettingsPage> {
                                                 isSwitchedMixed = value;
                                                 sharedPreferencesGlobal
                                                     .setPreferencesWaste(
-                                                    isSwitchedMixed,
-                                                    'isSwitchedMixed',
-                                                    mixedReminderTime,
-                                                    'mixedReminderTime',
-                                                    mixedSelectedDay!);
+                                                        isSwitchedMixed,
+                                                        'isSwitchedMixed',
+                                                        mixedReminderTime,
+                                                        'mixedReminderTime',
+                                                        mixedSelectedDay!);
                                                 //setPreferencesMixed();
                                               },
                                             );
@@ -583,8 +743,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                             style: TextStyle(
                                                 color: kDBackgroundColor,
                                                 fontSize: kDFontSizeText,
-                                                fontWeight:
-                                                    FontWeight.bold),
+                                                fontWeight: FontWeight.bold),
                                           ),
                                         ),
                                       ],
@@ -599,20 +758,19 @@ class _SettingsPageState extends State<SettingsPage> {
                   ],
                 ),
               ),
-
             ],
           ),
           Column(
-            children: [
-              ButtonSettings(
+            children: const [
+              /*ButtonSettings(
                   color: Colors.blueGrey,
                   onTap: () {
                     Navigator.pushNamed(context, CityPickerPage.id);
                   },
                   title: 'Vybrat obec/město svozu',
                   subtitle: 'Vyberete si své město',
-                  icon: Icons.apartment_outlined),
-              ButtonSettings(
+                  icon: Icons.apartment_outlined),*/
+              /*ButtonSettings(
                 onTap: () {
                   showFlash(
                     context: context,
@@ -650,16 +808,15 @@ class _SettingsPageState extends State<SettingsPage> {
                             TextButton(
                               onPressed: () {
                                 cancelScheduledNotificationsAll();
-                                cancelScheduledNotifications(
-                                    'Směsný odpad');
+                                cancelScheduledNotifications('Směsný odpad');
                                 cancelScheduledNotifications('Papír');
                                 cancelScheduledNotifications('Bioodpad');
                                 cancelScheduledNotifications('Plast');
                                 setState(
-                                      () {
+                                  () {
                                     controller.dismiss();
-                                    showSnackBar(context,
-                                        'Všechny notifikace zrušeny');
+                                    showSnackBar(
+                                        context, 'Všechny notifikace zrušeny');
                                     isSwitchedPlastic = false;
                                     isSwitchedMixed = false;
                                     isSwitchedPaper = false;
@@ -686,10 +843,9 @@ class _SettingsPageState extends State<SettingsPage> {
                 subtitle: 'Zrušíte všechna nastavená upozornění',
                 icon: Icons.notifications_off,
                 color: Colors.redAccent,
-              ),
+              ),*/
             ],
           ),
-
         ],
       ),
     );
