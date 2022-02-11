@@ -28,6 +28,12 @@ String? mixedSelectedDay = 'Den Předem';
 bool valueCityPickedGlobal = false;
 String? valueCityPicked;
 
+bool? isSetReminderTime;
+TimeOfDay? setReminderTime = TimeOfDay(hour: 0, minute: 0);
+bool? isSetReminderDate;
+String? setReminderDate = 'Den Předem';
+bool isSetReminder = false;
+
 String? appVersion;
 String? appName;
 String? packageName;
