@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:svoz_odpadu/components/utilities.dart';
 
 bool activeSheduledReminder = false;
 String selectedDayGlobal = '';
@@ -33,6 +34,8 @@ TimeOfDay? setReminderTime = TimeOfDay(hour: 0, minute: 0);
 bool? isSetReminderDate;
 String? setReminderDate = 'Den Předem';
 bool isSetReminder = false;
+
+NotificationWeekAndTime? pickedSheduleVar;
 
 String? appVersion;
 String? appName;
