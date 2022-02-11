@@ -81,7 +81,7 @@ class SharedPreferencesGlobal {
         reminderTimeWasteString, '$timeStampHour:$timeStampMinute');
     preferences.setString(selectedDayWaste, selectedDayWaste);
     print(
-        'Set SharedPreferencesPlastic $isSwitchedWaste, $reminderTimeWaste, $selectedDayWaste');
+        'Set SharedPreferencesWaste $isSwitchedWaste, $reminderTimeWaste, $selectedDayWaste');
   }
   ///přečte valueCityPicked z preferencí, přiřadí název proměnné $valueCityPicked a zvolí bool valueCityPickedBool
   Future<void> getPreferencesValueCity() async {
