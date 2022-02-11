@@ -56,16 +56,12 @@ class ListTileOfWasteNotification extends StatelessWidget {
         ),
         Flexible(
             fit: FlexFit.loose,
-            flex: 4,
+            flex: 1,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 IconReminderOnOff(isSwitched: valueOfSwitch),
-                ReminderTimeAndDate(
-                    switcher: valueOfSwitch,
-                    wasteReminderTime: wasteReminderTime,
-                    wasteReminderDay: wasteSelectedDay),
               ],
             )
 
