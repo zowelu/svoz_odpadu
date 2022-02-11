@@ -434,7 +434,7 @@ class CalendarData {
     }
 
     Map<DateTime, List<Event>> allWasteEventsCalendarSorted =
-        SortedMap(Ordering.byKey());
+        SortedMap(const Ordering.byKey());
     allWasteEventsCalendarSorted.addAll(allWasteEventsCalendar);
     allWasteEventsCalendar.clear();
     allWasteEventsCalendar.addAll(allWasteEventsCalendarSorted);
@@ -502,7 +502,7 @@ class CalendarData {
     }*/
 
     Map<DateTime, List<Event>> allWasteEventsOverviewListSorted =
-        SortedMap(Ordering.byKey());
+        SortedMap(const Ordering.byKey());
     allWasteEventsOverviewListSorted.addAll(allWasteEventsOverviewList);
     allWasteEventsOverviewList.clear();
     allWasteEventsOverviewList.addAll(allWasteEventsOverviewListSorted);

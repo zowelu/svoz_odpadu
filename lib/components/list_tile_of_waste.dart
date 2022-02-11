@@ -31,7 +31,7 @@ class ListTileOfWaste extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  padding: EdgeInsets.only(top: 0, bottom: kDMargin),
+                  padding: const EdgeInsets.only(top: 0, bottom: kDMargin),
                   child: Image.asset(
                     asset!,
                     width: 60.0,

@@ -54,7 +54,7 @@ class _ListOfWastePageState extends State<ListOfWastePage> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: kDMargin,
                 ),
                 Container(

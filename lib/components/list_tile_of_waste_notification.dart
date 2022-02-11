@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:svoz_odpadu/components/reminder_icon_on_off.dart';
-import 'package:svoz_odpadu/components/reminder_time_and_date.dart';
 // ignore: unused_import
 import 'package:svoz_odpadu/components/text_normal.dart';
 import 'package:svoz_odpadu/variables/constants.dart';
