@@ -131,6 +131,9 @@ Future<NotificationWeekAndTime?> pickSchedule(
       //vložení vybraného dne a času do globálních proměnných
       selectedDayGlobal = day[selectedDay].toString();
       selectedTimeOfDayGlobal = timeOfDay;
+      isSetReminder = true;
+      setReminderTime = timeOfDay;
+      setReminderDate = day[selectedDay].toString();
       return NotificationWeekAndTime(
           dayOfTheWeek: selectedDay,
           timeOfDay: timeOfDay,
@@ -140,7 +143,7 @@ Future<NotificationWeekAndTime?> pickSchedule(
   return null;
 }
 
-///Nastaví opakované upozorňování ve zvolený den a čas na týdenní bázi
+/*///Nastaví opakované upozorňování ve zvolený den a čas na týdenní bázi
 Future<NotificationWeekAndTime?> pickScheduleWeekly(
   BuildContext context,
 ) async {
@@ -218,7 +221,7 @@ Future<NotificationWeekAndTime?> pickScheduleWeekly(
     }
   }
   return null;
-}
+}*/
 
 Flash? showSnackBar(context, String text) {
   showFlash(
