@@ -64,103 +64,97 @@ class _CityPickerPageState extends State<CityPickerPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(kDMyAppBarHeight),
-        child: MyAppBar(),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Container(
-            color: kDBackgroundColorCalendar,
-            width: double.infinity,
-            height: kDMyAppBarHeight,
-            child: const Center(
-              child: TextHeader(
-                text: 'Nastavení',
-                color: kDBackgroundColor,
-              ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Container(
+          color: kDBackgroundColorCalendar,
+          width: double.infinity,
+          height: kDMyAppBarHeight,
+          child: const Center(
+            child: TextHeader(
+              text: 'Nastavení',
+              color: kDBackgroundColor,
             ),
           ),
-          Expanded(
-            child: Container(
-              color: kDBackgroundColor,
-              child: Column(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(kDMargin),
-                    child: const TextHeader(
-                      text: 'Výběr svozového místa',
-                      color: kDColorTextColorBackground,
-                    ),
+        ),
+        Expanded(
+          child: Container(
+            color: kDBackgroundColor,
+            child: Column(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(kDMargin),
+                  child: const TextHeader(
+                    text: 'Výběr svozového místa',
+                    color: kDColorTextColorBackground,
                   ),
-                  Container(
-                    padding: const EdgeInsets.all(kDMargin),
-                    child: const TextNormal(
-                      text:
-                          'Pro správnou funkčnost aplikace je nutné zvolit obci/město',
-                      color: kDColorTextColorBackground,
-                    ),
+                ),
+                Container(
+                  padding: const EdgeInsets.all(kDMargin),
+                  child: const TextNormal(
+                    text:
+                        'Pro správnou funkčnost aplikace je nutné zvolit obci/město',
+                    color: kDColorTextColorBackground,
                   ),
-                  const Center(
-                    child: TextNormal(
-                      text:
-                          'pozn.: Po zvolení dojde k restartu aplikace a načtení nových dat.',
-                      color: Colors.blueGrey,
-                    ),
+                ),
+                const Center(
+                  child: TextNormal(
+                    text:
+                        'pozn.: Po zvolení dojde k restartu aplikace a načtení nových dat.',
+                    color: Colors.blueGrey,
                   ),
-                  Column(
-                    children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width / 100 * 75,
-                        decoration: const BoxDecoration(
-                            borderRadius: kDRadius, color: Colors.white),
-                        padding: const EdgeInsets.only(
-                            top: 9, left: 15, right: 15, bottom: 10),
-                        child: Center(
-                          child: DropdownButtonHideUnderline(
-                            child: DropdownButton(
-                              value: valueCityPicked,
-                              hint: TextNormal(
-                                text: valueCityPicked ?? 'Vyberte obci/město',
-                                fontWeight: FontWeight.bold,
-                              ),
-                              items: citiesOfWaste.map(buildMenuItem).toList(),
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: kDFontSizeText,
-                                  fontFamily: kDFontFamilyParagraph),
-                              //dropdownColor: kDBackgroundColor,
-                              isExpanded: true,
-                              borderRadius: kDRadius,
-                              onChanged: (value) {
-                                setState(
-                                  () {
-                                    valueCityPicked = value.toString();
-                                    sharedPreferencesGlobal
-                                        .setPreferencesValueCity(
-                                            valueCityPicked!, 'valueCityPicked')
-                                        .whenComplete(() {
-                                      print(valueCityPicked);
-                                      restartApp(context);
-                                    });
-                                  },
-                                );
-                              },
+                ),
+                Column(
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width / 100 * 75,
+                      decoration: const BoxDecoration(
+                          borderRadius: kDRadius, color: Colors.white),
+                      padding: const EdgeInsets.only(
+                          top: 9, left: 15, right: 15, bottom: 10),
+                      child: Center(
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton(
+                            value: valueCityPicked,
+                            hint: TextNormal(
+                              text: valueCityPicked ?? 'Vyberte obci/město',
+                              fontWeight: FontWeight.bold,
                             ),
+                            items: citiesOfWaste.map(buildMenuItem).toList(),
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: kDFontSizeText,
+                                fontFamily: kDFontFamilyParagraph),
+                            //dropdownColor: kDBackgroundColor,
+                            isExpanded: true,
+                            borderRadius: kDRadius,
+                            onChanged: (value) {
+                              setState(
+                                () {
+                                  valueCityPicked = value.toString();
+                                  sharedPreferencesGlobal
+                                      .setPreferencesValueCity(
+                                          valueCityPicked!, 'valueCityPicked')
+                                      .whenComplete(() {
+                                    print(valueCityPicked);
+                                    restartApp(context);
+                                  });
+                                },
+                              );
+                            },
                           ),
                         ),
                       ),
-                    ],
-                  ),
-                ],
-              ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
