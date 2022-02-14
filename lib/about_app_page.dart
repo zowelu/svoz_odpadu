@@ -30,8 +30,8 @@ class _AboutAppPageState extends State<AboutAppPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kDBackgroundColor,
-      appBar: const PreferredSize(
-          preferredSize: Size.fromHeight(kDMyAppBarHeight), child: MyAppBar()),
+      appBar: AppBar(
+          automaticallyImplyLeading: true, backgroundColor: kDBackgroundColor),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
