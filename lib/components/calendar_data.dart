@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'package:svoz_odpadu/towns/towns.dart';
 import 'package:svoz_odpadu/components/utils.dart';
 import 'package:sortedmap/sortedmap.dart';
+import 'package:svoz_odpadu/variables/global_var.dart';
 
 /// Example event class.
 class Event {
@@ -63,6 +64,7 @@ class CalendarData {
     DolniKounice dolniKounice = DolniKounice();
     if (cityPicked == dolniKounice.name) {
       calendarID = dolniKounice.calendarID;
+      valueCityPickedPath = dolniKounice.iconPath;
     }
 
     await getCalendarDataFromGCalendar(calendarID!);
@@ -77,7 +79,6 @@ class CalendarData {
     await getAllWasteEventOverviewList();
     await getAllWasteEventFromNow();
     await getAllWasteEventCalendar();
-
 
     /*for (int i = 0; i < allWasteEventsCalendar.length; i++) {
       print(
@@ -98,7 +99,7 @@ class CalendarData {
     /*for (int i = 0; i < plasticWasteEvents.length; i++) {
       print(
           'plasticWasteEvents after allkey: ${plasticWasteEvents.keys.elementAt(i)}, value ${plasticWasteEvents.values.elementAt(i)}');
-    }*//*for (int i = 0; i < paperWasteEvents.length; i++) {
+    }*/ /*for (int i = 0; i < paperWasteEvents.length; i++) {
       print(
           'paperWasteEvents key: ${paperWasteEvents.keys.elementAt(i)}, value ${paperWasteEvents.values.elementAt(i)}');
     }for (int i = 0; i < bioWasteEvents.length; i++) {
@@ -412,7 +413,7 @@ class CalendarData {
     int hours;
     //allWasteEventsCalendar.clear();
     for (Map<DateTime, List<Event>> wasteEvents in listOfWasteEvents) {
-     /* for (int i = 0; i < wasteEvents.length; i++) {
+      /* for (int i = 0; i < wasteEvents.length; i++) {
         print(
             'wasteEvents key: ${wasteEvents.keys.elementAt(i)}, value ${wasteEvents.values.elementAt(i)}');
       }*/
@@ -422,7 +423,7 @@ class CalendarData {
           List<Event> listEvent = wasteEvents.values.elementAt(i);
           if (allWasteEventsCalendar.keys.contains(dateTime)) {
             List<Event> newListEvent = allWasteEventsCalendar[dateTime]!;
-            for(Event event in listEvent){
+            for (Event event in listEvent) {
               newListEvent.add(event);
             }
             allWasteEventsCalendar[dateTime] = newListEvent;
@@ -460,8 +461,7 @@ class CalendarData {
       bioWasteEvents,
     ];
 
-
-   /* for (int i = 0; i < plasticWasteEvents.length; i++) {
+    /* for (int i = 0; i < plasticWasteEvents.length; i++) {
       print(
           'plasticWasteEvents OverviewList key: ${plasticWasteEvents.keys.elementAt(i)}, value ${plasticWasteEvents.values.elementAt(i)}');
     }
