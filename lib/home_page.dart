@@ -1,9 +1,14 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
 import 'package:svoz_odpadu/calendar_page.dart';
 import 'package:svoz_odpadu/city_picker_page.dart';
 import 'package:svoz_odpadu/components/fab_home.dart';
+import 'package:svoz_odpadu/components/notifications.dart';
 import 'package:svoz_odpadu/components/shared_preferences_global.dart';
+import 'package:svoz_odpadu/components/text_header.dart';
+import 'package:svoz_odpadu/components/text_normal.dart';
+import 'package:svoz_odpadu/components/utilities.dart';
 import 'package:svoz_odpadu/list_of_waste_page.dart';
 import 'package:svoz_odpadu/settings_page.dart';
 import 'package:svoz_odpadu/variables/constants.dart';
@@ -43,35 +48,92 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     initializeDateFormatting('cs');
-    return Scaffold(
-      backgroundColor: kDBackgroundColor,
-      appBar: const PreferredSize(
-          preferredSize: Size.fromHeight(kDMyAppBarHeight), child: MyAppBar()),
-      //drawer: const DrawerMenu(),
-      //floatingActionButton: fabHome,
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        //showUnselectedLabels: false,
-        currentIndex: currentIndex,
-        onTap: (index) {
-          setState(() {
-            currentIndex = index;
-          });
+    return WillPopScope(
+        onWillPop: () async {
+          try {
+            await showFlash(
+              context: context,
+              builder: (context, controller) {
+                return Flash.dialog(
+                  controller: controller,
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(8),
+                  ),
+                  child: FlashBar(
+                    content: const Center(
+                      child: TextNormal(
+                        text: 'Chcete opustit aplikaci?',
+                        color: kDBackgroundColor,
+                      ),
+                    ),
+                    title: const Center(
+                      child: TextHeader(
+                        text: 'Opuštíte aplikaci',
+                        color: kDBackgroundColor,
+                      ),
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          controller.dismiss();
+                        },
+                        child: const TextNormal(
+                          text: 'Ne',
+                          color: kDBackgroundColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const TextNormal(
+                          text: 'Ano',
+                          color: kDBackgroundColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            );
+            return true;
+          } catch (e) {
+            print(e);
+          }
+          return false;
         },
-        backgroundColor: kDBackgroundColorCalendar,
-        unselectedItemColor: Colors.black54,
-        selectedItemColor: kDBackgroundColor, selectedFontSize: 16,
-        selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
-        items: const [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.calendar_today_outlined), label: 'Kalendář'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.list_outlined), label: 'Nejbližší svozy'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.settings_outlined), label: 'Nastavení'),
-        ],
-      ),
-      body: screens[currentIndex],
-    );
+        child: Scaffold(
+          backgroundColor: kDBackgroundColor,
+          appBar: const PreferredSize(
+              preferredSize: Size.fromHeight(kDMyAppBarHeight),
+              child: MyAppBar()),
+          //drawer: const DrawerMenu(),
+          //floatingActionButton: fabHome,
+          bottomNavigationBar: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            //showUnselectedLabels: false,
+            currentIndex: currentIndex,
+            onTap: (index) {
+              setState(() {
+                currentIndex = index;
+              });
+            },
+            backgroundColor: kDBackgroundColorCalendar,
+            unselectedItemColor: Colors.black54,
+            selectedItemColor: kDBackgroundColor, selectedFontSize: 16,
+            selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
+            items: const [
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.calendar_today_outlined), label: 'Kalendář'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.list_outlined), label: 'Nejbližší svozy'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.settings_outlined), label: 'Nastavení'),
+            ],
+          ),
+          body: screens[currentIndex],
+        ));
   }
 }
