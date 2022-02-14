@@ -75,9 +75,9 @@ class _CalendarPageState extends State<CalendarPage> {
     /*AwesomeNotifications().createdStream.listen((notification) {
       showSnackBar(context, 'Upozornění na každý týden bylo vytvořeno');
     });*/
-
-    ///Po kliknutí na notifikaci otevře zvolenou stránku
-    AwesomeNotifications().actionStream.listen(
+    //TODO:Vyřešit actionStream badState při znovuotevření stránky;
+    /* ///Po kliknutí na notifikaci otevře zvolenou stránku
+    AwesomeNotifications().actionStream.asBroadcastStream().listen(
       (notification) {
         if (notification.channelKey == 'basic_channel' && Platform.isIOS) {
           AwesomeNotifications().getGlobalBadgeCounter().then(
@@ -93,13 +93,14 @@ class _CalendarPageState extends State<CalendarPage> {
             ),
             (route) => route.isFirst);
       },
-    );
+    ); */
   }
 
   @override
   void dispose() {
     AwesomeNotifications().actionSink.close();
     AwesomeNotifications().createdSink.close();
+    AwesomeNotifications().actionStream.cast();
     currentPage = CalendarPage.id;
     super.dispose();
   }
@@ -117,247 +118,252 @@ class _CalendarPageState extends State<CalendarPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding:
-          EdgeInsets.only(top: MediaQuery.of(context).size.height / 100 * 2),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Container(
-            margin: const EdgeInsets.only(left: kDMargin, right: kDMargin),
-            padding: const EdgeInsets.only(
-                left: kDMargin, right: kDMargin, bottom: kDMargin),
-            decoration: const BoxDecoration(
-                color: kDBackgroundColorCalendar,
-                borderRadius: kDRadiusLarge,
-                boxShadow: [
-                  BoxShadow(
-                      color: kDBoxShadowColor,
-                      blurRadius: 10.0,
-                      spreadRadius: 1.0)
-                ]),
-            child: !isKounice
-                ? TableCalendar(
-                    rowHeight: MediaQuery.of(context).size.height / 100 * 6,
-                    eventLoader: (day) {
-                      return _getEventsForDay(day);
-                    },
-                    calendarFormat: CalendarFormat.month,
-                    startingDayOfWeek: StartingDayOfWeek.monday,
-                    focusedDay: dateTimeNow,
-                    firstDay: dateTimeFirstDay,
-                    lastDay: dateTimeLastDay,
-                    locale: 'cs_CZ',
-                    calendarStyle: const CalendarStyle(
-                      markerSizeScale: 1.35,
-                      canMarkersOverflow: true,
-                      outsideDaysVisible: false,
-                      markerDecoration: BoxDecoration(
-                          color: Colors.black, shape: BoxShape.rectangle),
-                      markersMaxCount: 2,
-                      isTodayHighlighted: true,
-                      cellPadding: EdgeInsets.all(0),
-                      cellMargin: EdgeInsets.all(0),
-                      defaultDecoration: BoxDecoration(
-                        borderRadius: kDRadius,
-                      ),
-                      defaultTextStyle: TextStyle(
-                          fontSize: kDFontSizeText,
-                          fontFamily: kDFontFamilyParagraph,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold),
-                      todayTextStyle: TextStyle(
-                          fontSize: kDFontSizeText,
-                          fontFamily: kDFontFamilyParagraph,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
-                      todayDecoration: BoxDecoration(
-                        color: kDBackgroundColor,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10.0),
-                        ),
-                      ),
-                      weekendTextStyle: TextStyle(
-                          color: Colors.grey,
-                          fontSize: kDFontSizeText,
-                          fontFamily: kDFontFamilyParagraph),
-                    ),
-                    headerStyle: const HeaderStyle(
-                      leftChevronIcon: Icon(Icons.arrow_back_ios_new_rounded,
-                          color: kDBackgroundColor),
-                      rightChevronIcon: Icon(Icons.arrow_forward_ios_rounded,
-                          color: kDBackgroundColor),
-                      formatButtonVisible: false,
-                      titleCentered: true,
-                      titleTextStyle: TextStyle(
-                        fontFamily: kDFontFamilyHeader,
-                        fontSize: kDFontSizeHeader,
-                        color: kDBackgroundColor,
-                      ),
-                    ),
-                    daysOfWeekStyle: const DaysOfWeekStyle(
-                      weekdayStyle: TextStyle(color: Colors.blueGrey),
-                      weekendStyle: TextStyle(color: Colors.blueGrey),
-                    ),
-                    calendarBuilders: CalendarBuilders(
-                      singleMarkerBuilder: (context, day, event) {
-                        //DateTime dayRaw = day;
-                        DateFormat dateFormat = DateFormat('d');
-                        String dayString = dateFormat.format(day);
-                        Widget? children;
-                        if (event.toString() == 'Směsný odpad') {
-                          children = MarkerEvent(kDColorWasteMixed, dayString);
-                        } else if (event.toString() == 'Papír') {
-                          children = MarkerEvent(kDColorWastePaper, dayString);
-                        } else if (event.toString() ==
-                            'Plast a nápojový karton, Drobné kovy') {
-                          children =
-                              MarkerEvent(kDColorWastePlastic, dayString);
-                        } else if (event.toString() == 'Bioodpad') {
-                          children = MarkerEventGradient(
-                              const [kDColorWastePlastic, kDColorWasteBio],
-                              dayString);
-                        }
-                        return children;
+    return SingleChildScrollView(
+      child: Container(
+        padding:
+            EdgeInsets.only(top: MediaQuery.of(context).size.height / 100 * 2),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              margin: const EdgeInsets.only(left: kDMargin, right: kDMargin),
+              padding: const EdgeInsets.only(
+                  left: kDMargin, right: kDMargin, bottom: kDMargin),
+              decoration: const BoxDecoration(
+                  color: kDBackgroundColorCalendar,
+                  borderRadius: kDRadiusLarge,
+                  boxShadow: [
+                    BoxShadow(
+                        color: kDBoxShadowColor,
+                        blurRadius: 10.0,
+                        spreadRadius: 1.0)
+                  ]),
+              child: !isKounice
+                  ? TableCalendar(
+                      rowHeight: MediaQuery.of(context).size.height / 100 * 6,
+                      eventLoader: (day) {
+                        return _getEventsForDay(day);
                       },
-                    ),
-                  )
-                : TableCalendar(
-                    rowHeight:
-                        45 /*MediaQuery.of(context).size.height / 100 * 6*/,
-                    eventLoader: (day) {
-                      return _getEventsForDay(day);
-                    },
-                    calendarFormat: CalendarFormat.month,
-                    startingDayOfWeek: StartingDayOfWeek.monday,
-                    focusedDay: dateTimeNow,
-                    firstDay: dateTimeFirstDay,
-                    lastDay: dateTimeLastDay,
-                    locale: 'cs_CZ',
-                    calendarStyle: const CalendarStyle(
-                      //markerSizeScale: 1.35,
-                      canMarkersOverflow: true,
-                      outsideDaysVisible: false,
-                      markerDecoration: BoxDecoration(
-                          color: Colors.yellow, shape: BoxShape.rectangle),
-                      markersMaxCount: 5,
-                      isTodayHighlighted: true,
-                      /*cellPadding: EdgeInsets.all(10),
-                  cellMargin: EdgeInsets.all(15),*/
-                      //cellMargin: EdgeInsets.all(15),
-                      /*defaultDecoration: BoxDecoration(
-                    borderRadius: kDRadius,
-                  ),*/
-                      //defaultDecoration: BoxDecoration(),
-                      defaultTextStyle: TextStyle(
-                          fontSize: kDFontSizeText,
-                          fontFamily: kDFontFamilyParagraph,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold),
-                      todayTextStyle: TextStyle(
-                          fontSize: kDFontSizeText,
-                          fontFamily: kDFontFamilyParagraph,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
-                      markerSizeScale: 0.4,
-                      todayDecoration: BoxDecoration(
-                        color: kDBackgroundColor,
-                        shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10.0),
+                      calendarFormat: CalendarFormat.month,
+                      startingDayOfWeek: StartingDayOfWeek.monday,
+                      focusedDay: dateTimeNow,
+                      firstDay: dateTimeFirstDay,
+                      lastDay: dateTimeLastDay,
+                      locale: 'cs_CZ',
+                      calendarStyle: const CalendarStyle(
+                        markerSizeScale: 1.35,
+                        canMarkersOverflow: true,
+                        outsideDaysVisible: false,
+                        markerDecoration: BoxDecoration(
+                            color: Colors.black, shape: BoxShape.rectangle),
+                        markersMaxCount: 2,
+                        isTodayHighlighted: true,
+                        cellPadding: EdgeInsets.all(0),
+                        cellMargin: EdgeInsets.all(0),
+                        defaultDecoration: BoxDecoration(
+                          borderRadius: kDRadius,
                         ),
-                      ),
-                      weekendTextStyle: TextStyle(
-                          color: Colors.grey,
-                          fontSize: kDFontSizeText,
-                          fontFamily: kDFontFamilyParagraph),
-                    ),
-                    headerStyle: const HeaderStyle(
-                      leftChevronIcon: Icon(Icons.arrow_back_ios_new_rounded,
-                          color: kDBackgroundColor),
-                      rightChevronIcon: Icon(Icons.arrow_forward_ios_rounded,
-                          color: kDBackgroundColor),
-                      formatButtonVisible: false,
-                      titleCentered: true,
-                      titleTextStyle: TextStyle(
-                        fontFamily: kDFontFamilyHeader,
-                        fontSize: kDFontSizeHeader,
-                        color: kDBackgroundColor,
-                      ),
-                    ),
-                    daysOfWeekStyle: const DaysOfWeekStyle(
-                      weekdayStyle: TextStyle(color: Colors.blueGrey),
-                      weekendStyle: TextStyle(color: Colors.blueGrey),
-                    ),
-                    calendarBuilders: CalendarBuilders(
-                      singleMarkerBuilder: (context, date, event) {
-                        Map<String, Color> colorsOfWaste = {
-                          'plast': kDColorWastePlastic,
-                          'papír': kDColorWastePaper,
-                          'směsný odpad': kDColorWasteMixed,
-                          'bioodpad': kDColorWasteBio
-                        };
-                        Color cor = Colors.pink;
-                        if (event.toString() == 'plast') {
-                          cor = colorsOfWaste['plast']!;
-                        }
-                        if (event.toString() == 'papír') {
-                          cor = colorsOfWaste['papír']!;
-                        }
-                        if (event.toString() == 'směsný odpad') {
-                          cor = colorsOfWaste['směsný odpad']!;
-                        }
-                        if (event.toString() == 'bioodpad') {
-                          cor = colorsOfWaste['bioodpad']!;
-                        }
-                        double size = 14;
-                        return Container(
-                          margin: const EdgeInsets.only(bottom: 100),
-                          child: Icon(
-                            Icons.circle,
-                            color: cor,
-                            size: size,
+                        defaultTextStyle: TextStyle(
+                            fontSize: kDFontSizeText,
+                            fontFamily: kDFontFamilyParagraph,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold),
+                        todayTextStyle: TextStyle(
+                            fontSize: kDFontSizeText,
+                            fontFamily: kDFontFamilyParagraph,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                        todayDecoration: BoxDecoration(
+                          color: kDBackgroundColor,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10.0),
                           ),
-                        );
+                        ),
+                        weekendTextStyle: TextStyle(
+                            color: Colors.grey,
+                            fontSize: kDFontSizeText,
+                            fontFamily: kDFontFamilyParagraph),
+                      ),
+                      headerStyle: const HeaderStyle(
+                        leftChevronIcon: Icon(Icons.arrow_back_ios_new_rounded,
+                            color: kDBackgroundColor),
+                        rightChevronIcon: Icon(Icons.arrow_forward_ios_rounded,
+                            color: kDBackgroundColor),
+                        formatButtonVisible: false,
+                        titleCentered: true,
+                        titleTextStyle: TextStyle(
+                          fontFamily: kDFontFamilyHeader,
+                          fontSize: kDFontSizeHeader,
+                          color: kDBackgroundColor,
+                        ),
+                      ),
+                      daysOfWeekStyle: const DaysOfWeekStyle(
+                        weekdayStyle: TextStyle(color: Colors.blueGrey),
+                        weekendStyle: TextStyle(color: Colors.blueGrey),
+                      ),
+                      calendarBuilders: CalendarBuilders(
+                        singleMarkerBuilder: (context, day, event) {
+                          //DateTime dayRaw = day;
+                          DateFormat dateFormat = DateFormat('d');
+                          String dayString = dateFormat.format(day);
+                          Widget? children;
+                          if (event.toString() == 'Směsný odpad') {
+                            children =
+                                MarkerEvent(kDColorWasteMixed, dayString);
+                          } else if (event.toString() == 'Papír') {
+                            children =
+                                MarkerEvent(kDColorWastePaper, dayString);
+                          } else if (event.toString() ==
+                              'Plast a nápojový karton, Drobné kovy') {
+                            children =
+                                MarkerEvent(kDColorWastePlastic, dayString);
+                          } else if (event.toString() == 'Bioodpad') {
+                            children = MarkerEventGradient(
+                                const [kDColorWastePlastic, kDColorWasteBio],
+                                dayString);
+                          }
+                          return children;
+                        },
+                      ),
+                    )
+                  : TableCalendar(
+                      rowHeight:
+                          45 /*MediaQuery.of(context).size.height / 100 * 6*/,
+                      eventLoader: (day) {
+                        return _getEventsForDay(day);
                       },
+                      calendarFormat: CalendarFormat.month,
+                      startingDayOfWeek: StartingDayOfWeek.monday,
+                      focusedDay: dateTimeNow,
+                      firstDay: dateTimeFirstDay,
+                      lastDay: dateTimeLastDay,
+                      locale: 'cs_CZ',
+                      calendarStyle: const CalendarStyle(
+                        //markerSizeScale: 1.35,
+                        canMarkersOverflow: true,
+                        outsideDaysVisible: false,
+                        markerDecoration: BoxDecoration(
+                            color: Colors.yellow, shape: BoxShape.rectangle),
+                        markersMaxCount: 5,
+                        isTodayHighlighted: true,
+                        /*cellPadding: EdgeInsets.all(10),
+                    cellMargin: EdgeInsets.all(15),*/
+                        //cellMargin: EdgeInsets.all(15),
+                        /*defaultDecoration: BoxDecoration(
+                      borderRadius: kDRadius,
+                    ),*/
+                        //defaultDecoration: BoxDecoration(),
+                        defaultTextStyle: TextStyle(
+                            fontSize: kDFontSizeText,
+                            fontFamily: kDFontFamilyParagraph,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold),
+                        todayTextStyle: TextStyle(
+                            fontSize: kDFontSizeText,
+                            fontFamily: kDFontFamilyParagraph,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                        markerSizeScale: 0.4,
+                        todayDecoration: BoxDecoration(
+                          color: kDBackgroundColor,
+                          shape: BoxShape.rectangle,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10.0),
+                          ),
+                        ),
+                        weekendTextStyle: TextStyle(
+                            color: Colors.grey,
+                            fontSize: kDFontSizeText,
+                            fontFamily: kDFontFamilyParagraph),
+                      ),
+                      headerStyle: const HeaderStyle(
+                        leftChevronIcon: Icon(Icons.arrow_back_ios_new_rounded,
+                            color: kDBackgroundColor),
+                        rightChevronIcon: Icon(Icons.arrow_forward_ios_rounded,
+                            color: kDBackgroundColor),
+                        formatButtonVisible: false,
+                        titleCentered: true,
+                        titleTextStyle: TextStyle(
+                          fontFamily: kDFontFamilyHeader,
+                          fontSize: kDFontSizeHeader,
+                          color: kDBackgroundColor,
+                        ),
+                      ),
+                      daysOfWeekStyle: const DaysOfWeekStyle(
+                        weekdayStyle: TextStyle(color: Colors.blueGrey),
+                        weekendStyle: TextStyle(color: Colors.blueGrey),
+                      ),
+                      calendarBuilders: CalendarBuilders(
+                        singleMarkerBuilder: (context, date, event) {
+                          Map<String, Color> colorsOfWaste = {
+                            'plast': kDColorWastePlastic,
+                            'papír': kDColorWastePaper,
+                            'směsný odpad': kDColorWasteMixed,
+                            'bioodpad': kDColorWasteBio
+                          };
+                          Color cor = Colors.pink;
+                          if (event.toString() == 'plast') {
+                            cor = colorsOfWaste['plast']!;
+                          }
+                          if (event.toString() == 'papír') {
+                            cor = colorsOfWaste['papír']!;
+                          }
+                          if (event.toString() == 'směsný odpad') {
+                            cor = colorsOfWaste['směsný odpad']!;
+                          }
+                          if (event.toString() == 'bioodpad') {
+                            cor = colorsOfWaste['bioodpad']!;
+                          }
+                          double size = 14;
+                          return Container(
+                            margin: const EdgeInsets.only(bottom: 100),
+                            child: Icon(
+                              Icons.circle,
+                              color: cor,
+                              size: size,
+                            ),
+                          );
+                        },
+                      ),
                     ),
+            ),
+            Container(
+              padding: const EdgeInsets.only(top: kDMargin, bottom: kDMargin),
+              decoration: const BoxDecoration(
+                  color: kDBackgroundColor,
+                  borderRadius: BorderRadiusDirectional.only(
+                    topStart: Radius.circular(20.0),
+                    topEnd: Radius.circular(20.0),
                   ),
-          ),
-          Container(
-            padding: const EdgeInsets.only(top: kDMargin, bottom: kDMargin),
-            decoration: const BoxDecoration(
-                color: kDBackgroundColor,
-                borderRadius: BorderRadiusDirectional.only(
-                  topStart: Radius.circular(20.0),
-                  topEnd: Radius.circular(20.0),
-                ),
-                boxShadow: [
-                  BoxShadow(
-                      color: kDBoxShadowColor,
-                      blurRadius: 10.0,
-                      spreadRadius: 1.0)
-                ]),
-            child: Center(
-              child: Container(
-                width: MediaQuery.of(context).size.width / 100 * 75,
-                decoration: const BoxDecoration(
-                    color: Colors.grey, borderRadius: kDRadiusLarge),
-                child: ListView(
-                  shrinkWrap: true,
-                  children: const <Widget>[
-                    ListTileOfWasteHint('Dnešní den', kDBackgroundColor),
-                    ListTileOfWasteHint('Plast a nápojový karton,\nDrobné kovy',
-                        kDColorWastePlastic),
-                    ListTileOfWasteHint('Bioodpad', kDColorWasteBio),
-                    ListTileOfWasteHint('Papír', kDColorWastePaper),
-                    ListTileOfWasteHint('Směsný odpad', kDColorWasteMixed),
-                  ],
+                  boxShadow: [
+                    BoxShadow(
+                        color: kDBoxShadowColor,
+                        blurRadius: 10.0,
+                        spreadRadius: 1.0)
+                  ]),
+              child: Center(
+                child: Container(
+                  width: MediaQuery.of(context).size.width / 100 * 75,
+                  decoration: const BoxDecoration(
+                      color: Colors.grey, borderRadius: kDRadiusLarge),
+                  child: ListView(
+                    shrinkWrap: true,
+                    children: const <Widget>[
+                      ListTileOfWasteHint('Dnešní den', kDBackgroundColor),
+                      ListTileOfWasteHint(
+                          'Plast a nápojový karton,\nDrobné kovy',
+                          kDColorWastePlastic),
+                      ListTileOfWasteHint('Bioodpad', kDColorWasteBio),
+                      ListTileOfWasteHint('Papír', kDColorWastePaper),
+                      ListTileOfWasteHint('Směsný odpad', kDColorWasteMixed),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
