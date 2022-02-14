@@ -1,5 +1,7 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
+import 'package:svoz_odpadu/calendar_page.dart';
+import 'package:svoz_odpadu/city_picker_page.dart';
 import 'package:svoz_odpadu/components/fab_home.dart';
 import 'package:svoz_odpadu/components/shared_preferences_global.dart';
 import 'package:svoz_odpadu/list_of_waste_page.dart';
@@ -24,27 +26,16 @@ class _HomePageState extends State<HomePage> {
     currentPage = HomePage.id;
   }
 
-  double fontSize = 14;
-  bool isKounice = true;
-
-  SharedPreferencesGlobal sharedPreferencesGlobal = SharedPreferencesGlobal();
-  FABHome fabHome = const FABHome();
-
   @override
   void dispose() {
-    AwesomeNotifications().actionSink.close();
-    AwesomeNotifications().createdSink.close();
     currentPage = HomePage.id;
     super.dispose();
   }
 
-  //List<Event> _getEventsForMonth(DateTime month) {
-  //  return kEvents[month] ?? [];
-  // }
-
   int currentIndex = 0;
   final screens = [
-    const HomePage(),
+    const CalendarPage(),
+    //const HomePage(),
     const ListOfWastePage(),
     const SettingsPage(),
   ];
@@ -53,6 +44,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     initializeDateFormatting('cs');
     return Scaffold(
+      backgroundColor: kDBackgroundColor,
       appBar: const PreferredSize(
           preferredSize: Size.fromHeight(kDMyAppBarHeight), child: MyAppBar()),
       //drawer: const DrawerMenu(),
@@ -66,9 +58,10 @@ class _HomePageState extends State<HomePage> {
             currentIndex = index;
           });
         },
-        backgroundColor: kDBackgroundColor,
-        unselectedItemColor: Colors.grey,
-        selectedItemColor: Colors.white,
+        backgroundColor: kDBackgroundColorCalendar,
+        unselectedItemColor: Colors.black54,
+        selectedItemColor: kDBackgroundColor, selectedFontSize: 16,
+        selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
         items: const [
           BottomNavigationBarItem(
               icon: Icon(Icons.calendar_today_outlined), label: 'Kalendář'),
