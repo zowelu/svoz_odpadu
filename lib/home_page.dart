@@ -122,6 +122,14 @@ class _HomePageState extends State<HomePage> {
   //  return kEvents[month] ?? [];
   // }
 
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  int _selectedIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     initializeDateFormatting('cs');
@@ -130,6 +138,21 @@ class _HomePageState extends State<HomePage> {
           preferredSize: Size.fromHeight(kDMyAppBarHeight), child: MyAppBar()),
       drawer: const DrawerMenu(),
       floatingActionButton: fabHome,
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+        backgroundColor: kDBackgroundColor,
+        unselectedItemColor: Colors.grey,
+        selectedItemColor: Colors.white,
+        items: [
+          BottomNavigationBarItem(
+              icon: Icon(Icons.calendar_today_outlined), label: 'Kalendář'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.list_outlined), label: 'Nejbližší svozy'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.settings_outlined), label: 'Nastavení'),
+        ],
+      ),
       body: Container(
         padding:
             EdgeInsets.only(top: MediaQuery.of(context).size.height / 100 * 2),
@@ -379,4 +402,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
