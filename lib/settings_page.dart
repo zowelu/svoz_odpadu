@@ -9,7 +9,6 @@ import 'package:svoz_odpadu/components/notifications.dart';
 import 'package:svoz_odpadu/components/shared_preferences_global.dart';
 import 'package:svoz_odpadu/components/text_header.dart';
 import 'package:svoz_odpadu/components/text_normal.dart';
-import 'package:svoz_odpadu/components/my_appbar.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:svoz_odpadu/components/utilities.dart';
 import 'package:flash/flash.dart';
