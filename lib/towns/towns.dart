@@ -1,5 +1,3 @@
-
-
 class DolniKounice {
   String? name = 'Dolní Kounice';
   String? iconPath = 'assets/images/DK_znak_800px.png';
@@ -11,11 +9,4 @@ class DolniKounice {
     'papír': 'p7g0np51igvv0bko1bf4nmtmf0@group.calendar.google.com',
     'bioodpad': 'bnjcsj8qmn2guo40789odlvrvo@group.calendar.google.com'
   };
-
-  /*void createTownObject() {
-    Town dolniKounice = new Town();
-    dolniKounice.name = 'Dolní Kounice';
-    dolniKounice.iconPath = 'assets/images/DK_znak_800px.png';
-  }*/
-  //DolniKounice({this.name, this.iconPath,});
 }
