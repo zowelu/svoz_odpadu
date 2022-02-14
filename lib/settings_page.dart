@@ -1,6 +1,9 @@
 // ignore_for_file: unnecessary_this, avoid_print
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
+import 'package:svoz_odpadu/about_app_page.dart';
+import 'package:svoz_odpadu/city_picker_page.dart';
+import 'package:svoz_odpadu/components/button_settings.dart';
 import 'package:svoz_odpadu/components/list_tile_of_waste_notification.dart';
 import 'package:svoz_odpadu/components/notifications.dart';
 import 'package:svoz_odpadu/components/shared_preferences_global.dart';
@@ -755,15 +758,23 @@ class _SettingsPageState extends State<SettingsPage> {
             ],
           ),
           Column(
-            children: const [
-              /*ButtonSettings(
-                    color: Colors.blueGrey,
-                    onTap: () {
-                      Navigator.pushNamed(context, CityPickerPage.id);
-                    },
-                    title: 'Vybrat obec/město svozu',
-                    subtitle: 'Vyberete si své město',
-                    icon: Icons.apartment_outlined),*/
+            children: [
+              ButtonSettings(
+                  color: Colors.blueGrey,
+                  onTap: () {
+                    Navigator.pushNamed(context, CityPickerPage.id);
+                  },
+                  title: 'Vybrat obec/město svozu',
+                  subtitle: 'Vyberete si své město',
+                  icon: Icons.apartment_outlined),
+              ButtonSettings(
+                  color: Colors.blueGrey,
+                  onTap: () {
+                    Navigator.pushNamed(context, AboutAppPage.id);
+                  },
+                  title: 'O aplikaci',
+                  subtitle: 'Zobrazíte informace o apikaci',
+                  icon: Icons.info_outline),
               /*ButtonSettings(
                   onTap: () {
                     showFlash(
