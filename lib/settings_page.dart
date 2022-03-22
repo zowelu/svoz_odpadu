@@ -168,15 +168,16 @@ class _SettingsPageState extends State<SettingsPage> {
                 child: Column(
                   children: [
                     Container(
-                        child: !isSetReminder
-                            ? const TextHeader(
-                                text: 'Vypnuto',
-                                color: Colors.grey,
-                              )
-                            : const TextHeader(
-                                text: 'Zapnuto',
-                                color: Colors.red,
-                              )),
+                      child: !isSetReminder
+                          ? const TextHeader(
+                              text: 'Vypnuto',
+                              color: Colors.grey,
+                            )
+                          : const TextHeader(
+                              text: 'Zapnuto',
+                              color: Colors.red,
+                            ),
+                    ),
                     Row(
                       children: [
                         Expanded(
@@ -185,7 +186,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             alignment: Alignment.center,
                             child: TextNormal(
                               text: isSetReminder
-                                  ? '${setReminderTime!.hour}: ${setReminderTime!.minute}'
+                                  ? '${setReminderTime!.hour.toString().length == 1 ? '0${setReminderTime!.hour.toString()}' : setReminderTime!.hour.toString()} : ${setReminderTime!.minute.toString().length == 1 ? '0${setReminderTime!.minute.toString()}' : setReminderTime!.minute.toString()}'
                                   : '',
                               color: kDBackgroundColor,
                               fontWeight: FontWeight.bold,
