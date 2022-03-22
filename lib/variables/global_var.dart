@@ -29,6 +29,7 @@ String? mixedSelectedDay = 'Den Předem';
 bool valueCityPickedGlobal = false;
 String? valueCityPicked;
 String? valueCityPickedPath;
+bool isKounice = false;
 
 bool? isSetReminderTime;
 TimeOfDay? setReminderTime = TimeOfDay(hour: 0, minute: 0);
