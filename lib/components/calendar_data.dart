@@ -62,9 +62,14 @@ class CalendarData {
 
     //jednotlivé instance zapojených měst
     DolniKounice dolniKounice = DolniKounice();
+    ZoweluTestTown zoweluTestTown = ZoweluTestTown();
     if (cityPicked == dolniKounice.name) {
       calendarID = dolniKounice.calendarID;
       valueCityPickedPath = dolniKounice.iconPath;
+      isKounice = true;
+    } else if (cityPicked == zoweluTestTown.name) {
+      calendarID = zoweluTestTown.calendarID;
+      valueCityPickedPath = zoweluTestTown.iconPath;
     }
 
     await getCalendarDataFromGCalendar(calendarID!);
@@ -121,17 +126,18 @@ class CalendarData {
           'https://www.googleapis.com/calendar/v3/calendars/$calendarIDindex/events?key=AIzaSyCCpkDJ_trt3VZpmaSqQRdLTPJBAVmg5vY');
       try {
         http.Response response = await http.get(url);
-        //print(response.statusCode);
+        print('response code ${response.statusCode}');
 
         //pokud bude zpětná 200, tak jede dál
         if (response.statusCode == 200) {
           //print('jedu přes if');
           String responseDataFull = response.body;
+          //print('Response data full $responseDataFull');
           Map<String, dynamic> responseData = jsonDecode(responseDataFull);
           List<dynamic> itemsResponseData =
               jsonDecode(responseDataFull)['items'];
           String calendarName = responseData['summary'];
-          print('calendarName: $calendarName');
+          //print('calendarName: $calendarName');
           //opakuje cyklus dle počtu items v ve staženém json
           for (int i = 0; i < itemsResponseData.length; i++) {
             CalendarItem calendarItem = CalendarItem(
@@ -170,22 +176,22 @@ class CalendarData {
     //cyklus o počtu opakování dle počtu items v calendarItems
     for (CalendarItem calendarItem in calendarItems) {
       //daný objekt rozřadí dle pojmenování do jednotlivých listů items odpadů
-      if (calendarItem.calendarName == 'směsný' ||
-          calendarItem.calendarName == 'směsný odpad' ||
-          calendarItem.calendarName == 'komunální odpad' ||
-          calendarItem.calendarName == 'komunální') {
+      if (calendarItem.summary == 'směsný' ||
+          calendarItem.summary == 'směsný odpad' ||
+          calendarItem.summary == 'komunální odpad' ||
+          calendarItem.summary == 'komunální') {
         mixedCalendarItems.add(calendarItem);
         //print('Přidáno do mixed');
-      } else if (calendarItem.calendarName == 'plast' ||
-          calendarItem.calendarName == 'plastový odpad') {
+      } else if (calendarItem.summary == 'plast' ||
+          calendarItem.summary == 'plastový odpad') {
         plasticCalendarItems.add(calendarItem);
         //print('Přidáno do plastic');
-      } else if (calendarItem.calendarName == 'papír' ||
-          calendarItem.calendarName == 'papírový odpad') {
+      } else if (calendarItem.summary == 'papír' ||
+          calendarItem.summary == 'papírový odpad') {
         paperCalendarItems.add(calendarItem);
         //print('Přidáno do paper');
-      } else if (calendarItem.calendarName == 'bio' ||
-          calendarItem.calendarName == 'bioodpad') {
+      } else if (calendarItem.summary == 'bio' ||
+          calendarItem.summary == 'bioodpad') {
         bioCalendarItems.add(calendarItem);
         //print('Přidáno do bio$bioCalendarItems');
       }
@@ -219,9 +225,9 @@ class CalendarData {
         wasteCalendarItems.remove(calendarItem);
       }
     }
-    //wasteCalendarItems = wasteCalendarItemsDuplicate;
+    //wasteCalendarItems = was teCalendarItemsDuplicate;
     print(
-        'classifyConfirmedAndCancelled ${wasteCalendarItems.last.calendarName} completed');
+        'classifyConfirmedAndCancelled ${wasteCalendarItems.last.summary} completed');
     return;
   }
 
@@ -242,7 +248,7 @@ class CalendarData {
     List<DateTime> daysList = [];
 
     for (CalendarItem calendarItem in wasteCalendarItems) {
-      String itemName = calendarItem.calendarName;
+      String itemName = calendarItem.summary;
       String recurrence = calendarItem.recurrence;
       String start = calendarItem.start;
       String? freq;
@@ -331,6 +337,20 @@ class CalendarData {
           tmp.add(Duration(hours: hours));
           daysList.add(tmp);
         }
+      } else if (freq == 'DAILY') {
+        //print('freq je DAILY');
+        interval = '1';
+        int days = 1 * int.parse(interval);
+        DateTime tmp = DateTime(startDate.year, startDate.month, startDate.day);
+        for (tmp;
+        tmp.compareTo(endDate!) <= 0 /*|| tmp.isAtSameMomentAs(endDate)*/;
+        tmp = tmp.add(
+          Duration(days: days),
+        ),) {
+          tmp.add(Duration(hours: hours));
+          daysList.add(tmp);
+        }
+        //print(daysList);
       } else {
         startDate.add(Duration(hours: hours));
         daysList.add(startDate);
@@ -356,7 +376,8 @@ class CalendarData {
       daysListFormatted.add(dateFormated);
       //print('date: $dateFormated');
     }
-    //print('createAllWasteItems: ${wasteCalendarItems.first.calendarName} completed');
+    print('createAllWasteItems: ${wasteCalendarItems.first.calendarName} completed');
+    print('createAllWasteItems: $wasteCalendarItems');
     return daysListFormatted;
   }
 
@@ -389,10 +410,10 @@ class CalendarData {
         clasiffyListOfWasteItemsToEvents[wasteCalendarItems]!;
 
     List<DateTime> daysList = await createAllWasteItems(wasteCalendarItems);
-    String name = wasteCalendarItems.first.calendarName;
+    String name = wasteCalendarItems.first.summary;
     for (DateTime date in daysList) {
       wasteEvents[date] = [Event(name)];
-      //print('classify: ${wasteEvents[date]} , ${Event(name)}');
+      print('classify: ${wasteEvents[date]} , ${Event(name)}');
     }
     print('createMapOfWasteCalendarData completed');
   }
@@ -413,10 +434,10 @@ class CalendarData {
     int hours;
     //allWasteEventsCalendar.clear();
     for (Map<DateTime, List<Event>> wasteEvents in listOfWasteEvents) {
-      /* for (int i = 0; i < wasteEvents.length; i++) {
+       for (int i = 0; i < wasteEvents.length; i++) {
         print(
             'wasteEvents key: ${wasteEvents.keys.elementAt(i)}, value ${wasteEvents.values.elementAt(i)}');
-      }*/
+      }
       if (wasteEvents.isNotEmpty) {
         for (int i = 0; i < wasteEvents.length; i++) {
           DateTime dateTime = wasteEvents.keys.elementAt(i);
@@ -440,11 +461,13 @@ class CalendarData {
     allWasteEventsCalendar.clear();
     allWasteEventsCalendar.addAll(allWasteEventsCalendarSorted);
 
-    print('getAllWasteEventCalendar completed');
-    /*for (int i = 0; i < allWasteEventsOverviewList.length; i++) {
+    for (int i = 0; i < allWasteEventsOverviewList.length; i++) {
       print(
           'key: ${allWasteEventsOverviewList.keys.elementAt(i)}, value ${allWasteEventsOverviewList.values.elementAt(i)}');
-    }*/
+    }
+
+    print('getAllWasteEventCalendar completed');
+
     return allWasteEventsCalendar;
   }
 
@@ -507,11 +530,12 @@ class CalendarData {
     allWasteEventsOverviewList.clear();
     allWasteEventsOverviewList.addAll(allWasteEventsOverviewListSorted);
 
-    print('getAllWasteEventOverviewList completed');
-    /*for (int i = 0; i < allWasteEventsOverviewList.length; i++) {
+
+    for (int i = 0; i < allWasteEventsOverviewList.length; i++) {
       print(
           'key: ${allWasteEventsOverviewList.keys.elementAt(i)}, value ${allWasteEventsOverviewList.values.elementAt(i)}');
-    }*/
+    }
+    print('getAllWasteEventOverviewList completed');
     return allWasteEventsOverviewList;
   }
 
