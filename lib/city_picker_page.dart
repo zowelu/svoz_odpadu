@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_print
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:svoz_odpadu/components/my_appbar.dart';
 import 'package:svoz_odpadu/components/shared_preferences_global.dart';
 import 'package:svoz_odpadu/components/text_header.dart';
 import 'package:svoz_odpadu/components/text_normal.dart';
@@ -21,6 +20,7 @@ class CityPickerPage extends StatefulWidget {
 class _CityPickerPageState extends State<CityPickerPage> {
   List<String> citiesOfWaste = [
     'Vybrat obec/město',
+    'Zowelu Test Town',
     'Dolní Kounice',
   ];
   //String? valueCityPicked;
