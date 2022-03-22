@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:svoz_odpadu/components/list_tile_of_waste.dart';
-import 'package:svoz_odpadu/components/my_appbar.dart';
 import 'package:svoz_odpadu/components/text_header.dart';
 import 'package:svoz_odpadu/variables/constants.dart';
 import 'package:svoz_odpadu/components/utils.dart';
