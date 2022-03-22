@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:svoz_odpadu/components/marker_event.dart';
-import 'package:svoz_odpadu/home_page.dart';
 import 'package:svoz_odpadu/variables/constants.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
@@ -13,7 +12,6 @@ import 'package:svoz_odpadu/components/utils.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:svoz_odpadu/components/text_normal.dart';
 import 'package:svoz_odpadu/components/text_header.dart';
-import 'dart:io';
 import 'package:svoz_odpadu/components/notifications.dart';
 
 class CalendarPage extends StatefulWidget {
@@ -112,7 +110,6 @@ class _CalendarPageState extends State<CalendarPage> {
   }
 
   double fontSize = 14;
-  bool isKounice = true;
 
   SharedPreferencesGlobal sharedPreferencesGlobal = SharedPreferencesGlobal();
 
@@ -139,7 +136,7 @@ class _CalendarPageState extends State<CalendarPage> {
                         blurRadius: 10.0,
                         spreadRadius: 1.0)
                   ]),
-              child: !isKounice
+              child: isKounice
                   ? TableCalendar(
                       rowHeight: MediaQuery.of(context).size.height / 100 * 6,
                       eventLoader: (day) {
@@ -157,7 +154,7 @@ class _CalendarPageState extends State<CalendarPage> {
                         outsideDaysVisible: false,
                         markerDecoration: BoxDecoration(
                             color: Colors.black, shape: BoxShape.rectangle),
-                        markersMaxCount: 2,
+                        markersMaxCount: 5,
                         isTodayHighlighted: true,
                         cellPadding: EdgeInsets.all(0),
                         cellMargin: EdgeInsets.all(0),
