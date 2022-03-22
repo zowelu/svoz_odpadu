@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:svoz_odpadu/components/marker_event.dart';
 import 'package:svoz_odpadu/variables/constants.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
@@ -152,15 +150,15 @@ class _CalendarPageState extends State<CalendarPage> {
                         markerSizeScale: 1.35,
                         canMarkersOverflow: true,
                         outsideDaysVisible: false,
-                        markerDecoration: BoxDecoration(
-                            color: Colors.black, shape: BoxShape.rectangle),
+                        /*markerDecoration: BoxDecoration(
+                            color: Colors.black, shape: BoxShape.rectangle),*/
                         markersMaxCount: 5,
                         isTodayHighlighted: true,
                         cellPadding: EdgeInsets.all(0),
                         cellMargin: EdgeInsets.all(0),
-                        defaultDecoration: BoxDecoration(
+                        /*defaultDecoration: BoxDecoration(
                           borderRadius: kDRadius,
-                        ),
+                        ),*/
                         defaultTextStyle: TextStyle(
                             fontSize: kDFontSizeText,
                             fontFamily: kDFontFamilyParagraph,
@@ -200,7 +198,38 @@ class _CalendarPageState extends State<CalendarPage> {
                         weekendStyle: TextStyle(color: Colors.blueGrey),
                       ),
                       calendarBuilders: CalendarBuilders(
-                        singleMarkerBuilder: (context, day, event) {
+                        singleMarkerBuilder: (context, date, event) {
+                          Map<String, Color> colorsOfWaste = {
+                            'plast': kDColorWastePlastic,
+                            'papír': kDColorWastePaper,
+                            'směsný odpad': kDColorWasteMixed,
+                            'bioodpad': kDColorWasteBio
+                          };
+                          Color cor = Colors.pink;
+                          if (event.toString() ==
+                              'Plast'.toLowerCase()) {
+                            cor = colorsOfWaste['plast']!;
+                          }
+                          if (event.toString() == 'Papír'.toLowerCase()) {
+                            cor = colorsOfWaste['papír']!;
+                          }
+                          if (event.toString() == 'Směsný odpad'.toLowerCase()) {
+                            cor = colorsOfWaste['směsný odpad']!;
+                          }
+                          if (event.toString() == 'Bio'.toLowerCase()) {
+                            cor = colorsOfWaste['bioodpad']!;
+                          }
+                          double size = 14;
+                          return Container(
+                            margin: const EdgeInsets.only(bottom: 100),
+                            child: Icon(
+                              Icons.circle,
+                              color: cor,
+                              size: size,
+                            ),
+                          );
+                        },
+                        /*singleMarkerBuilder: (context, day, event) {
                           //DateTime dayRaw = day;
                           DateFormat dateFormat = DateFormat('d');
                           String dayString = dateFormat.format(day);
@@ -221,7 +250,7 @@ class _CalendarPageState extends State<CalendarPage> {
                                 dayString);
                           }
                           return children;
-                        },
+                        },*/
                       ),
                     )
                   : TableCalendar(
