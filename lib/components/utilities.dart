@@ -308,7 +308,7 @@ void createNotificationReminder(
 ///zjistí verzi aplikace z pubspec
 Future getPackageInfo() async {
   PackageInfo packageInfo = await PackageInfo.fromPlatform();
-  await WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
   appVersion = packageInfo.version;
   appName = packageInfo.appName;
   packageName = packageInfo.packageName;
