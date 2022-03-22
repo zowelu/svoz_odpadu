@@ -1,14 +1,10 @@
-import 'package:awesome_notifications/awesome_notifications.dart';
+// ignore_for_file: avoid_print
+
 import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
 import 'package:svoz_odpadu/calendar_page.dart';
-import 'package:svoz_odpadu/city_picker_page.dart';
-import 'package:svoz_odpadu/components/fab_home.dart';
-import 'package:svoz_odpadu/components/notifications.dart';
-import 'package:svoz_odpadu/components/shared_preferences_global.dart';
 import 'package:svoz_odpadu/components/text_header.dart';
 import 'package:svoz_odpadu/components/text_normal.dart';
-import 'package:svoz_odpadu/components/utilities.dart';
 import 'package:svoz_odpadu/list_of_waste_page.dart';
 import 'package:svoz_odpadu/settings_page.dart';
 import 'package:svoz_odpadu/variables/constants.dart';
@@ -123,7 +119,7 @@ class _HomePageState extends State<HomePage> {
             backgroundColor: kDBackgroundColorCalendar,
             unselectedItemColor: Colors.black54,
             selectedItemColor: kDBackgroundColor, selectedFontSize: 16,
-            selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
+            selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
             items: const [
               BottomNavigationBarItem(
                   icon: Icon(Icons.calendar_today_outlined), label: 'Kalendář'),
