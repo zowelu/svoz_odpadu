@@ -3,7 +3,6 @@ import 'package:svoz_odpadu/variables/constants.dart';
 import 'package:svoz_odpadu/variables/global_var.dart';
 import 'package:svoz_odpadu/components/open_url_in_browser.dart';
 
-import 'components/my_appbar.dart';
 import 'components/text_header.dart';
 
 class AboutAppPage extends StatefulWidget {
