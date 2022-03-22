@@ -19,7 +19,7 @@ class ListTileOfMenu extends StatelessWidget {
   final double iconSize;
   final Color colorOfTile;
 
-  Map<String, IconData> iconByName = {
+  final Map<String, IconData> iconByName = {
     'Kalendář': Icons.perm_contact_calendar_outlined,
     'Vybrat město/obec': Icons.location_city_rounded,
     'Nastavení': Icons.settings_rounded,
