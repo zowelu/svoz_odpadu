@@ -2,6 +2,7 @@
 
 import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:svoz_odpadu/calendar_page.dart';
 import 'package:svoz_odpadu/components/text_header.dart';
 import 'package:svoz_odpadu/components/text_normal.dart';
@@ -71,7 +72,7 @@ class _HomePageState extends State<HomePage> {
                     actions: [
                       TextButton(
                         onPressed: () {
-                          controller.dismiss();
+
                         },
                         child: const TextNormal(
                           text: 'Ne',
@@ -80,8 +81,11 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
+                        onPressed: () async {
+                          //Navigator.of(context).pop();
+                          controller.dismiss();
+                          controller.onWillPop;
+                          SystemNavigator.pop(animated: true);
                         },
                         child: const TextNormal(
                           text: 'Ano',
