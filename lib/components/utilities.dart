@@ -7,22 +7,24 @@ import 'package:svoz_odpadu/variables/constants.dart';
 import 'package:svoz_odpadu/variables/global_var.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
+///vytvoří unikátní ID
 int createUniqueId() {
   return DateTime.now().millisecondsSinceEpoch.remainder(100000);
 }
 
+///objekt NotificationWeekAndTime
 class NotificationWeekAndTime {
   final int dayOfTheWeek;
   final TimeOfDay timeOfDay;
   final String selectedDay;
 
-  NotificationWeekAndTime({
-    required this.dayOfTheWeek,
-    required this.timeOfDay,
-    required this.selectedDay
-  });
+  NotificationWeekAndTime(
+      {required this.dayOfTheWeek,
+      required this.timeOfDay,
+      required this.selectedDay});
 }
 
+///zobrazí dialog na vybrání dne a poté času
 Future<NotificationWeekAndTime?> pickSchedule(
   BuildContext context,
 ) async {
@@ -34,38 +36,6 @@ Future<NotificationWeekAndTime?> pickSchedule(
   TimeOfDay? timeOfDay;
   DateTime now = DateTime.now();
   int selectedDay = 0;
-
-  /*await showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text(
-            'Kdy Vás má aplikace upozorňovat?',
-            textAlign: TextAlign.center,
-          ),
-          content: SizedBox(
-            height: MediaQuery.of(context).size.height / 100 * 50,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                for (int index = 0; index < day.length; index++)
-                  ElevatedButton(
-                    onPressed: () {
-                      selectedDay = index;
-                      Navigator.pop(context);
-                    },
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
-                        kDBackgroundColor,
-                      ),
-                    ),
-                    child: Text(day[index]),
-                  ),
-              ],
-            ),
-          ),
-        );
-      });*/
 
   await showFlash(
     context: context,
@@ -143,86 +113,6 @@ Future<NotificationWeekAndTime?> pickSchedule(
   return null;
 }
 
-/*///Nastaví opakované upozorňování ve zvolený den a čas na týdenní bázi
-Future<NotificationWeekAndTime?> pickScheduleWeekly(
-  BuildContext context,
-) async {
-  List<String> weekdays = [
-    'Pondělí',
-    'Úterý',
-    'Středa',
-    'Čtvrtek',
-    'Pátek',
-    'Sobota',
-    'Neděle',
-  ];
-  TimeOfDay? timeOfDay;
-  DateTime now = DateTime.now();
-  int? selectedDay;
-
-  await showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text(
-            'Ve který den Vás má aplikace upozorňovat?',
-            textAlign: TextAlign.center,
-          ),
-          content: SizedBox(
-            height: MediaQuery.of(context).size.height / 100 * 50,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                for (int index = 0; index < weekdays.length; index++)
-                  ElevatedButton(
-                    onPressed: () {
-                      selectedDay = index + 1;
-                      Navigator.pop(context);
-                    },
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
-                        kDBackgroundColor,
-                      ),
-                    ),
-                    child: Text(weekdays[index]),
-                  ),
-              ],
-            ),
-          ),
-        );
-      });
-
-  if (selectedDay != null) {
-    timeOfDay = await showTimePicker(
-        context: context,
-        helpText: 'Vyberte čas',
-        cancelText: 'Zrušit',
-        confirmText: 'Zapnout upozorňování',
-        initialTime: TimeOfDay.fromDateTime(
-          now.add(
-            const Duration(minutes: 1),
-          ),
-        ),
-        builder: (BuildContext context, Widget? child) {
-          return MediaQuery(
-            data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
-            child: child!,
-          );
-        });
-
-    if (timeOfDay != null) {
-      //vložení vybraného dne a času do globálních proměnných
-      selectedDayGlobal = weekdays[selectedDay! - 1].toString();
-      selectedTimeOfDayGlobal = timeOfDay;
-      return NotificationWeekAndTime(
-          dayOfTheWeek: selectedDay!,
-          timeOfDay: timeOfDay,
-          selectedDay: weekdays[selectedDay! - 1].toString());
-    }
-  }
-  return null;
-}*/
-
 Flash? showSnackBar(context, String text) {
   showFlash(
     duration: const Duration(milliseconds: 2500),
@@ -256,6 +146,7 @@ Flash? showSnackBar(context, String text) {
       );
     },
   );
+  return null;
 }
 
 ///pomocí cyklu vytvoří notifikace dle Events daného odpadu
@@ -313,9 +204,4 @@ Future getPackageInfo() async {
   appName = packageInfo.appName;
   packageName = packageInfo.packageName;
   buildNumber = packageInfo.buildNumber;
-  /*print(appVersion);
-  print(appName);
-  print(packageName);
-  print(buildNumber);*/
-
 }

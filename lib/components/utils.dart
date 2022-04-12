@@ -1,18 +1,5 @@
-// ignore_for_file: avoid_print
-
 import 'dart:collection';
 import 'package:svoz_odpadu/components/calendar_data.dart';
-
-
-/// Example event class.
-/*class Event {
-  final String title;
-
-  const Event(this.title);
-
-  @override
-  String toString() => title;
-}*/
 
 /// Example events.
 ///
@@ -21,7 +8,6 @@ final kEvents = LinkedHashMap<DateTime, List<Event>>(
   equals: isSameDay,
   hashCode: getHashCode,
 )..addAll(allWasteEventsCalendar);
-//final kEvents = _mixedWasteEvents;
 
 int getHashCode(DateTime key) {
   return key.day * 1000000 + key.month * 10000 + key.year;
