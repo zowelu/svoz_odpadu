@@ -1,21 +1,6 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:svoz_odpadu/components/utilities.dart';
 
-Future<void> createBasicNotification() async {
-  await AwesomeNotifications().createNotification(
-    content: NotificationContent(
-      id: createUniqueId(),
-      channelKey: 'basic_channel',
-      title:
-          '${Emojis.symbols_red_exclamation_mark + Emojis.symbols_red_exclamation_mark + Emojis.symbols_red_exclamation_mark} ',
-      body:
-          'Nezapomeňte vyvést popelnice ${Emojis.symbols_red_exclamation_mark + Emojis.symbols_red_exclamation_mark + Emojis.symbols_red_exclamation_mark}',
-      bigPicture: 'asset://assets/images/popelnice.jpg',
-      notificationLayout: NotificationLayout.BigPicture,
-    ),
-  );
-}
-
 ///vytvoří notifikaci dle parametrů
 Future<void> createScheduledReminderNotification(
     NotificationWeekAndTime notificationScheduled,
