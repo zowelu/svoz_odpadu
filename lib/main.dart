@@ -11,33 +11,10 @@ import 'package:svoz_odpadu/variables/global_var.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:svoz_odpadu/components/utilities.dart';
 
-
 void main() async {
   AwesomeNotifications().initialize(
     'resource://drawable/res_notification_app_icon',
     [
-      NotificationChannel(
-        channelKey: 'basic_channel',
-        channelName: 'Basic Notifications',
-        channelDescription: 'basic_channel_description',
-        defaultColor: kDBackgroundColor,
-        importance: NotificationImportance.High,
-        channelShowBadge: true,
-        enableVibration: true,
-      ),
-      NotificationChannel(
-        channelKey: 'scheduled_channel',
-        channelName: 'Scheduled Notifications',
-        channelDescription: 'scheduled_channel_description',
-        defaultColor: kDBackgroundColor,
-        locked: false,
-        importance: NotificationImportance.Max,
-        soundSource: 'resource://raw/res_custom_notification',
-        enableVibration: true,
-        channelShowBadge: true,
-        ledColor: kDBackgroundColor,
-        playSound: true,
-      ),
       NotificationChannel(
         channelKey: 'Plast',
         channelName: 'Plast',
