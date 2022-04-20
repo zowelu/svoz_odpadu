@@ -2,6 +2,8 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:svoz_odpadu/about_app_page.dart';
 import 'package:svoz_odpadu/city_picker_page.dart';
+import 'package:svoz_odpadu/components/notification_service.dart';
+import 'package:svoz_odpadu/detail_page.dart';
 import 'package:svoz_odpadu/home_page.dart';
 import 'package:svoz_odpadu/list_of_waste_page.dart';
 import 'package:svoz_odpadu/loading_page.dart';
@@ -12,63 +14,66 @@ import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:svoz_odpadu/components/utilities.dart';
 
 void main() async {
-  AwesomeNotifications().initialize(
-    'resource://drawable/res_notification_app_icon',
-    [
-      NotificationChannel(
-        channelKey: 'Plast',
-        channelName: 'Plast',
-        channelDescription: 'plast_channel_description',
-        defaultColor: kDBackgroundColor,
-        locked: false,
-        importance: NotificationImportance.Max,
-        soundSource: 'resource://raw/res_custom_notification',
-        enableVibration: true,
-        channelShowBadge: true,
-        ledColor: kDBackgroundColor,
-        playSound: true,
-      ),
-      NotificationChannel(
-        channelKey: 'Bioodpad',
-        channelName: 'Bioodpad',
-        channelDescription: 'bioodpad_channel_description',
-        defaultColor: kDBackgroundColor,
-        locked: false,
-        importance: NotificationImportance.Max,
-        soundSource: 'resource://raw/res_custom_notification',
-        enableVibration: true,
-        channelShowBadge: true,
-        ledColor: kDBackgroundColor,
-        playSound: true,
-      ),
-      NotificationChannel(
-        channelKey: 'Papír',
-        channelName: 'Papír',
-        channelDescription: 'papír_channel_description',
-        defaultColor: kDBackgroundColor,
-        locked: false,
-        importance: NotificationImportance.Max,
-        soundSource: 'resource://raw/res_custom_notification',
-        enableVibration: true,
-        channelShowBadge: true,
-        ledColor: kDBackgroundColor,
-        playSound: true,
-      ),
-      NotificationChannel(
-        channelKey: 'Směsný odpad',
-        channelName: 'Směsný odpad',
-        channelDescription: 'směsný_odpad_channel_description',
-        defaultColor: kDBackgroundColor,
-        locked: false,
-        importance: NotificationImportance.Max,
-        soundSource: 'resource://raw/res_custom_notification',
-        enableVibration: true,
-        channelShowBadge: true,
-        ledColor: kDBackgroundColor,
-        playSound: true,
-      ),
-    ],
-  );
+  WidgetsFlutterBinding.ensureInitialized();
+  await NotificationService().init();
+  await NotificationService().requestIOSPermissions();
+  // await NotificationService().AwesomeNotifications().initialize(
+  //   'resource://drawable/res_notification_app_icon',
+  //   [
+  //     NotificationChannel(
+  //       channelKey: 'Plast',
+  //       channelName: 'Plast',
+  //       channelDescription: 'plast_channel_description',
+  //       defaultColor: kDBackgroundColor,
+  //       locked: false,
+  //       importance: NotificationImportance.Max,
+  //       soundSource: 'resource://raw/res_custom_notification',
+  //       enableVibration: true,
+  //       channelShowBadge: true,
+  //       ledColor: kDBackgroundColor,
+  //       playSound: true,
+  //     ),
+  //     NotificationChannel(
+  //       channelKey: 'Bioodpad',
+  //       channelName: 'Bioodpad',
+  //       channelDescription: 'bioodpad_channel_description',
+  //       defaultColor: kDBackgroundColor,
+  //       locked: false,
+  //       importance: NotificationImportance.Max,
+  //       soundSource: 'resource://raw/res_custom_notification',
+  //       enableVibration: true,
+  //       channelShowBadge: true,
+  //       ledColor: kDBackgroundColor,
+  //       playSound: true,
+  //     ),
+  //     NotificationChannel(
+  //       channelKey: 'Papír',
+  //       channelName: 'Papír',
+  //       channelDescription: 'papír_channel_description',
+  //       defaultColor: kDBackgroundColor,
+  //       locked: false,
+  //       importance: NotificationImportance.Max,
+  //       soundSource: 'resource://raw/res_custom_notification',
+  //       enableVibration: true,
+  //       channelShowBadge: true,
+  //       ledColor: kDBackgroundColor,
+  //       playSound: true,
+  //     ),
+  //     NotificationChannel(
+  //       channelKey: 'Směsný odpad',
+  //       channelName: 'Směsný odpad',
+  //       channelDescription: 'směsný_odpad_channel_description',
+  //       defaultColor: kDBackgroundColor,
+  //       locked: false,
+  //       importance: NotificationImportance.Max,
+  //       soundSource: 'resource://raw/res_custom_notification',
+  //       enableVibration: true,
+  //       channelShowBadge: true,
+  //       ledColor: kDBackgroundColor,
+  //       playSound: true,
+  //     ),
+  //   ],
+  // );
   currentPage = 'main';
   await getPackageInfo();
   runApp(Phoenix(child: const MyApp()));
@@ -94,6 +99,7 @@ class MyApp extends StatelessWidget {
         LoadingPage.id: (context) => const LoadingPage(),
         AboutAppPage.id: (context) => const AboutAppPage(),
         ListOfWastePage.id: (context) => const ListOfWastePage(),
+        DetailPage.id: (context) => DetailPage(),
       },
     );
   }
