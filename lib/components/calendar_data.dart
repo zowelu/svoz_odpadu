@@ -123,7 +123,7 @@ class CalendarData {
       //int index = i;
       //print('index $index, calendarIDindex $calendarIDindex');
       final url = Uri.parse(
-          'https://www.googleapis.com/calendar/v3/calendars/$calendarIDindex/events?key=AIzaSyCCpkDJ_trt3VZpmaSqQRdLTPJBAVmg5vY');
+          'https://www.googleapis.com/calendar/v3/calendars/$calendarIDindex/events?key=AIzaSyB6op7SkNQjom3XP8sZkwhYkxew3vhdoKg');
       try {
         http.Response response = await http.get(url);
         print('response code ${response.statusCode}');
@@ -343,8 +343,8 @@ class CalendarData {
         int days = 1 * int.parse(interval);
         DateTime tmp = DateTime(startDate.year, startDate.month, startDate.day);
         for (tmp;
-        tmp.compareTo(endDate!) <= 0 /*|| tmp.isAtSameMomentAs(endDate)*/;
-        tmp = tmp.add(
+            tmp.compareTo(endDate!) <= 0 /*|| tmp.isAtSameMomentAs(endDate)*/;
+            tmp = tmp.add(
           Duration(days: days),
         ),) {
           tmp.add(Duration(hours: hours));
@@ -376,7 +376,8 @@ class CalendarData {
       daysListFormatted.add(dateFormated);
       //print('date: $dateFormated');
     }
-    print('createAllWasteItems: ${wasteCalendarItems.first.calendarName} completed');
+    print(
+        'createAllWasteItems: ${wasteCalendarItems.first.calendarName} completed');
     print('createAllWasteItems: $wasteCalendarItems');
     return daysListFormatted;
   }
@@ -434,7 +435,7 @@ class CalendarData {
     int hours;
     //allWasteEventsCalendar.clear();
     for (Map<DateTime, List<Event>> wasteEvents in listOfWasteEvents) {
-       for (int i = 0; i < wasteEvents.length; i++) {
+      for (int i = 0; i < wasteEvents.length; i++) {
         print(
             'wasteEvents key: ${wasteEvents.keys.elementAt(i)}, value ${wasteEvents.values.elementAt(i)}');
       }
@@ -529,7 +530,6 @@ class CalendarData {
     allWasteEventsOverviewListSorted.addAll(allWasteEventsOverviewList);
     allWasteEventsOverviewList.clear();
     allWasteEventsOverviewList.addAll(allWasteEventsOverviewListSorted);
-
 
     for (int i = 0; i < allWasteEventsOverviewList.length; i++) {
       print(
