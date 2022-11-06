@@ -12,10 +12,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
+        useMaterial3: true,
         primarySwatch: Colors.blue,
+        backgroundColor: Colors.white,
       ),
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      home: const HomePage(),
       initialRoute: '/',
     );
   }
@@ -26,6 +28,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Text('Ahoj'));
+    return Scaffold(
+        body: ElevatedButton(onPressed: () {}, child: Text('Ahoj')));
   }
 }
