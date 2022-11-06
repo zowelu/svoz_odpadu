@@ -1,100 +1,7 @@
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
-import 'package:svoz_odpadu/about_app_page.dart';
-import 'package:svoz_odpadu/city_picker_page.dart';
-import 'package:svoz_odpadu/home_page.dart';
-import 'package:svoz_odpadu/list_of_waste_page.dart';
-import 'package:svoz_odpadu/loading_page.dart';
-import 'package:svoz_odpadu/settings_page.dart';
-import 'package:svoz_odpadu/variables/constants.dart';
-import 'package:svoz_odpadu/variables/global_var.dart';
-import 'package:flutter_phoenix/flutter_phoenix.dart';
-import 'package:svoz_odpadu/components/utilities.dart';
-
 
 void main() async {
-  AwesomeNotifications().initialize(
-    'resource://drawable/res_notification_app_icon',
-    [
-      NotificationChannel(
-        channelKey: 'basic_channel',
-        channelName: 'Basic Notifications',
-        channelDescription: 'basic_channel_description',
-        defaultColor: kDBackgroundColor,
-        importance: NotificationImportance.High,
-        channelShowBadge: true,
-        enableVibration: true,
-      ),
-      NotificationChannel(
-        channelKey: 'scheduled_channel',
-        channelName: 'Scheduled Notifications',
-        channelDescription: 'scheduled_channel_description',
-        defaultColor: kDBackgroundColor,
-        locked: false,
-        importance: NotificationImportance.Max,
-        soundSource: 'resource://raw/res_custom_notification',
-        enableVibration: true,
-        channelShowBadge: true,
-        ledColor: kDBackgroundColor,
-        playSound: true,
-      ),
-      NotificationChannel(
-        channelKey: 'Plast',
-        channelName: 'Plast',
-        channelDescription: 'plast_channel_description',
-        defaultColor: kDBackgroundColor,
-        locked: false,
-        importance: NotificationImportance.Max,
-        soundSource: 'resource://raw/res_custom_notification',
-        enableVibration: true,
-        channelShowBadge: true,
-        ledColor: kDBackgroundColor,
-        playSound: true,
-      ),
-      NotificationChannel(
-        channelKey: 'Bioodpad',
-        channelName: 'Bioodpad',
-        channelDescription: 'bioodpad_channel_description',
-        defaultColor: kDBackgroundColor,
-        locked: false,
-        importance: NotificationImportance.Max,
-        soundSource: 'resource://raw/res_custom_notification',
-        enableVibration: true,
-        channelShowBadge: true,
-        ledColor: kDBackgroundColor,
-        playSound: true,
-      ),
-      NotificationChannel(
-        channelKey: 'Papír',
-        channelName: 'Papír',
-        channelDescription: 'papír_channel_description',
-        defaultColor: kDBackgroundColor,
-        locked: false,
-        importance: NotificationImportance.Max,
-        soundSource: 'resource://raw/res_custom_notification',
-        enableVibration: true,
-        channelShowBadge: true,
-        ledColor: kDBackgroundColor,
-        playSound: true,
-      ),
-      NotificationChannel(
-        channelKey: 'Směsný odpad',
-        channelName: 'Směsný odpad',
-        channelDescription: 'směsný_odpad_channel_description',
-        defaultColor: kDBackgroundColor,
-        locked: false,
-        importance: NotificationImportance.Max,
-        soundSource: 'resource://raw/res_custom_notification',
-        enableVibration: true,
-        channelShowBadge: true,
-        ledColor: kDBackgroundColor,
-        playSound: true,
-      ),
-    ],
-  );
-  currentPage = 'main';
-  await getPackageInfo();
-  runApp(Phoenix(child: const MyApp()));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -108,47 +15,17 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      home: const LoadingPage(),
+      home: HomePage(),
       initialRoute: '/',
-      routes: {
-        HomePage.id: (context) => const HomePage(),
-        SettingsPage.id: (context) => const SettingsPage(),
-        CityPickerPage.id: (context) => const CityPickerPage(),
-        LoadingPage.id: (context) => const LoadingPage(),
-        AboutAppPage.id: (context) => const AboutAppPage(),
-        ListOfWastePage.id: (context) => const ListOfWastePage(),
-      },
     );
   }
 }
 
-class MainPage extends StatefulWidget {
-  const MainPage({Key? key, required this.title}) : super(key: key);
-  final String title;
+class HomePage extends StatelessWidget {
+  const HomePage({Key? key}) : super(key: key);
 
-  @override
-  State<MainPage> createState() => _MainPageState();
-}
-
-class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      /*appBar: const PreferredSize(
-          preferredSize: Size.fromHeight(kDMyAppBarHeight), child: MyAppBar()),*/
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, HomePage.id);
-              },
-              child: const Text('Pokračujte na kalendář'),
-            ),
-          ],
-        ),
-      ),
-    );
+    return Scaffold(body: Text('Ahoj'));
   }
 }
