@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:svoz_odpadu/services/calendar_service.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../favorite_colors.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  HomePage({Key? key}) : super(key: key);
+  final CalendarService _calendarService = GetIt.instance.get();
 
   @override
   Widget build(BuildContext context) {
+    _calendarService.getCalendarData(_calendarService.calendarId.values.first);
     return Scaffold(
       body: SizedBox(
         child: TableCalendar(
