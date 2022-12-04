@@ -11,7 +11,7 @@ void main() async {
   Logger.root.onRecord.listen((record) {
     print('${record.level.name}: ${record.time}: ${record.message}');
   });
-  initializeDateFormatting().then((_) => runApp(MyApp()));
+  initializeDateFormatting().then((_) => runApp(const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           backgroundColor: Colors.white,
           fontFamily: 'Righteous',
-          textTheme: TextTheme(
+          textTheme: const TextTheme(
             labelMedium: TextStyle(fontSize: 16),
             bodyMedium: TextStyle(fontSize: 16),
           )),

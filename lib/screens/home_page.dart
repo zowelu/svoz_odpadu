@@ -11,9 +11,13 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _calendarService.getCalendarData(_calendarService.calendarId.values.first);
+    _calendarService.getCalendarConfirmedData();
     return Scaffold(
-      body: SizedBox(
+      appBar: AppBar(
+          automaticallyImplyLeading: true,
+          centerTitle: true,
+          title: const Text('Svoz odpadu')),
+      body: SafeArea(
         child: TableCalendar(
           rowHeight: MediaQuery.of(context).size.height / 100 * 6,
           eventLoader: (day) {
