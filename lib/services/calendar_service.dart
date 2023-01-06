@@ -39,6 +39,4 @@ class CalendarService {
     }
     return confirmedItems;
   }
-
-  /* void sort*/
 }
