@@ -1,5 +1,8 @@
 /// Slouýí jako položka kalendáře.
 class CalendarItem {
+  /// Zobrazované jméno kalendáře.
+  final String _displayName;
+
   /// Souhrn položky kalendáře.
   final String _summary;
 
@@ -28,6 +31,7 @@ class CalendarItem {
   final String _creatorEmail;
 
   CalendarItem(
+      this._displayName,
       this._summary,
       this._status,
       this._created,
@@ -38,6 +42,7 @@ class CalendarItem {
       this._htmlUrl,
       this._creatorEmail);
 
+  String get displayName => _displayName;
   String get summary => _summary;
   String get status => _status;
   DateTime get created => _created;
