@@ -11,7 +11,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _calendarService.getCalendarConfirmedData();
+    _calendarService.getCalendarData(
+        'bba05f2a12cfc0254022dacc38ae52433522904d6f315a3ce7268ded200b42e1@group.calendar.google.com');
     return Scaffold(
       appBar: AppBar(
           automaticallyImplyLeading: true,

@@ -22,7 +22,7 @@ class CalendarItem {
   final DateTime _end;
 
   /// Vzorec pro opakování položky kalendáře.
-  final String _recurrence;
+  final List _recurrence;
 
   /// Url adresa položky kalendáře.
   final String _htmlUrl;
@@ -49,7 +49,7 @@ class CalendarItem {
   DateTime get updated => _updated;
   DateTime get start => _start;
   DateTime get end => _end;
-  String get recurrence => _recurrence;
+  List get recurrence => _recurrence;
   String get htmlUrl => _htmlUrl;
   String get creatorEmail => _creatorEmail;
 }
